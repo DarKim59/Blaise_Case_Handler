@@ -184,12 +184,12 @@ namespace BlaiseCaseHandler
                                 if (!dl_dest.KeyExists(key))
                                 {
                                     SendStatus(MakeStatusJson(data, "Error"));
-                                    log.Error("Case not copied.");
+                                    log.Error(data.dest_instrument + " case " + data.serial_number + " NOT copied from " + data.source_server_park + "@" + data.source_hostname + " to " + data.dest_server_park + "@" + data.dest_hostname + ".");
                                 }
                                 if (dl_dest.KeyExists(key))
                                 {
                                     SendStatus(MakeStatusJson(data, "Case Copied"));
-                                    log.Info("Case copied.");
+                                    log.Info(data.dest_instrument + " case " + data.serial_number + " copied from " + data.source_server_park + "@" + data.source_hostname + " to " + data.dest_server_park + "@" + data.dest_hostname + ".");
                                 }                                
                                 break;
                             // Move action received.
@@ -199,36 +199,36 @@ namespace BlaiseCaseHandler
                                 if (!dl_dest.KeyExists(key))
                                 {
                                     SendStatus(MakeStatusJson(data, "Error"));
-                                    log.Error("Case not copied.");
+                                    log.Error(data.dest_instrument + " case " + data.serial_number + " NOT moved from " + data.source_server_park + "@" + data.source_hostname + " to " + data.dest_server_park + "@" + data.dest_hostname + ".");
                                 }
                                 if ((dl_dest.KeyExists(key)) && (dl_source.KeyExists(key)))
                                 {
-                                    SendStatus(MakeStatusJson(data, "Error"));
-                                    log.Info("Case copied to new database but still exists in source database.");
+                                    SendStatus(MakeStatusJson(data, "Warn"));
+                                    log.Warn(data.dest_instrument + " case " + data.serial_number + " copied from " + data.source_server_park + "@" + data.source_hostname + " but also still exists in " + data.dest_server_park + "@" + data.dest_hostname + ".");
                                 }
                                 if ((dl_dest.KeyExists(key)) && (!dl_source.KeyExists(key)))
                                 {
                                     SendStatus(MakeStatusJson(data, "Case Moved"));
-                                    log.Info("Case moved.");
+                                    log.Info(data.dest_instrument + " case " + data.serial_number + " moved from " + data.source_server_park + "@" + data.source_hostname + " to " + data.dest_server_park + "@" + data.dest_hostname + ".");
                                 }
                                 break;
                             // Invalid action received.
                             default:
                                 SendStatus(MakeStatusJson(data, "Invalid Action"));
-                                log.Info("Invalid action requested.");
+                                log.Error("Invalid action requested - " + data.action);
                                 break;
                         }
                     }
                     else
                     {
-                        log.Error("Case " + data.serial_number.ToString() + " doesn't exist in source database.");
                         SendStatus(MakeStatusJson(data, "Case NOT Found"));
+                        log.Error("Case " + data.serial_number.ToString() + " doesn't exist in source database.");                        
                     }
                 }
                 catch (Exception e)
                 {
-                    log.Error(e);
                     SendStatus(MakeStatusJson(data, "Error"));
+                    log.Error(e);                    
                 }
                 // Remove from queue when done processing
                 channel.BasicAck(ea.DeliveryTag, false);
@@ -278,7 +278,7 @@ namespace BlaiseCaseHandler
                 }
                 if (foundSurvey == false)
                 {
-                    log.Error("Survey not found on server.");
+                    log.Error("Survey " + instrumentName + " not found on " + serverPark + "@" + hostname + ".");
                 }
 
                 // Connect to the data.
@@ -289,7 +289,6 @@ namespace BlaiseCaseHandler
             catch (Exception e)
             {
                 log.Error(e.Message);
-                log.Error(e.StackTrace);
                 return null;
             }
         }
