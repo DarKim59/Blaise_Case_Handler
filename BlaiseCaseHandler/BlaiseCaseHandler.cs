@@ -201,12 +201,12 @@ namespace BlaiseCaseHandler
                                     SendStatus(MakeStatusJson(data, "Error"));
                                     log.Error("Case not copied.");
                                 }
-                                if ((dl_dest.KeyExists(key)) || (dl_source.KeyExists(key)))
+                                if ((dl_dest.KeyExists(key)) && (dl_source.KeyExists(key)))
                                 {
                                     SendStatus(MakeStatusJson(data, "Error"));
                                     log.Info("Case copied to new database but still exists in source database.");
                                 }
-                                if ((dl_dest.KeyExists(key)) || (!dl_source.KeyExists(key)))
+                                if ((dl_dest.KeyExists(key)) && (!dl_source.KeyExists(key)))
                                 {
                                     SendStatus(MakeStatusJson(data, "Case Moved"));
                                     log.Info("Case moved.");
