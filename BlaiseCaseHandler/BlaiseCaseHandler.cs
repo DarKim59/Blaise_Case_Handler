@@ -112,7 +112,7 @@ namespace BlaiseCaseHandler
 
             // Bind the queue for receiving messages.
             channel.QueueBind(queue: queueName, exchange: exchangeName, routingKey: queueName);
-            log.Info("Queue binding complete - Queue: " + queueName + " Exchange: " + exchangeName + " RoutingKey: " + queueName);
+            log.Info("Queue binding complete - Queue: " + queueName + " / Exchange: " + exchangeName + " / Routing Key: " + queueName);
 
             // Declare the queue for sending status updates.
             string caseStatusQueueName = ConfigurationManager.AppSettings["CaseStatusQueueName"];
