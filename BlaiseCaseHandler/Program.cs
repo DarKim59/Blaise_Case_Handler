@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceProcess;
@@ -14,13 +14,13 @@ namespace BlaiseCaseHandler
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-        
+
         // Instantiate logger.
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         static void Main()
         {
-            // Call the service class if run in debug mode so no need to install service for testing.
+            // Call the service in DEBUG mode so we don't need to run the install steps.
 #if DEBUG
             log.Info("Blaise Case Handler service starting in DEBUG mode.");
             BlaiseCaseHandler bchService = new BlaiseCaseHandler();
