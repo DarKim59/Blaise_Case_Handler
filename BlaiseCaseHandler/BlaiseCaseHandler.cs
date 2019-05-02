@@ -228,7 +228,7 @@ namespace BlaiseCaseHandler
                 catch (Exception e)
                 {
                     log.Error(e);
-                    SendStatus(MakeStatusJson(data, "Error - " + e));
+                    SendStatus(MakeStatusJson(data, "Error"));
                 }
                 // Remove from queue when done processing
                 channel.BasicAck(ea.DeliveryTag, false);
