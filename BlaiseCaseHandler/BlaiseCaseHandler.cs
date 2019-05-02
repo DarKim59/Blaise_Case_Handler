@@ -1,4 +1,4 @@
-﻿using System.ServiceProcess;
+using System.ServiceProcess;
 using System.Text;
 using System.IO;
 using System.Security;
@@ -19,10 +19,9 @@ namespace BlaiseCaseHandler
 {
 
     /// <summary>
-    /// Case class represents the dataset we're injesting from RabbitMQ and aids us in the
-    /// deserialisation process as it provides the structure the message needs to fit.
+    /// Class to hold the data received from the RabbitMQ messaging service.
     /// </summary>
-    public class Case
+    public class MessageData
     {
         public string serial_number { get; set; }
         public string source_hostname { get; set; }
@@ -36,12 +35,12 @@ namespace BlaiseCaseHandler
 
     public partial class BlaiseCaseHandler : ServiceBase
     {
-
+        // Instantiate logger.
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        // Objects for connecting and setting up RabbitMQ.
         public IConnection connection;
         public IModel channel;
         public EventingBasicConsumer consumer;
-        public List<string> queueNames;
 
         /// <summary>
         /// Class constructor for initialising the service.
@@ -60,26 +59,22 @@ namespace BlaiseCaseHandler
         }
 
         /// <summary>
-        /// OnStart method triggers when a service beings.
+        /// OnStart method triggers when a service starts.
         /// </summary>
-        /// <param name="args">optional arguments that can be passed on service start.</param>
+        /// <param name="args">Optional argument that can be passed on service start.</param>
         protected override void OnStart(string[] args)
         {
             log.Info("Blaise Case Handler service started.");
 
+            // Connect to RabbitMQ and setup channels.
+            SetupRabbit();
 
-
-            // Sets up the connection to the Rabbit queue and stores the required objects 
-            // into the BlaiseCaseHandler class variables.
-            SetupRabbitConnection();
-
-            // Start the ReadQueue function. This will pull messages from the Rabbit queue 
-            // whenever they appear and process them accordingly.
-            ReadQueue();
+            // Consume and process messages on the RabbitMQ queue.
+            ConsumeMessage();
         }
 
         /// <summary>
-        /// OnStop method triggers when the service is being stopped.
+        /// OnStop method triggers when the service stops.
         /// </summary>
         protected override void OnStop()
         {
@@ -87,137 +82,44 @@ namespace BlaiseCaseHandler
         }
 
         /// <summary>
-        /// This method contains our service's core functionality. The content includes the RabbitMQ 
-        /// channel's consumption method and what to do with any messages consumed.
+        /// Method for connecting to RabbitMQ and setting up the channels.
         /// </summary>
-        public void ReadQueue()
+        public void SetupRabbit()
         {
-            IDataLink4 dl_source = null;
-            IDatamodel dm_source = null;
-            IDataLink4 dl_dest = null;
-            IDatamodel dm_dest = null;
-
-            // We specify the functionality to be performed when a message is consumed.
-            consumer.Received += (model, ea) =>
-            {
-
-                // Extract the message body and encode it into the UTF8 format.
-                var body = ea.Body;
-                var message = Encoding.UTF8.GetString(body);
-
-                log.Info("Message received - " + message);
-
-                Case data = null;
-                try
-                {
-                    // Take the serialized JSON string and deserialize it into a Case object.
-                    data = new JavaScriptSerializer().Deserialize<Case>(message);
-
-                    dl_source = GetDataLink(data.source_hostname, data.source_instrument, data.source_server_park);
-                    dm_source = dl_source.Datamodel;
-
-                    dl_dest = GetDataLink(data.dest_hostname, data.dest_instrument, data.dest_server_park);
-                    dm_dest = dl_dest.Datamodel;
-
-                    // Use a key object to check if the case being moved exists.
-                    var key = DataRecordAPI.DataRecordManager.GetKey(dm_source, "PRIMARY");
-                    key.Fields[0].DataValue.Assign(data.serial_number);
-
-                    // If the key does not exist in our database then move/copy it.
-                    if (dl_source.KeyExists(key))
-                    {
-                        var record = dl_source.ReadRecord(key);
-
-                        //{"serial_number":"1500","source_hostname":"bsp-d-001.ukwest.cloudapp.azure.com","source_server_park":"Telephone-Live","source_instrument":"OPN1901A","dest_hostname":"DESKTOP-0OF1LSJ","dest_server_park":"LocalDevelopment","dest_instrument":"OPN1901A","action":"copy"}
-
-
-                        if (data.action == "copy")
-                        {
-                            dl_dest.Write(record);
-                            SendStatus(MakeStatusJson(data, "Case Copied"));
-                        }
-
-                        if (data.action == "move")
-                        {
-                            dl_dest.Write(record);
-                            dl_source.Delete(key);
-                            SendStatus(MakeStatusJson(data, "Case Moved"));
-                        }
-
-                    }
-                    else
-                    {
-                        log.Error("Case " + data.serial_number.ToString() + " doesn't exist in database. Aborted.");
-                        SendStatus(MakeStatusJson(data, "Case NOT Found"));
-                    }
-                }
-                catch (Exception e)
-                {
-                    log.Error(e);
-                    SendStatus(MakeStatusJson(data, "Error - " + e));
-                }
-
-                // Remove from queue when done processing
-                channel.BasicAck(ea.DeliveryTag, false);
-
-            };
-
-            string queueName = ConfigurationManager.AppSettings["HandlerQueueName"];
-            // This function instructs our consumer object to process the messages received through the given queue name.
-            channel.BasicConsume(queue: queueName,
-                    autoAck: false,
-                    consumer: consumer);
-            
-        }
-
-        /// <summary>
-        /// Method for setting up the RabbitMQ connection objects.
-        /// </summary>
-        public void SetupRabbitConnection()
-        {
-            log.Info("Setting up RabbitMQ connection.");
+            log.Info("Setting up RabbitMQ.");
 
             // Create a connection to RabbitMQ using the Rabbit credentials stored in the app.config file.
-            var factory = new ConnectionFactory()
+            var connFactory = new ConnectionFactory()
             {
                 HostName = ConfigurationManager.AppSettings["RabbitHostName"],
                 UserName = ConfigurationManager.AppSettings["RabbitUserName"],
                 Password = ConfigurationManager.AppSettings["RabbitPassword"]
             };
-            connection = factory.CreateConnection();
+            connection = connFactory.CreateConnection();
             channel = connection.CreateModel();
 
-            // Get the Exchange details from the app.config file.
+            // Get the exchange and queue details from the app.config file.
             string exchangeName = ConfigurationManager.AppSettings["RabbitExchange"];
             string queueName = ConfigurationManager.AppSettings["HandlerQueueName"];
 
-            // Declare an exchange which our queue will use when receiving messages. 
+            // Declare the exchange for receiving messages.
             channel.ExchangeDeclare(exchange: exchangeName, type: "direct", durable: true);
             log.Info("Exchange declared - " + exchangeName);
 
-            // Declare handler queue
-            channel.QueueDeclare(queue: queueName,
-                                durable: true,
-                                exclusive: false,
-                                autoDelete: false,
-                                arguments: null);
+            // Declare the queue for receiving messages.
+            channel.QueueDeclare(queue: queueName, durable: true, exclusive: false, autoDelete: false, arguments: null);
             log.Info("Queue declared - " + queueName);
 
-            // Bind handler queue
-            channel.QueueBind(queue: queueName,
-                              exchange: exchangeName,
-                              routingKey: queueName);
-            log.Info("Queue binding complete - " + queueName + " / " + exchangeName + " / " + queueName);
+            // Bind the queue for receiving messages.
+            channel.QueueBind(queue: queueName, exchange: exchangeName, routingKey: queueName);
+            log.Info("Queue binding complete - Queue: " + queueName + " Exchange: " + exchangeName + " RoutingKey: " + queueName);
 
-            // Declare case status queue
+            // Declare the queue for sending status updates.
             string caseStatusQueueName = ConfigurationManager.AppSettings["CaseStatusQueueName"];
-            channel.QueueDeclare(queue: caseStatusQueueName,
-                                 durable: true,
-                                 exclusive: false,
-                                 autoDelete: false,
-                                 arguments: null);
+            channel.QueueDeclare(queue: caseStatusQueueName, durable: true, exclusive: false, autoDelete: false, arguments: null);
+            log.Info("Queue declared - " + caseStatusQueueName);
 
-            // Setting for only consuming one message at a time.
+            // Only consuming one message at a time.
             channel.BasicQos(0, 1, false);
 
             // Create the consumer object which will run our code when receiving messages.
@@ -227,51 +129,162 @@ namespace BlaiseCaseHandler
             log.Info("RabbitMQ setup complete.");
         }
 
+        /// <summary>
+        /// Method for consuming and processing messages on the RabbitMQ queue.
+        /// </summary>
+        public void ConsumeMessage()
+        {
+            // Objects for working with Blaise data sets.
+            IDataLink4 dl_source = null;
+            IDatamodel dm_source = null;
+            IDataLink4 dl_dest = null;
+            IDatamodel dm_dest = null;
 
+            // Functionality to be performed when a message is received.
+            consumer.Received += (model, ea) =>
+            {
+                // Extract the message and encode it.
+                var body = ea.Body;
+                var message = Encoding.UTF8.GetString(body);
+                log.Info("Message received - " + message);
 
+                MessageData data = null;
+                try
+                {
+                    // Take the serialized JSON string and deserialize it into a MessageData object.
+                    data = new JavaScriptSerializer().Deserialize<MessageData>(message);
 
+                    // Connect to the Blaise source data set.
+                    dl_source = GetDataLink(data.source_hostname, data.source_instrument, data.source_server_park);
+                    dm_source = dl_source.Datamodel;
+
+                    // Connect to the Blaise destination data set.
+                    dl_dest = GetDataLink(data.dest_hostname, data.dest_instrument, data.dest_server_park);
+                    dm_dest = dl_dest.Datamodel;
+
+                    // Identify the primary key in the source data set.
+                    var key = DataRecordAPI.DataRecordManager.GetKey(dm_source, "PRIMARY");
+
+                    // Assign the primary key the value of the 'serial_number' recieved from the RabbitMQ message.
+                    key.Fields[0].DataValue.Assign(data.serial_number);
+
+                    // Check if a case with this key exists in the source data set.
+                    //{"serial_number":"1500","source_hostname":"bsp-d-001.ukwest.cloudapp.azure.com","source_server_park":"Telephone-Live","source_instrument":"OPN1901A","dest_hostname":"DESKTOP-0OF1LSJ","dest_server_park":"LocalDevelopment","dest_instrument":"OPN1901A","action":"copy"}
+                    if (dl_source.KeyExists(key))
+                    {
+                        // Read this case.
+                        var case_record = dl_source.ReadRecord(key);
+
+                        // Copy or move the case from the source to destination based on the 'action' received from the RabbitMQ message.
+                        switch (data.action)
+                        {
+                            // Copy action received.
+                            case "copy":
+                                dl_dest.Write(case_record);
+                                if (!dl_dest.KeyExists(key))
+                                {
+                                    SendStatus(MakeStatusJson(data, "Error"));
+                                    log.Error("Case not copied.");
+                                }
+                                if (dl_dest.KeyExists(key))
+                                {
+                                    SendStatus(MakeStatusJson(data, "Case Copied"));
+                                    log.Info("Case copied.");
+                                }                                
+                                break;
+                            // Move action received.
+                            case "move":
+                                dl_dest.Write(case_record);
+                                dl_source.Delete(key);
+                                if (!dl_dest.KeyExists(key))
+                                {
+                                    SendStatus(MakeStatusJson(data, "Error"));
+                                    log.Error("Case not copied.");
+                                }
+                                if ((dl_dest.KeyExists(key)) || (dl_source.KeyExists(key)))
+                                {
+                                    SendStatus(MakeStatusJson(data, "Error"));
+                                    log.Info("Case copied to new database but still exists in source database.");
+                                }
+                                if ((dl_dest.KeyExists(key)) || (!dl_source.KeyExists(key)))
+                                {
+                                    SendStatus(MakeStatusJson(data, "Case Moved"));
+                                    log.Info("Case moved.");
+                                }
+                                break;
+                            // Invalid action received.
+                            default:
+                                SendStatus(MakeStatusJson(data, "Invalid Action"));
+                                log.Info("Invalid action requested.");
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        log.Error("Case " + data.serial_number.ToString() + " doesn't exist in source database.");
+                        SendStatus(MakeStatusJson(data, "Case NOT Found"));
+                    }
+                }
+                catch (Exception e)
+                {
+                    log.Error(e);
+                    SendStatus(MakeStatusJson(data, "Error - " + e));
+                }
+                // Remove from queue when done processing
+                channel.BasicAck(ea.DeliveryTag, false);
+            };
+
+            // Consume and process any messages already held on the queue.
+            string queueName = ConfigurationManager.AppSettings["HandlerQueueName"];
+            channel.BasicConsume(queue: queueName, autoAck: false, consumer: consumer);
+        }
 
         /// <summary>
-        /// Function for generating the Datalink object used to create and update data.
+        /// Method for connecting to Blaise data sets.
         /// </summary>
-        /// <param name="instrumentName"> The name of the target instrument (survey).</param>
-        /// <param name="serverPark">The server park where the survey is installed.</param>
+        /// /// <param name="hostname">The name of the hostname.</param>
+        /// <param name="instrumentName">The name of the instrument.</param>
+        /// <param name="serverPark">The name of the server park.</param>
         /// <returns> IDataLink4 object for the connected server park.</returns>
         public static IDataLink4 GetDataLink(string hostname, string instrumentName, string serverPark)
         {
-
-            // Use default credentials (assuming Blaise developer installation):
+            // Get authenication details from the App.config file.
             string userName = ConfigurationManager.AppSettings["BlaiseServerUserName"];
             string password = ConfigurationManager.AppSettings["BlaiseServerPassword"];
             int port = 8031;
 
+            // Overwrite password when testing locally.
             if (hostname == "DESKTOP-0OF1LSJ")
             {
                 password = "Root";
             }
 
-            Guid instrument_id = Guid.NewGuid();
+            // Get the GIID of the instrument.
+            Guid instrumentID = Guid.NewGuid();
             try
             {
-                // Get the instrument guid from the server.
-                IConnectedServer connServer2 = ServerManager.ConnectToServer(hostname, port, userName, GetPassword(password));
+                // Connect to the Blaise Server Manager.
+                IConnectedServer serManConn = ServerManager.ConnectToServer(hostname, port, userName, GetPassword(password));
 
-                bool found = false;
-                foreach (ISurvey survey in connServer2.GetServerPark(serverPark).Surveys)
+                // Loop through the surveys installed on the server to find the GUID of the survey we are working on.
+                bool foundSurvey = false;
+                foreach (ISurvey survey in serManConn.GetServerPark(serverPark).Surveys)
                 {
                     if (survey.Name == instrumentName)
                     {
-                        instrument_id = survey.InstrumentID;
-                        found = true;
+                        instrumentID = survey.InstrumentID;
+                        foundSurvey = true;
                     }
                 }
-                if (!found)
-                    throw new System.ArgumentOutOfRangeException(String.Format("Instrument: {0} not found on server park: {1}", instrumentName, serverPark));
+                if (foundSurvey == false)
+                {
+                    log.Error("Survey not found on server.");
+                }
 
-                // Connect to the server
-                IRemoteDataServer connServer = DataLinkManager.GetRemoteDataServer(hostname, 8033, userName, GetPassword(password));
+                // Connect to the data.
+                IRemoteDataServer dataSerConn = DataLinkManager.GetRemoteDataServer(hostname, 8033, userName, GetPassword(password));
 
-                return connServer.GetDataLink(instrument_id, serverPark);
+                return dataSerConn.GetDataLink(instrumentID, serverPark);
             }
             catch (Exception e)
             {
@@ -281,20 +294,10 @@ namespace BlaiseCaseHandler
             }
         }
 
-
-
-
-
-
-
-
-
-
-
         /// <summary>
-        /// Converts a password string to a Secure string format.
+        /// Converts a password to secure string.
         /// </summary>
-        /// <param name="pw">a password string to be converted to the secure string format.</param>
+        /// <param name="pw">Password to be converted to secure string.</param>
         /// <returns></returns>
         private static SecureString GetPassword(string pw)
         {
@@ -307,44 +310,41 @@ namespace BlaiseCaseHandler
             return password;
         }
 
-
         /// <summary>
-        /// Builds a json status object to be used in the Send Status function
+        /// Builds a JSON status object to be used in the SendStatus method.
         /// </summary>
-        /// <param name="caseData"> Case object containing case information.</param>
+        /// <param name="data"> Case object containing case information.</param>
         /// <param name="status"> Status of the case being processed.</param>
         /// <returns>Json object containing required information.</returns>
-        private Dictionary<string, string> MakeStatusJson(Case caseData, string status)
+        private Dictionary<string,
+        string> MakeStatusJson(MessageData data, string status)
         {
             Dictionary<string, string> jsonData = new Dictionary<string, string>();
 
-            jsonData["case_id"] = caseData.serial_number;
-            jsonData["instrument_name"] = caseData.source_hostname;
-            jsonData["instrument_name"] = caseData.source_server_park;
-            jsonData["server_park"] = caseData.source_instrument;
-            jsonData["instrument_name"] = caseData.dest_hostname;
-            jsonData["serial_number"] = caseData.dest_server_park;
-            jsonData["issue_number"] = caseData.dest_instrument;
-            jsonData["interviewer_id"] = caseData.action;
-            jsonData["status"] = status;
             jsonData["service_name"] = ConfigurationManager.AppSettings["ServiceName"];
+            jsonData["serial_number"] = data.serial_number;
+            jsonData["source_hostname"] = data.source_hostname;
+            jsonData["source_server_park"] = data.source_server_park;
+            jsonData["source_instrument"] = data.source_instrument;
+            jsonData["dest_hostname"] = data.dest_hostname;
+            jsonData["dest_server_park"] = data.dest_server_park;
+            jsonData["dest_instrument"] = data.dest_instrument;
+            jsonData["action"] = data.action;
+            jsonData["status"] = status;            
 
             return jsonData;
         }
 
-
         /// <summary>
-        /// Sends a summary message to RabbitMQ 
+        /// Sends a status message to RabbitMQ.
         /// </summary>
         private void SendStatus(Dictionary<string, string> jsonData)
         {
             string message = new JavaScriptSerializer().Serialize(jsonData);
             var body = Encoding.UTF8.GetBytes(message);
             string caseStatusQueueName = ConfigurationManager.AppSettings["CaseStatusQueueName"];
-            channel.BasicPublish(exchange: "",
-                        routingKey: caseStatusQueueName,
-                        body: body);
-            log.Info("Message sent to RabbitMQ status_update queue : " + message);
+            channel.BasicPublish(exchange: "", routingKey: caseStatusQueueName, body: body);
+            log.Info("Message sent to RabbitMQ " + caseStatusQueueName + " queue - " + message);
         }
     }
 }
