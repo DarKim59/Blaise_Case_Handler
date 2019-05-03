@@ -28,5 +28,5 @@ Ensure you have the latest version of Blaise 5 installed from the Statistics Net
     - Open command prompt as administrator
     - Navigate to the windows service installer location
       - cd c:\Windows\Microsoft.NET\Framework\v4.0.30319\
-    - Run installUtil.exe from this location and pass it the location of the service exe.
+    - Run installUtil.exe from this location and pass it the location of the service executable.
       - InstallUtil.exe {install location}\BlaiseCaseHandler.exe
