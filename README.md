@@ -17,6 +17,19 @@ Install the RabbitMQ Client and Log4Net packages via NuGet Package Manager. Cons
 
 Ensure you have the latest version of Blaise 5 installed from the Statistics Netherlands FTP.
 
+# Example Message
+
+{
+  "serial_number":"1234"
+  ,"source_hostname":"bsp-d-001.ukwest.cloudapp.azure.com"
+  ,"source_server_park":"Telephone-Live"
+  ,"source_instrument":"OPN1901A"
+  ,"dest_hostname":"DESKTOP-0OF1LSJ"
+  ,"dest_server_park":"LocalDevelopment"
+  ,"dest_instrument":"OPN1901A"
+  ,"action":"copy"
+}                    
+
 # Installing the Service
 
   - Build the Solution 
