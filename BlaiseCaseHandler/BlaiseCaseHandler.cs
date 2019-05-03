@@ -169,13 +169,12 @@ namespace BlaiseCaseHandler
                     key.Fields[0].DataValue.Assign(data.serial_number);
 
                     // Check if a case with this key exists in the source data set.
-                    //{"serial_number":"1500","source_hostname":"bsp-d-001.ukwest.cloudapp.azure.com","source_server_park":"Telephone-Live","source_instrument":"OPN1901A","dest_hostname":"DESKTOP-0OF1LSJ","dest_server_park":"LocalDevelopment","dest_instrument":"OPN1901A","action":"copy"}
                     if (dl_source.KeyExists(key))
                     {
-                        // Read this case.
+                        // Read in the case.
                         var case_record = dl_source.ReadRecord(key);
 
-                        // Copy or move the case from the source to destination based on the 'action' received from the RabbitMQ message.
+                        // Copy or move the case from the source to destination based on the 'action' received from the message.
                         switch (data.action)
                         {
                             // Copy action received.
@@ -282,9 +281,9 @@ namespace BlaiseCaseHandler
                 }
 
                 // Connect to the data.
-                IRemoteDataServer dataSerConn = DataLinkManager.GetRemoteDataServer(hostname, 8033, userName, GetPassword(password));
+                IRemoteDataServer dataLinkConn = DataLinkManager.GetRemoteDataServer(hostname, 8033, userName, GetPassword(password));
 
-                return dataSerConn.GetDataLink(instrumentID, serverPark);
+                return dataLinkConn.GetDataLink(instrumentID, serverPark);
             }
             catch (Exception e)
             {
