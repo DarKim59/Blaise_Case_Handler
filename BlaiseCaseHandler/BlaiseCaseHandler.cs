@@ -253,6 +253,7 @@ namespace BlaiseCaseHandler
             int port = 8031;
 
             // Overwrite password when testing locally.
+            // TODO replace this was app.config
             if (hostname == "DESKTOP-0OF1LSJ")
             {
                 password = "Root";
