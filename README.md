@@ -19,6 +19,7 @@ Ensure you have the latest version of Blaise 5 installed from the Statistics Net
 
 # Example Message
 
+```
 {
   "serial_number":"1234"
   ,"source_hostname":"bsp-d-001.ukwest.cloudapp.azure.com"
@@ -29,6 +30,7 @@ Ensure you have the latest version of Blaise 5 installed from the Statistics Net
   ,"dest_instrument":"OPN1901A"
   ,"action":"copy"
 }                    
+```
 
 # Installing the Service
 
