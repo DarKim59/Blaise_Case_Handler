@@ -248,15 +248,16 @@ namespace BlaiseCaseHandler
         public static IDataLink4 GetDataLink(string hostname, string instrumentName, string serverPark)
         {
             // Get authenication details from the App.config file.
+            // For now we assume all Blaise servers will have the same authenication details.
             string userName = ConfigurationManager.AppSettings["BlaiseServerUserName"];
             string password = ConfigurationManager.AppSettings["BlaiseServerPassword"];
             int port = 8031;
 
-            // Overwrite password when testing locally.
-            // TODO replace this was app.config
-            if (hostname == "DESKTOP-0OF1LSJ")
+            // Overwrite authenication details when testing locally.
+            if (hostname == ConfigurationManager.AppSettings["BlaiseServerHostNameLocal"])
             {
-                password = "Root";
+                userName = ConfigurationManager.AppSettings["BlaiseServerUserNameLocal"];
+                password = ConfigurationManager.AppSettings["BlaiseServerPasswordLocal"];
             }
 
             // Get the GIID of the instrument.
