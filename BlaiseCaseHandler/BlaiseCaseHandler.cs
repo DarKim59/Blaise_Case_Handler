@@ -67,7 +67,12 @@ namespace BlaiseCaseHandler
             log.Info("Blaise Case Handler service started.");
 
             // Connect to RabbitMQ and setup channels.
-            SetupRabbit();
+            while (!SetupRabbit())
+            {
+                // Keep re-trying RabbitMQ connection until connected.
+                log.Info("Waiting for RabbitMQ connection...");
+                System.Threading.Thread.Sleep(5000);
+            }
 
             // Consume and process messages on the RabbitMQ queue.
             ConsumeMessage();
@@ -84,49 +89,60 @@ namespace BlaiseCaseHandler
         /// <summary>
         /// Method for connecting to RabbitMQ and setting up the channels.
         /// </summary>
-        public void SetupRabbit()
+        public bool SetupRabbit()
         {
             log.Info("Setting up RabbitMQ.");
 
-            // Create a connection to RabbitMQ using the Rabbit credentials stored in the app.config file.
-            var connFactory = new ConnectionFactory()
+            try
             {
-                HostName = ConfigurationManager.AppSettings["RabbitHostName"],
-                UserName = ConfigurationManager.AppSettings["RabbitUserName"],
-                Password = ConfigurationManager.AppSettings["RabbitPassword"]
-            };
-            connection = connFactory.CreateConnection();
-            channel = connection.CreateModel();
 
-            // Get the exchange and queue details from the app.config file.
-            string exchangeName = ConfigurationManager.AppSettings["RabbitExchange"];
-            string queueName = ConfigurationManager.AppSettings["HandlerQueueName"];
+                // Create a connection to RabbitMQ using the Rabbit credentials stored in the app.config file.
+                var connFactory = new ConnectionFactory()
+                {
+                    HostName = ConfigurationManager.AppSettings["RabbitHostName"],
+                    UserName = ConfigurationManager.AppSettings["RabbitUserName"],
+                    Password = ConfigurationManager.AppSettings["RabbitPassword"]
+                };
+                connection = connFactory.CreateConnection();
+                channel = connection.CreateModel();
 
-            // Declare the exchange for receiving messages.
-            channel.ExchangeDeclare(exchange: exchangeName, type: "direct", durable: true);
-            log.Info("Exchange declared - " + exchangeName);
+                // Get the exchange and queue details from the app.config file.
+                string exchangeName = ConfigurationManager.AppSettings["RabbitExchange"];
+                string queueName = ConfigurationManager.AppSettings["HandlerQueueName"];
 
-            // Declare the queue for receiving messages.
-            channel.QueueDeclare(queue: queueName, durable: true, exclusive: false, autoDelete: false, arguments: null);
-            log.Info("Queue declared - " + queueName);
+                // Declare the exchange for receiving messages.
+                channel.ExchangeDeclare(exchange: exchangeName, type: "direct", durable: true);
+                log.Info("Exchange declared - " + exchangeName);
 
-            // Bind the queue for receiving messages.
-            channel.QueueBind(queue: queueName, exchange: exchangeName, routingKey: queueName);
-            log.Info("Queue binding complete - Queue: " + queueName + " / Exchange: " + exchangeName + " / Routing Key: " + queueName);
+                // Declare the queue for receiving messages.
+                channel.QueueDeclare(queue: queueName, durable: true, exclusive: false, autoDelete: false, arguments: null);
+                log.Info("Queue declared - " + queueName);
 
-            // Declare the queue for sending status updates.
-            string caseStatusQueueName = ConfigurationManager.AppSettings["CaseStatusQueueName"];
-            channel.QueueDeclare(queue: caseStatusQueueName, durable: true, exclusive: false, autoDelete: false, arguments: null);
-            log.Info("Queue declared - " + caseStatusQueueName);
+                // Bind the queue for receiving messages.
+                channel.QueueBind(queue: queueName, exchange: exchangeName, routingKey: queueName);
+                log.Info("Queue binding complete - Queue: " + queueName + " / Exchange: " + exchangeName + " / Routing Key: " + queueName);
 
-            // Only consuming one message at a time.
-            channel.BasicQos(0, 1, false);
+                // Declare the queue for sending status updates.
+                string caseStatusQueueName = ConfigurationManager.AppSettings["CaseStatusQueueName"];
+                channel.QueueDeclare(queue: caseStatusQueueName, durable: true, exclusive: false, autoDelete: false, arguments: null);
+                log.Info("Queue declared - " + caseStatusQueueName);
 
-            // Create the consumer object which will run our code when receiving messages.
-            consumer = new EventingBasicConsumer(channel);
-            log.Info("Consumer object created.");
+                // Only consuming one message at a time.
+                channel.BasicQos(0, 1, false);
 
-            log.Info("RabbitMQ setup complete.");
+                // Create the consumer object which will run our code when receiving messages.
+                consumer = new EventingBasicConsumer(channel);
+                log.Info("Consumer object created.");
+
+                log.Info("RabbitMQ setup complete.");
+
+                return true;
+            }
+            catch
+            {
+                log.Info("Unable to establish RabbitMQ connection.");
+                return false;
+            }
         }
 
         /// <summary>
