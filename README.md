@@ -34,11 +34,11 @@ Ensure you have the latest version of Blaise 5 installed from the Statistics Net
 
 # Installing the Service
 
-  - Build the Solution 
-    - In Visual Studio select "Release" as the Solution Confiiguration
-    - Select "Build" from the toolbar
-    - Select "Build Solution" from the "Build" dropdown
-  - Copy the release files to the program install location on the server
+  - Build the Solution
+    - In Visual Studio select "Release" as the Solution Configuration
+    - Select the "Build" menu
+    - Select "Build Solution" from the "Build" menu
+  - Copy the release files (/bin/release/) to the program install location on the server
   - Run the installer against the release build
     - Open command prompt as administrator
     - Navigate to the windows service installer location
