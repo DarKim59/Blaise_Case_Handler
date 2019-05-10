@@ -24,6 +24,7 @@ namespace BlaiseCaseHandler
     public class MessageData
     {
         public string serial_number { get; set; }
+        public string case_id { get; set; }
         public string source_hostname { get; set; }
         public string source_server_park { get; set; }
         public string source_instrument { get; set; }
@@ -339,6 +340,7 @@ namespace BlaiseCaseHandler
 
             jsonData["service_name"] = ConfigurationManager.AppSettings["ServiceName"];
             jsonData["serial_number"] = data.serial_number;
+            jsonData["case_id"] = data.case_id;
             jsonData["source_hostname"] = data.source_hostname;
             jsonData["source_server_park"] = data.source_server_park;
             jsonData["source_instrument"] = data.source_instrument;
