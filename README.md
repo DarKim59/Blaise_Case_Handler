@@ -31,7 +31,6 @@ To use the API's:
 ```
 {
   "serial_number":"1234"
-  ,"serial_number":"1234"
   ,"source_hostname":"bsp-d-001.ukwest.cloudapp.azure.com"
   ,"source_server_park":"Telephone-Live"
   ,"source_instrument":"OPN1901A"
