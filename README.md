@@ -34,6 +34,7 @@ To use the API's:
   ,"source_hostname":"bsp-d-001.ukwest.cloudapp.azure.com"
   ,"source_server_park":"Telephone-Live"
   ,"source_instrument":"OPN1901A"
+  ,"dest_filepath":""
   ,"dest_hostname":"DESKTOP-0OF1LSJ"
   ,"dest_server_park":"LocalDevelopment"
   ,"dest_instrument":"OPN1901A"
