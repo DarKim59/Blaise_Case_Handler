@@ -1,6 +1,7 @@
 using System.ServiceProcess;
 using System.Text;
 using System.IO;
+using System.Linq;
 using System.Security;
 using StatNeth.Blaise.API.ServerManager;
 using RabbitMQ.Client;
@@ -11,6 +12,9 @@ using System;
 using StatNeth.Blaise.API.DataLink;
 using StatNeth.Blaise.API.Meta;
 using DataRecordAPI = StatNeth.Blaise.API.DataRecord;
+using DataInterfaceAPI = StatNeth.Blaise.API.DataInterface;
+using ServerManagerAPI = StatNeth.Blaise.API.ServerManager;
+using DataLinkAPI = StatNeth.Blaise.API.DataLink;
 using System.Collections.Generic;
 using log4net;
 using log4net.Config;
@@ -28,6 +32,7 @@ namespace BlaiseCaseHandler
         public string source_hostname { get; set; }
         public string source_server_park { get; set; }
         public string source_instrument { get; set; }
+        public string dest_filepath { get; set; }
         public string dest_hostname { get; set; }
         public string dest_server_park { get; set; }
         public string dest_instrument { get; set; }
@@ -154,8 +159,9 @@ namespace BlaiseCaseHandler
             // Objects for working with Blaise data sets.
             IDataLink4 dl_source = null;
             IDatamodel dm_source = null;
-            IDataLink4 dl_dest = null;
+            IDataLink4 dl_dest_sql = null;
             IDatamodel dm_dest = null;
+            IDataLink dl_dest_file = null;
 
             // Functionality to be performed when a message is received.
             consumer.Received += (model, ea) =>
@@ -175,10 +181,6 @@ namespace BlaiseCaseHandler
                     dl_source = GetDataLink(data.source_hostname, data.source_instrument, data.source_server_park);
                     dm_source = dl_source.Datamodel;
 
-                    // Connect to the Blaise destination data set.
-                    dl_dest = GetDataLink(data.dest_hostname, data.dest_instrument, data.dest_server_park);
-                    dm_dest = dl_dest.Datamodel;
-
                     // Identify the primary key in the source data set.
                     var key = DataRecordAPI.DataRecordManager.GetKey(dm_source, "PRIMARY");
 
@@ -191,48 +193,152 @@ namespace BlaiseCaseHandler
                         // Read in the case.
                         var case_record = dl_source.ReadRecord(key);
 
-                        // Copy or move the case from the source to destination based on the 'action' received from the message.
-                        switch (data.action)
+                        // Connect to the Blaise sql database destination data set if provided in payload.
+                        if (data.dest_hostname != "" && data.dest_server_park != "")
                         {
-                            // Copy action received.
-                            case "copy":
-                                dl_dest.Write(case_record);
-                                if (!dl_dest.KeyExists(key))
-                                {
-                                    SendStatus(MakeStatusJson(data, "Error"));
-                                    log.Error(data.dest_instrument + " case " + data.serial_number + " NOT copied from " + data.source_server_park + "@" + data.source_hostname + " to " + data.dest_server_park + "@" + data.dest_hostname + ".");
-                                }
-                                if (dl_dest.KeyExists(key))
-                                {
-                                    SendStatus(MakeStatusJson(data, "Case Copied"));
-                                    log.Info(data.dest_instrument + " case " + data.serial_number + " copied from " + data.source_server_park + "@" + data.source_hostname + " to " + data.dest_server_park + "@" + data.dest_hostname + ".");
-                                }                                
-                                break;
-                            // Move action received.
-                            case "move":
-                                dl_dest.Write(case_record);
-                                dl_source.Delete(key);
-                                if (!dl_dest.KeyExists(key))
-                                {
-                                    SendStatus(MakeStatusJson(data, "Error"));
-                                    log.Error(data.dest_instrument + " case " + data.serial_number + " NOT moved from " + data.source_server_park + "@" + data.source_hostname + " to " + data.dest_server_park + "@" + data.dest_hostname + ".");
-                                }
-                                if ((dl_dest.KeyExists(key)) && (dl_source.KeyExists(key)))
-                                {
-                                    SendStatus(MakeStatusJson(data, "Warn"));
-                                    log.Warn(data.dest_instrument + " case " + data.serial_number + " copied from " + data.source_server_park + "@" + data.source_hostname + " but also still exists in " + data.dest_server_park + "@" + data.dest_hostname + ".");
-                                }
-                                if ((dl_dest.KeyExists(key)) && (!dl_source.KeyExists(key)))
-                                {
-                                    SendStatus(MakeStatusJson(data, "Case Moved"));
-                                    log.Info(data.dest_instrument + " case " + data.serial_number + " moved from " + data.source_server_park + "@" + data.source_hostname + " to " + data.dest_server_park + "@" + data.dest_hostname + ".");
-                                }
-                                break;
-                            // Invalid action received.
-                            default:
-                                SendStatus(MakeStatusJson(data, "Invalid Action"));
-                                log.Error("Invalid action requested - " + data.action);
-                                break;
+                            dl_dest_sql = GetDataLink(data.dest_hostname, data.dest_instrument, data.dest_server_park);
+                            dm_dest = dl_dest_sql.Datamodel;
+
+                            // Copy or move the case from the source to destination based on the 'action' received from the message.
+                            switch (data.action)
+                            {
+                                // Copy action received.
+                                case "copy":
+                                    dl_dest_sql.Write(case_record);
+                                    if (!dl_dest_sql.KeyExists(key))
+                                    {
+                                        SendStatus(MakeStatusJson(data, "Error"));
+                                        log.Error(data.dest_instrument + " case " + data.serial_number + " NOT copied from " + data.source_server_park + "@" + data.source_hostname + " to " + data.dest_server_park + "@" + data.dest_hostname + ".");
+                                    }
+                                    if (dl_dest_sql.KeyExists(key))
+                                    {
+                                        SendStatus(MakeStatusJson(data, "Case Copied"));
+                                        log.Info(data.dest_instrument + " case " + data.serial_number + " copied from " + data.source_server_park + "@" + data.source_hostname + " to " + data.dest_server_park + "@" + data.dest_hostname + ".");
+                                    }
+                                    break;
+                                // Move action received.
+                                case "move":
+                                    dl_dest_sql.Write(case_record);
+                                    dl_source.Delete(key);
+                                    if (!dl_dest_sql.KeyExists(key))
+                                    {
+                                        SendStatus(MakeStatusJson(data, "Error"));
+                                        log.Error(data.dest_instrument + " case " + data.serial_number + " NOT moved from " + data.source_server_park + "@" + data.source_hostname + " to " + data.dest_server_park + "@" + data.dest_hostname + ".");
+                                    }
+                                    if ((dl_dest_sql.KeyExists(key)) && (dl_source.KeyExists(key)))
+                                    {
+                                        SendStatus(MakeStatusJson(data, "Warn"));
+                                        log.Warn(data.dest_instrument + " case " + data.serial_number + " copied from " + data.source_server_park + "@" + data.source_hostname + " but also still exists in " + data.source_server_park + "@" + data.source_hostname + ".");
+                                    }
+                                    if ((dl_dest_sql.KeyExists(key)) && (!dl_source.KeyExists(key)))
+                                    {
+                                        SendStatus(MakeStatusJson(data, "Case Moved"));
+                                        log.Info(data.dest_instrument + " case " + data.serial_number + " moved from " + data.source_server_park + "@" + data.source_hostname + " to " + data.dest_server_park + "@" + data.dest_hostname + ".");
+                                    }
+                                    break;
+                                // Invalid action received.
+                                default:
+                                    SendStatus(MakeStatusJson(data, "Invalid Action"));
+                                    log.Error("Invalid action requested - " + data.action);
+                                    break;
+                            }
+                        }
+
+                        // Connect to the Blaise file database destination data set if provided in payload.
+                        if (data.dest_filepath != "")
+                        {
+                            if (!File.Exists(data.dest_filepath + "\\" + data.dest_instrument + ".bdbx"))
+                            {
+                                string sourceBDI = GetDataFileName(data.source_hostname, data.source_server_park, data.source_instrument);
+                                string sourceBMI = GetMetaFileName(data.source_hostname, data.source_server_park, data.source_instrument);
+
+                                Directory.CreateDirectory(data.dest_filepath);
+                                File.Copy(sourceBMI, data.dest_filepath + "\\" + data.dest_instrument + ".bmix", true);
+
+                                // Get an empty IDataInterface:
+                                DataInterfaceAPI.IDataInterface di = DataInterfaceAPI.DataInterfaceManager.GetDataInterface();
+
+                                // Fill the ConnectionInfo:
+                                di.ConnectionInfo.DataSourceType = DataInterfaceAPI.DataSourceType.Blaise;
+                                di.ConnectionInfo.DataProviderType = DataInterfaceAPI.DataProviderType.BlaiseDataProviderForDotNET;
+
+                                //SpecifyDataPartitionType:
+                                di.DataPartitionType = DataInterfaceAPI.DataPartitionType.Stream;
+
+                                // Create a connection string using IBlaiseConnectionStringBuilder
+                                DataInterfaceAPI.IBlaiseConnectionStringBuilder csb = DataInterfaceAPI.DataInterfaceManager.GetBlaiseConnectionStringBuilder();
+                                csb.DataSource = data.dest_filepath + "\\" + data.dest_instrument + ".bdbx";
+
+                                di.ConnectionInfo.SetConnectionString(csb.ConnectionString);
+
+                                // Specify file name of data model and bdix:
+                                di.DatamodelFileName = data.dest_filepath + "\\" + data.dest_instrument + ".bmix"; ;
+                                di.FileName = data.dest_filepath + "\\" + data.dest_instrument + ".bdix";
+                                // Create table definitions and database objects:
+                                di.CreateTableDefinitions();
+                                di.CreateDatabaseObjects(null, true);
+                                di.SaveToFile(true);
+                            }                            
+
+                            dl_dest_file = DataLinkAPI.DataLinkManager.GetDataLink(data.dest_filepath + "\\" + data.dest_instrument + ".bdix");
+
+                            // Copy or move the case from the source to destination based on the 'action' received from the message.
+                            switch (data.action)
+                            {
+                                // Copy action received.
+                                case "copy":
+                                    dl_dest_file.Write(case_record);                                    
+                                    if (dl_dest_file.ReadRecord(key) == null)
+                                    {
+                                        SendStatus(MakeStatusJson(data, "Error"));
+                                        log.Error(data.dest_instrument + " case " + data.serial_number + " NOT copied from " + data.source_server_park + "@" + data.source_hostname + " to " + data.dest_filepath + ".");
+                                    }
+                                    if (dl_dest_file.ReadRecord(key) != null)
+                                    {
+                                        SendStatus(MakeStatusJson(data, "Case Copied"));
+                                        log.Info(data.dest_instrument + " case " + data.serial_number + " copied from " + data.source_server_park + "@" + data.source_hostname + " to " + data.dest_filepath + ".");
+                                    }                                    
+                                    break;
+                                // Move action received.
+                                case "move":
+                                    dl_dest_file.Write(case_record);
+                                    dl_source.Delete(key);
+                                    if (dl_dest_file.ReadRecord(key) == null)
+                                    {
+                                        SendStatus(MakeStatusJson(data, "Error"));
+                                        log.Error(data.dest_instrument + " case " + data.serial_number + " NOT moved from " + data.source_server_park + "@" + data.source_hostname + " to " + data.dest_filepath + ".");
+                                    }
+                                    if ((dl_dest_file.ReadRecord(key) != null) && (dl_source.KeyExists(key)))
+                                    {
+                                        SendStatus(MakeStatusJson(data, "Warn"));
+                                        log.Warn(data.dest_instrument + " case " + data.serial_number + " copied from " + data.source_server_park + "@" + data.source_hostname + " but also still exists in " + data.source_server_park + "@" + data.source_hostname + ".");
+                                    }
+                                    if ((dl_dest_file.ReadRecord(key) != null) && (!dl_source.KeyExists(key)))
+                                    {
+                                        SendStatus(MakeStatusJson(data, "Case Moved"));
+                                        log.Info(data.dest_instrument + " case " + data.serial_number + " moved from " + data.source_server_park + "@" + data.source_hostname + " to " + data.dest_filepath + ".");
+                                    }
+                                    break;
+                                // Invalid action received.
+                                default:
+                                    SendStatus(MakeStatusJson(data, "Invalid Action"));
+                                    log.Error("Invalid action requested - " + data.action);
+                                    break;
+                            }
+
+                            /*
+                            {
+                                "serial_number":"1234"
+                              ,"source_hostname":"DESKTOP-0OF1LSJ"
+                              ,"source_server_park":"LocalDevelopment"
+                              ,"source_instrument":"OPN1901A"
+                              ,"dest_filepath":"c:\\#test\\"
+                              ,"dest_hostname":""
+                              ,"dest_server_park":""
+                              ,"dest_instrument":"OPN1901A"
+                              ,"action":"copy"
+                            }
+                            */
                         }
                     }
                     else
@@ -312,6 +418,96 @@ namespace BlaiseCaseHandler
         }
 
         /// <summary>
+        /// Establishes a connection to a Blaise server.
+        /// </summary>
+        /// <param name="serverName">The location of the Blaise server.</param>
+        /// <param name="userName">Username with access to the specified server.</param>
+        /// <param name="password">Password for the specified user to access the server.</param>
+        /// <returns>A IConnectedServer2 object which is connected to the server provided.</returns>
+        public ServerManagerAPI.IConnectedServer2 ConnectToBlaiseServer(string serverName, string userName, string password)
+        {
+            int port = 8031;
+            try
+            {
+                ServerManagerAPI.IConnectedServer2 connServer =
+                    (ServerManagerAPI.IConnectedServer2)ServerManagerAPI.ServerManager.ConnectToServer(serverName, port, userName, GetPassword(password));
+
+                return connServer;
+            }
+            catch (Exception e)
+            {
+                log.Error("Error getting Blaise connection.");
+                log.Error(e.Message);
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Gets the name of the bdix associated with a specified serverpark and instrument.
+        /// </summary>
+        /// <param name="serverPark">The serverpark where the instrument exists.</param>
+        /// <param name="instrument">The instrument who's data file we're getting.</param>
+        /// <returns>The string name of the bdix.</returns>
+        public string GetDataFileName(string serverName, string serverPark, string instrument)
+        {
+            try
+            {
+                string username = ConfigurationManager.AppSettings.Get("BlaiseServerUserName");
+                string password = ConfigurationManager.AppSettings.Get("BlaiseServerPassword");
+
+                var connection = ConnectToBlaiseServer(serverName, username, password);
+                var surveys = connection.GetSurveys(serverPark);
+
+                foreach (ServerManagerAPI.ISurvey2 survey in surveys)
+                {
+                    if (survey.Name == instrument)
+                    {
+                        var conf = survey.Configuration.Configurations.ElementAt(0);
+                        return conf.DataFileName;
+                    }
+                }
+                return "";
+            }
+            catch (Exception e)
+            {
+                log.Error("Error getting meta file name.");
+                log.Error(e.Message);
+                return "";
+            }
+        }
+
+        public string GetMetaFileName(string serverName, string serverPark, string instrument)
+        {
+            try
+            {
+                string username = ConfigurationManager.AppSettings.Get("BlaiseServerUserName");
+                string password = ConfigurationManager.AppSettings.Get("BlaiseServerPassword");
+
+                var connection = ConnectToBlaiseServer(serverName, username, password);
+
+                var surveys = connection.GetSurveys(serverPark);
+
+                foreach (ServerManagerAPI.ISurvey2 survey in surveys)
+                {
+                    if (survey.Name == instrument)
+                    {
+                        var conf = survey.Configuration.Configurations.ElementAt(0);
+
+                        return conf.MetaFileName;
+                    }
+                }
+
+                return "";
+            }
+            catch (Exception e)
+            {
+                log.Error("Error getting meta file name.");
+                log.Error(e.Message);
+                return "";
+            }
+        }
+
+        /// <summary>
         /// Converts a password to secure string.
         /// </summary>
         /// <param name="pw">Password to be converted to secure string.</param>
@@ -344,6 +540,7 @@ namespace BlaiseCaseHandler
             jsonData["source_hostname"] = data.source_hostname;
             jsonData["source_server_park"] = data.source_server_park;
             jsonData["source_instrument"] = data.source_instrument;
+            jsonData["dest_filepath"] = data.dest_filepath;
             jsonData["dest_hostname"] = data.dest_hostname;
             jsonData["dest_server_park"] = data.dest_server_park;
             jsonData["dest_instrument"] = data.dest_instrument;
