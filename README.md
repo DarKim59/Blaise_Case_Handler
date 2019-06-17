@@ -17,14 +17,11 @@ Install the RabbitMQ Client and Log4Net packages via NuGet Package Manager. Cons
 
 Ensure you have the latest version of Blaise 5 installed from the Statistics Netherlands FTP.
 
-# Blaise API
-Ensure you have the latest version of Blaise 5 installed from the Statistics Netherlands FTP.
-
-To use the API's:
-  - Right Click the "References" object under the project in the VS Solution Explorer
+To add the Blaise APIs:
+  - Right Click the "References" object under the project in the Visual Studio Solution Explorer
   - Select "Add Reference"
   - Use the "Browse" tab and navigate to "C:\Program Files (x86)\StatNeth\Blaise5\Bin"
-  - In this folder all the required API's for Blaise interaction are available.
+  - In this folder all the required APIs for Blaise interaction are available
 
 # Example Message
 
