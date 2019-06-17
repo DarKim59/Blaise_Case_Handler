@@ -1,21 +1,19 @@
+using System;
 using System.ServiceProcess;
 using System.Text;
 using System.IO;
 using System.Linq;
 using System.Security;
-using StatNeth.Blaise.API.ServerManager;
-using RabbitMQ.Client;
-using System.Web.Script.Serialization;
-using RabbitMQ.Client.Events;
 using System.Configuration;
-using System;
-using StatNeth.Blaise.API.DataLink;
-using StatNeth.Blaise.API.Meta;
-using DataRecordAPI = StatNeth.Blaise.API.DataRecord;
-using DataInterfaceAPI = StatNeth.Blaise.API.DataInterface;
-using ServerManagerAPI = StatNeth.Blaise.API.ServerManager;
-using DataLinkAPI = StatNeth.Blaise.API.DataLink;
+using System.Web.Script.Serialization;
 using System.Collections.Generic;
+using RabbitMQ.Client;
+using RabbitMQ.Client.Events;
+using StatNeth.Blaise.API.ServerManager;
+using StatNeth.Blaise.API.DataLink;
+using StatNeth.Blaise.API.DataRecord;
+using StatNeth.Blaise.API.DataInterface;
+using StatNeth.Blaise.API.Meta;
 using log4net;
 using log4net.Config;
 
@@ -23,7 +21,7 @@ namespace BlaiseCaseHandler
 {
 
     /// <summary>
-    /// Class to hold the data received from the RabbitMQ messaging service.
+    /// Class to hold the data received from the RabbitMQ messaging broker.
     /// </summary>
     public class MessageData
     {
@@ -160,7 +158,6 @@ namespace BlaiseCaseHandler
             IDataLink4 dl_source = null;
             IDatamodel dm_source = null;
             IDataLink4 dl_dest_sql = null;
-            IDatamodel dm_dest = null;
             IDataLink dl_dest_file = null;
 
             // Functionality to be performed when a message is received.
@@ -182,7 +179,7 @@ namespace BlaiseCaseHandler
                     dm_source = dl_source.Datamodel;
 
                     // Identify the primary key in the source data set.
-                    var key = DataRecordAPI.DataRecordManager.GetKey(dm_source, "PRIMARY");
+                    var key = DataRecordManager.GetKey(dm_source, "PRIMARY");
 
                     // Assign the primary key the value of the 'serial_number' recieved from the RabbitMQ message.
                     key.Fields[0].DataValue.Assign(data.serial_number);
@@ -197,7 +194,6 @@ namespace BlaiseCaseHandler
                         if (data.dest_hostname != "" && data.dest_server_park != "")
                         {
                             dl_dest_sql = GetDataLink(data.dest_hostname, data.dest_instrument, data.dest_server_park);
-                            dm_dest = dl_dest_sql.Datamodel;
 
                             // Copy or move the case from the source to destination based on the 'action' received from the message.
                             switch (data.action)
@@ -228,7 +224,7 @@ namespace BlaiseCaseHandler
                                     if ((dl_dest_sql.KeyExists(key)) && (dl_source.KeyExists(key)))
                                     {
                                         SendStatus(MakeStatusJson(data, "Warn"));
-                                        log.Warn(data.dest_instrument + " case " + data.serial_number + " copied from " + data.source_server_park + "@" + data.source_hostname + " but also still exists in " + data.source_server_park + "@" + data.source_hostname + ".");
+                                        log.Warn(data.dest_instrument + " case " + data.serial_number + " copied from " + data.source_server_park + "@" + data.source_hostname + " to " + data.dest_server_park + "@" + data.dest_hostname + " but also still exists in " + data.source_server_park + "@" + data.source_hostname + ".");
                                     }
                                     if ((dl_dest_sql.KeyExists(key)) && (!dl_source.KeyExists(key)))
                                     {
@@ -247,40 +243,36 @@ namespace BlaiseCaseHandler
                         // Connect to the Blaise file database destination data set if provided in payload.
                         if (data.dest_filepath != "")
                         {
+                            // Check destination file database exists, and if not create it.
                             if (!File.Exists(data.dest_filepath + "\\" + data.dest_instrument + ".bdbx"))
                             {
-                                string sourceBDI = GetDataFileName(data.source_hostname, data.source_server_park, data.source_instrument);
-                                string sourceBMI = GetMetaFileName(data.source_hostname, data.source_server_park, data.source_instrument);
+                                // Get source BMI and BDI to setup new file destination data set.
+                                string sourceBMI = GetSourceBMI(data.source_hostname, data.source_server_park, data.source_instrument);
+                                string sourceBDI = GetSourceBDI(data.source_hostname, data.source_server_park, data.source_instrument);
 
+                                // Create source directory from destination file path recieved in payload.
                                 Directory.CreateDirectory(data.dest_filepath);
+
+                                // Copy BMI from source to destination file path recieved in payload.
                                 File.Copy(sourceBMI, data.dest_filepath + "\\" + data.dest_instrument + ".bmix", true);
 
-                                // Get an empty IDataInterface:
-                                DataInterfaceAPI.IDataInterface di = DataInterfaceAPI.DataInterfaceManager.GetDataInterface();
-
-                                // Fill the ConnectionInfo:
-                                di.ConnectionInfo.DataSourceType = DataInterfaceAPI.DataSourceType.Blaise;
-                                di.ConnectionInfo.DataProviderType = DataInterfaceAPI.DataProviderType.BlaiseDataProviderForDotNET;
-
-                                //SpecifyDataPartitionType:
-                                di.DataPartitionType = DataInterfaceAPI.DataPartitionType.Stream;
-
-                                // Create a connection string using IBlaiseConnectionStringBuilder
-                                DataInterfaceAPI.IBlaiseConnectionStringBuilder csb = DataInterfaceAPI.DataInterfaceManager.GetBlaiseConnectionStringBuilder();
+                                // Create destination file data set.
+                                IDataInterface di = DataInterfaceManager.GetDataInterface();
+                                di.ConnectionInfo.DataSourceType = DataSourceType.Blaise;
+                                di.ConnectionInfo.DataProviderType = DataProviderType.BlaiseDataProviderForDotNET;
+                                di.DataPartitionType = DataPartitionType.Stream;
+                                IBlaiseConnectionStringBuilder csb = DataInterfaceManager.GetBlaiseConnectionStringBuilder();
                                 csb.DataSource = data.dest_filepath + "\\" + data.dest_instrument + ".bdbx";
-
                                 di.ConnectionInfo.SetConnectionString(csb.ConnectionString);
-
-                                // Specify file name of data model and bdix:
                                 di.DatamodelFileName = data.dest_filepath + "\\" + data.dest_instrument + ".bmix"; ;
                                 di.FileName = data.dest_filepath + "\\" + data.dest_instrument + ".bdix";
-                                // Create table definitions and database objects:
                                 di.CreateTableDefinitions();
                                 di.CreateDatabaseObjects(null, true);
                                 di.SaveToFile(true);
-                            }                            
+                            }
 
-                            dl_dest_file = DataLinkAPI.DataLinkManager.GetDataLink(data.dest_filepath + "\\" + data.dest_instrument + ".bdix");
+                            // Connect to the Blaise file database destination data set. 
+                            dl_dest_file = DataLinkManager.GetDataLink(data.dest_filepath + "\\" + data.dest_instrument + ".bdix");
 
                             // Copy or move the case from the source to destination based on the 'action' received from the message.
                             switch (data.action)
@@ -311,7 +303,7 @@ namespace BlaiseCaseHandler
                                     if ((dl_dest_file.ReadRecord(key) != null) && (dl_source.KeyExists(key)))
                                     {
                                         SendStatus(MakeStatusJson(data, "Warn"));
-                                        log.Warn(data.dest_instrument + " case " + data.serial_number + " copied from " + data.source_server_park + "@" + data.source_hostname + " but also still exists in " + data.source_server_park + "@" + data.source_hostname + ".");
+                                        log.Warn(data.dest_instrument + " case " + data.serial_number + " copied from " + data.source_server_park + "@" + data.source_hostname + " to " + data.dest_filepath + " but also still exists in " + data.source_server_park + "@" + data.source_hostname + ".");
                                     }
                                     if ((dl_dest_file.ReadRecord(key) != null) && (!dl_source.KeyExists(key)))
                                     {
@@ -325,20 +317,6 @@ namespace BlaiseCaseHandler
                                     log.Error("Invalid action requested - " + data.action);
                                     break;
                             }
-
-                            /*
-                            {
-                                "serial_number":"1234"
-                              ,"source_hostname":"DESKTOP-0OF1LSJ"
-                              ,"source_server_park":"LocalDevelopment"
-                              ,"source_instrument":"OPN1901A"
-                              ,"dest_filepath":"c:\\#test\\"
-                              ,"dest_hostname":""
-                              ,"dest_server_park":""
-                              ,"dest_instrument":"OPN1901A"
-                              ,"action":"copy"
-                            }
-                            */
                         }
                     }
                     else
@@ -424,13 +402,13 @@ namespace BlaiseCaseHandler
         /// <param name="userName">Username with access to the specified server.</param>
         /// <param name="password">Password for the specified user to access the server.</param>
         /// <returns>A IConnectedServer2 object which is connected to the server provided.</returns>
-        public ServerManagerAPI.IConnectedServer2 ConnectToBlaiseServer(string serverName, string userName, string password)
+        public IConnectedServer2 ConnectToBlaiseServer(string serverName, string userName, string password)
         {
             int port = 8031;
             try
             {
-                ServerManagerAPI.IConnectedServer2 connServer =
-                    (ServerManagerAPI.IConnectedServer2)ServerManagerAPI.ServerManager.ConnectToServer(serverName, port, userName, GetPassword(password));
+                IConnectedServer2 connServer =
+                    (IConnectedServer2)ServerManager.ConnectToServer(serverName, port, userName, GetPassword(password));
 
                 return connServer;
             }
@@ -443,12 +421,13 @@ namespace BlaiseCaseHandler
         }
 
         /// <summary>
-        /// Gets the name of the bdix associated with a specified serverpark and instrument.
+        /// Gets the file name of the BDI associated with a specified server, serverpark, instrument.
         /// </summary>
-        /// <param name="serverPark">The serverpark where the instrument exists.</param>
-        /// <param name="instrument">The instrument who's data file we're getting.</param>
-        /// <returns>The string name of the bdix.</returns>
-        public string GetDataFileName(string serverName, string serverPark, string instrument)
+        /// <param name="serverName">The server where the server park exists.</param>
+        /// <param name="serverPark">The server park where the instrument exists.</param>
+        /// <param name="instrument">The instrument we're getting the BDI for.</param>
+        /// <returns>The file name of the BDI.</returns>
+        public string GetSourceBDI(string serverName, string serverPark, string instrument)
         {
             try
             {
@@ -458,7 +437,7 @@ namespace BlaiseCaseHandler
                 var connection = ConnectToBlaiseServer(serverName, username, password);
                 var surveys = connection.GetSurveys(serverPark);
 
-                foreach (ServerManagerAPI.ISurvey2 survey in surveys)
+                foreach (ISurvey2 survey in surveys)
                 {
                     if (survey.Name == instrument)
                     {
@@ -476,7 +455,14 @@ namespace BlaiseCaseHandler
             }
         }
 
-        public string GetMetaFileName(string serverName, string serverPark, string instrument)
+        /// <summary>
+        /// Gets the file name of the BMI associated with a specified server, serverpark, instrument.
+        /// </summary>
+        /// <param name="serverName">The server where the server park exists.</param>
+        /// <param name="serverPark">The server park where the instrument exists.</param>
+        /// <param name="instrument">The instrument we're getting the BMI for.</param>
+        /// <returns>The file name of the BMI.</returns>
+        public string GetSourceBMI(string serverName, string serverPark, string instrument)
         {
             try
             {
@@ -487,7 +473,7 @@ namespace BlaiseCaseHandler
 
                 var surveys = connection.GetSurveys(serverPark);
 
-                foreach (ServerManagerAPI.ISurvey2 survey in surveys)
+                foreach (ISurvey2 survey in surveys)
                 {
                     if (survey.Name == instrument)
                     {
