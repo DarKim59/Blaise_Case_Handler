@@ -19,7 +19,6 @@ using log4net.Config;
 
 namespace BlaiseCaseHandler
 {
-
     /// <summary>
     /// Class to hold the data received from the RabbitMQ messaging broker.
     /// </summary>
