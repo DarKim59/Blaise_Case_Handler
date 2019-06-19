@@ -189,8 +189,8 @@ namespace BlaiseCaseHandler
                         // Read in the case.
                         var case_record = dl_source.ReadRecord(key);
 
-                        // Connect to the Blaise sql database destination data set if provided in payload.
-                        if (data.dest_hostname != "" && data.dest_server_park != "")
+                        // Connect to the Blaise sql database destination data set  if provided in payload.
+                        if ((data.dest_hostname != "" && data.dest_hostname != null) && (data.dest_server_park != "" && data.dest_hostname != null))
                         {
                             dl_dest_sql = GetDataLink(data.dest_hostname, data.dest_instrument, data.dest_server_park);
 
@@ -263,7 +263,7 @@ namespace BlaiseCaseHandler
                                 IBlaiseConnectionStringBuilder csb = DataInterfaceManager.GetBlaiseConnectionStringBuilder();
                                 csb.DataSource = data.dest_filepath + "\\" + data.dest_instrument + ".bdbx";
                                 di.ConnectionInfo.SetConnectionString(csb.ConnectionString);
-                                di.DatamodelFileName = data.dest_filepath + "\\" + data.dest_instrument + ".bmix"; ;
+                                di.DatamodelFileName = data.dest_filepath + "\\" + data.dest_instrument + ".bmix";
                                 di.FileName = data.dest_filepath + "\\" + data.dest_instrument + ".bdix";
                                 di.CreateTableDefinitions();
                                 di.CreateDatabaseObjects(null, true);
