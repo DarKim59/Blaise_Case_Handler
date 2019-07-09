@@ -159,7 +159,7 @@ namespace BlaiseCaseHandler
             IDataLink4 dl_dest_sql = null;
             IDataLink dl_dest_file = null;
 
-            // Functionality to be performed when a message is received.
+            // Functionality to be performed when a message is received. (digestion)
             consumer.Received += (model, ea) =>
             {
                 // Extract the message and encode it.
@@ -189,56 +189,63 @@ namespace BlaiseCaseHandler
                         // Read in the case.
                         var case_record = dl_source.ReadRecord(key);
 
-                        // Connect to the Blaise sql database destination data set  if provided in payload.
-                        if ((data.dest_hostname != "" && data.dest_hostname != null) && (data.dest_server_park != "" && data.dest_hostname != null))
+                        if (data.action == "delete")
                         {
-                            dl_dest_sql = GetDataLink(data.dest_hostname, data.dest_instrument, data.dest_server_park);
-
-                            // Copy or move the case from the source to destination based on the 'action' received from the message.
-                            switch (data.action)
+                            dl_source.Delete(key);
+                            SendStatus(MakeStatusJson(data, "Case Deleted"));
+                        }
+                        else
+                        {
+                            // Connect to the Blaise sql database destination data set  if provided in payload.
+                            if ((data.dest_hostname != "" && data.dest_hostname != null) && (data.dest_server_park != "" && data.dest_hostname != null))
                             {
-                                // Copy action received.
-                                case "copy":
-                                    dl_dest_sql.Write(case_record);
-                                    if (!dl_dest_sql.KeyExists(key))
-                                    {
-                                        SendStatus(MakeStatusJson(data, "Error"));
-                                        log.Error(data.dest_instrument + " case " + data.serial_number + " NOT copied from " + data.source_server_park + "@" + data.source_hostname + " to " + data.dest_server_park + "@" + data.dest_hostname + ".");
-                                    }
-                                    if (dl_dest_sql.KeyExists(key))
-                                    {
-                                        SendStatus(MakeStatusJson(data, "Case Copied"));
-                                        log.Info(data.dest_instrument + " case " + data.serial_number + " copied from " + data.source_server_park + "@" + data.source_hostname + " to " + data.dest_server_park + "@" + data.dest_hostname + ".");
-                                    }
-                                    break;
-                                // Move action received.
-                                case "move":
-                                    dl_dest_sql.Write(case_record);
-                                    dl_source.Delete(key);
-                                    if (!dl_dest_sql.KeyExists(key))
-                                    {
-                                        SendStatus(MakeStatusJson(data, "Error"));
-                                        log.Error(data.dest_instrument + " case " + data.serial_number + " NOT moved from " + data.source_server_park + "@" + data.source_hostname + " to " + data.dest_server_park + "@" + data.dest_hostname + ".");
-                                    }
-                                    if ((dl_dest_sql.KeyExists(key)) && (dl_source.KeyExists(key)))
-                                    {
-                                        SendStatus(MakeStatusJson(data, "Warn"));
-                                        log.Warn(data.dest_instrument + " case " + data.serial_number + " copied from " + data.source_server_park + "@" + data.source_hostname + " to " + data.dest_server_park + "@" + data.dest_hostname + " but also still exists in " + data.source_server_park + "@" + data.source_hostname + ".");
-                                    }
-                                    if ((dl_dest_sql.KeyExists(key)) && (!dl_source.KeyExists(key)))
-                                    {
-                                        SendStatus(MakeStatusJson(data, "Case Moved"));
-                                        log.Info(data.dest_instrument + " case " + data.serial_number + " moved from " + data.source_server_park + "@" + data.source_hostname + " to " + data.dest_server_park + "@" + data.dest_hostname + ".");
-                                    }
-                                    break;
-                                // Invalid action received.
-                                default:
-                                    SendStatus(MakeStatusJson(data, "Invalid Action"));
-                                    log.Error("Invalid action requested - " + data.action);
-                                    break;
+                                dl_dest_sql = GetDataLink(data.dest_hostname, data.dest_instrument, data.dest_server_park);
+
+                                // Copy or move the case from the source to destination based on the 'action' received from the message.
+                                switch (data.action)
+                                {
+                                    // Copy action received.
+                                    case "copy":
+                                        dl_dest_sql.Write(case_record);
+                                        if (!dl_dest_sql.KeyExists(key))
+                                        {
+                                            SendStatus(MakeStatusJson(data, "Error"));
+                                            log.Error(data.dest_instrument + " case " + data.serial_number + " NOT copied from " + data.source_server_park + "@" + data.source_hostname + " to " + data.dest_server_park + "@" + data.dest_hostname + ".");
+                                        }
+                                        if (dl_dest_sql.KeyExists(key))
+                                        {
+                                            SendStatus(MakeStatusJson(data, "Case Copied"));
+                                            log.Info(data.dest_instrument + " case " + data.serial_number + " copied from " + data.source_server_park + "@" + data.source_hostname + " to " + data.dest_server_park + "@" + data.dest_hostname + ".");
+                                        }
+                                        break;
+                                    // Move action received.
+                                    case "move":
+                                        dl_dest_sql.Write(case_record);
+                                        dl_source.Delete(key);
+                                        if (!dl_dest_sql.KeyExists(key))
+                                        {
+                                            SendStatus(MakeStatusJson(data, "Error"));
+                                            log.Error(data.dest_instrument + " case " + data.serial_number + " NOT moved from " + data.source_server_park + "@" + data.source_hostname + " to " + data.dest_server_park + "@" + data.dest_hostname + ".");
+                                        }
+                                        if ((dl_dest_sql.KeyExists(key)) && (dl_source.KeyExists(key)))
+                                        {
+                                            SendStatus(MakeStatusJson(data, "Warn"));
+                                            log.Warn(data.dest_instrument + " case " + data.serial_number + " copied from " + data.source_server_park + "@" + data.source_hostname + " to " + data.dest_server_park + "@" + data.dest_hostname + " but also still exists in " + data.source_server_park + "@" + data.source_hostname + ".");
+                                        }
+                                        if ((dl_dest_sql.KeyExists(key)) && (!dl_source.KeyExists(key)))
+                                        {
+                                            SendStatus(MakeStatusJson(data, "Case Moved"));
+                                            log.Info(data.dest_instrument + " case " + data.serial_number + " moved from " + data.source_server_park + "@" + data.source_hostname + " to " + data.dest_server_park + "@" + data.dest_hostname + ".");
+                                        }
+                                        break;
+                                    // Invalid action received.
+                                    default:
+                                        SendStatus(MakeStatusJson(data, "Invalid Action"));
+                                        log.Error("Invalid action requested - " + data.action);
+                                        break;
+                                }
                             }
                         }
-
                         // Connect to the Blaise file database destination data set if provided in payload.
                         if (data.dest_filepath != "")
                         {
