@@ -53,7 +53,7 @@
     </Reference>
     <Reference Include="StatNeth.Blaise.API.DataLink, Version=5.0.0.0, Culture=neutral, PublicKeyToken=ad2ddd432cb2a452, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\StatNeth\Blaise5\Bin\StatNeth.Blaise.API.DataLink.dll</HintPath>
+      <HintPath>C:\BlaiseDLLs\</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
