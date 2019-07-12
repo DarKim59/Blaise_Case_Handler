@@ -35,19 +35,19 @@
   <ItemGroup>
     <Reference Include="StatNeth.Blaise.API.DataInterface, Version=5.0.0.0, Culture=neutral, PublicKeyToken=ad2ddd432cb2a452, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\StatNeth\Blaise5\Bin\StatNeth.Blaise.API.DataInterface.dll</HintPath>
+      <HintPath>C:\BlaiseDLLs\</HintPath>
     </Reference>
     <Reference Include="StatNeth.Blaise.API.DataLink">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\StatNeth\Blaise5\Bin\StatNeth.Blaise.API.DataLink.dll</HintPath>
+      <HintPath>C:\BlaiseDLLs\</HintPath>
     </Reference>
     <Reference Include="StatNeth.Blaise.API.DataRecord">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\StatNeth\Blaise5\Bin\StatNeth.Blaise.API.DataRecord.dll</HintPath>
+      <HintPath>C:\BlaiseDLLs\</HintPath>
     </Reference>
     <Reference Include="StatNeth.Blaise.API.Meta">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\StatNeth\Blaise5\Bin\StatNeth.Blaise.API.Meta.dll</HintPath>
+      <HintPath>C:\BlaiseDLLs\</HintPath>
     </Reference>
     <Reference Include="StatNeth.Blaise.API.ServerManager">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\StatNeth\Blaise5\Bin\StatNeth.Blaise.API.ServerManager.dll</HintPath>
+      <HintPath>C:\BlaiseDLLs\</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
