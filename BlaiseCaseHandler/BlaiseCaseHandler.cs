@@ -197,7 +197,7 @@ namespace BlaiseCaseHandler
                         else
                         {
                             // Connect to the Blaise sql database destination data set  if provided in payload.
-                            if ((data.dest_hostname != "" && data.dest_hostname != null) && (data.dest_server_park != "" && data.dest_hostname != null))
+                            if ((data.dest_hostname != "" && data.dest_hostname != null) && (data.dest_server_park != "" && data.dest_server_park != null))
                             {
                                 dl_dest_sql = GetDataLink(data.dest_hostname, data.dest_instrument, data.dest_server_park);
 
@@ -247,7 +247,7 @@ namespace BlaiseCaseHandler
                             }
 
                             // Connect to the Blaise file database destination data set if provided in payload.
-                            if (data.dest_filepath != "")
+                            if (data.dest_filepath != "" && data.dest_filepath != null)
                             {
                                 // Check destination file database exists, and if not create it.
                                 if (!File.Exists(data.dest_filepath + "\\" + data.dest_instrument + ".bdbx"))
