@@ -1,0 +1,606 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>StatNeth.Blaise.API.DataLink</name>
+    </assembly>
+    <members>
+        <member name="T:StatNeth.Blaise.API.DataLink.DataLinkException">
+            <summary>
+            Exception from <see cref="T:StatNeth.Blaise.API.DataLink.IDataLink"/>
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataLink.DataLinkException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:StatNeth.Blaise.API.DataLink.DataLinkException" /> class.
+            </summary>
+            <param name="message">The message.</param>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataLink.DataLinkException.#ctor(System.String,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:StatNeth.Blaise.API.DataLink.DataLinkException" /> class.
+            </summary>
+            <param name="message">The message.</param>
+            <param name="errorNumber">The error number.</param>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataLink.DataLinkException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:StatNeth.Blaise.API.DataLink.DataLinkException" /> class.
+            </summary>
+            <param name="message">The message.</param>
+            <param name="innerException">The inner exception.</param>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataLink.DataLinkException.ErrorNumber">
+            <summary>
+            Gets or sets the error number.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataLink.DataLinkManager">
+            <summary>
+            The entry point to Blaise 5 survey data.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataLink.DataLinkManager.GetDataSet(System.Collections.Generic.IEnumerable{StatNeth.Blaise.API.DataRecord.IDataRecord})">
+            <summary>
+            Creates and returns an IDataSet. Must be seen as a convenience method that lets you create an IDataSet to be used with methods that consume an IDataSet.
+            </summary>
+            <param name="records">The records to include in the data set.</param>
+            <exception cref="T:System.ArgumentNullException">If records is null.</exception>
+            <returns>An IDataSet.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataLink.DataLinkManager.GetDataLink(System.String,StatNeth.Blaise.API.Meta.IDatamodel)">
+            <summary>
+            Returns an IDataLink interface for accessing the (existing) database of a bdix file.
+            </summary>
+            <param name="fileName">File name of bdix file.</param>
+            <param name="dataModel">The datamodel that belongs to the bdix file.</param>
+            <returns>An IDataLink.</returns>
+            <exception cref="T:StatNeth.Blaise.API.DataLink.DataLinkException">If the bdix file does not exist, or could not be opened.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataLink.DataLinkManager.GetDataLink(System.String)">
+            <summary>
+            Returns an IDataLink interface for accessing the (existing) database of a bdix file.
+            </summary>
+            <param name="fileName">File name of bdix file.</param>
+            <returns>An IDataLink.</returns>
+            <exception cref="T:StatNeth.Blaise.API.DataLink.DataLinkException">If the bdix file does not exist, or could not be opened.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataLink.DataLinkManager.GetDataLink(System.Guid,System.String)">
+            <summary>
+            *** NO LONGER SUPPORTED: use GetRemoteDataServer() instead *** 
+            Returns an IDataLink interface for accessing stored data of a survey installed on the given server park.
+            Note that this applies to the local machine only.
+            </summary>        
+            <param name="instrumentID">The identification of an installed survey.</param>
+            <param name="serverPark">The name of the server park. Optional. If omitted then the default 'LocalDevelopment' will be used.</param>
+            <returns>An IDataLink.</returns>
+            <exception cref="T:System.ArgumentNullException">If instrumentID is empty.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataLink.DataLinkManager.GetDataLink(StatNeth.Blaise.API.DataInterface.IDataInterface,StatNeth.Blaise.API.Meta.IDatamodel)">
+            <summary>
+            Returns an IDataLink interface for accessing the (existing) database behind an API.DataInterface.IDataInterface.
+            </summary>
+            <param name="dataInterface">The data interface. Must be valid.</param>
+            <param name="dataModel">The datamodel that belongs to the data interface.</param>
+            <returns>An IDataLink.</returns>
+            <exception cref="T:System.ArgumentNullException">If dataInterface is null.</exception>
+            <exception cref="T:StatNeth.Blaise.API.DataLink.DataLinkException">If the given data interface is not valid.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataLink.DataLinkManager.GetDataLink(StatNeth.Blaise.API.DataInterface.IDataInterface)">
+            <summary>
+            Returns an IDataLink interface for accessing the (existing) database behind an API.DataInterface.IDataInterface.
+            </summary>
+            <param name="dataInterface">The data interface. Must be valid.</param>        
+            <returns>An IDataLink.</returns>
+            <exception cref="T:System.ArgumentNullException">If dataInterface is null.</exception>
+            <exception cref="T:StatNeth.Blaise.API.DataLink.DataLinkException">If the given data interface is not valid.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataLink.DataLinkManager.GetRemoteDataServer(System.String,System.Int32,System.String,System.Security.SecureString)">
+            <summary>
+            Connects to a (remote) data server using http. 
+            If you want to use https then there is an overload of this method, which accepts a binding parameter.
+            Note that the user must have access permission Survey Data Access. Otherwise, all methods of the IDataLink interfaces 
+            will fail with System.ServiceModel.Security.SecurityAccessDeniedException
+            </summary>
+            <param name="dataServerName">The name of the data server.</param>
+            <param name="dataServerPort">The external communication port. Default value is 8033.</param>
+            <param name="username">The user name.</param>
+            <param name="password">The password.</param>
+            <returns>An IRemoteDataServer.</returns>
+            <exception cref="T:System.ArgumentNullException">If dataServerName or username is null or empty.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataLink.DataLinkManager.GetRemoteDataServer(System.String,System.Int32,System.String,System.String,System.Security.SecureString)">
+            <summary>
+            Connects to a (remote) data server. 
+            Note that the user must have access permission Survey Data Access. Otherwise, all methods of the IDataLink interfaces 
+            will fail with System.ServiceModel.Security.SecurityAccessDeniedException
+            </summary>
+            <param name="dataServerName">The name of the data server.</param>
+            <param name="dataServerPort">The external communication port. Default value is 8033.</param>
+            <param name="binding">The binding (protocol) to use. Possible values are http and https.</param>
+            <param name="username">The user name.</param>
+            <param name="password">The password.</param>
+            <returns>An IRemoteDataServer.</returns>
+            <exception cref="T:System.ArgumentNullException">If dataServerName, binding or username is null or empty.</exception>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataLink.DataSetBase.Origin">
+            <summary>
+            Keeps track where the dataset is originating form
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataLink.IDataLink">
+            <summary>
+            Offers functionality for reading and writing.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataLink.IDataLink.RecordCount">
+            <summary>
+            The number of records in the database.
+            </summary>
+            <exception cref="T:System.ServiceModel.Security.SecurityAccessDeniedException">If access permissions of the user are insufficient.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataLink.IDataLink.ReadRecord(StatNeth.Blaise.API.DataRecord.IKey)">
+            <summary>
+            Read a record based on primary key value.
+            </summary>        
+            <param name="primaryKeyValue">The primary key value. Is not allowed to be null and all its field values must have answer status response. Use the method DataRecordManager.GetKey() from the DataRecord API to obtain an IKey.</param>
+            <returns>An IDataRecord.</returns>        
+            <exception cref="T:System.ArgumentNullException">If primaryKeyValue is null.</exception>
+            <exception cref="T:System.ServiceModel.Security.SecurityAccessDeniedException">If access permissions of the user are insufficient.</exception>
+            <exception cref="T:StatNeth.Blaise.API.DataLink.DataLinkException">When one or more key fields have an answer status different from response, or no record could be found matching the given key value.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataLink.IDataLink.Read(System.String)">
+            <summary>
+            Returns an IDataSet containing all records in the database, ordered by keyName (ascending).
+            </summary>
+            <param name="keyName">The name of the key to order by. If null or string.Empty then the order is unspecified.</param>
+            <returns>An IDataSet. If the set holds at least one record, the first record becomes the active one and the BeginOfSet and EndOfSet properties are False.
+            The BeginOfSet and EndOfSet properties are set to True if you get an empty set. In this case the RecordCount will be 0.
+            </returns>
+            <exception cref="T:System.ServiceModel.Security.SecurityAccessDeniedException">If access permissions of the user are insufficient.</exception>
+            <exception cref="T:StatNeth.Blaise.API.DataLink.DataLinkException">If the keyName does not exist in the datamodel.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataLink.IDataLink.Read(StatNeth.Blaise.API.DataRecord.IKey,StatNeth.Blaise.API.DataLink.ReadOrder,System.Int32,System.Boolean)">
+            <summary>
+            Returns an IDataSet containing maxRecords records at the most, starting with primary key values equal to primaryKeyValue.Fields.
+            If the fields of primaryKeyValue are all left empty the resulting set will contain the first record according to the primary key.
+            </summary>
+            <param name="primaryKeyValue">Contains start values of (some of) the primary key fields. Is not allowed to be null, but if its fields are all left empty the result set will contain the first record according to the primary key.  Use the method DataRecordManager.GetKey() from the DataRecord API to obtain an IKey.</param>
+            <param name="primaryKeyOrder">Specifies the order with respect to the primary key: ascending or descending.</param>        
+            <param name="maxRecords">The maximum number of records to return. If -1 then all applicable records will be returned in the set.</param>        
+            <param name="includePrimaryKeyRecord">Must the record that contains the values of primaryKeyValue be included in the data set?</param>        
+            <returns>An IDataSet. If the set holds at least one record, the first record becomes the active one and the BeginOfSet and EndOfSet properties are False.
+            The BeginOfSet and EndOfSet properties are set to True if you get an empty set. In this case the RecordCount will be 0.
+            </returns>
+            <exception cref="T:System.ArgumentNullException">If primaryKeyValue is null.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">If maxRecords &lt; -1.</exception>
+            <exception cref="T:System.ServiceModel.Security.SecurityAccessDeniedException">If access permissions of the user are insufficient.</exception>
+            <exception cref="T:StatNeth.Blaise.API.DataLink.DataLinkException">If primaryKeyValue is not a primary key.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataLink.IDataLink.Read(StatNeth.Blaise.API.DataRecord.IKey,StatNeth.Blaise.API.DataRecord.IKey,StatNeth.Blaise.API.DataLink.ReadOrder,System.Int32,System.Boolean)">
+            <summary>
+            Returns an IDataSet containing maxRecords records at the most, starting with secondary key values equal to secondaryKeyValue.Fields,
+            and primary key values equal to primaryKeyValue.Fields.
+            If the fields of secondaryKeyValue are all left empty then it depends on primaryKeyValue what the first record in the result set will be.
+            </summary>
+            <param name="secondaryKeyValue">Contains start values of the secondary key fields. Is not allowed to be null, but if its fields are all left empty the resulting set will contain the first record according to the secondary key. Use the method DataRecordManager.GetKey() from the DataRecord API to obtain an IKey.</param>
+            <param name="primaryKeyValue">Contains start values of the primary key fields. Can be null, but then it will be unspecified which record is first in the result set. If different from null, then its fields are not allowed to be empty. Use the method DataRecordManager.GetKey() from the DataRecord API to obtain an IKey.</param>
+            <param name="secondaryKeyOrder">Specifies the order with respect to the secondary key: ascending or descending.</param>
+            <param name="maxRecords">The maximum number of records to return. If -1 then all applicable records will be returned in the set.</param>
+            <param name="includePrimaryKeyRecord">Must the record that contains the values of primarykeyValue be included in the data set? Only meaningful if the fields of primaryKeyValue are filled.</param>
+            <returns>An IDataSet. If the set holds at least one record, the first record becomes the active one and the BeginOfSet and EndOfSet properties are False.
+            The BeginOfSet and EndOfSet properties are set to True if you get an empty set. In this case the RecordCount will be 0.
+            </returns>
+            <exception cref="T:System.ArgumentNullException">If secondaryKeyValue is null.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">If maxRecords &lt; -1.</exception>
+            <exception cref="T:System.ServiceModel.Security.SecurityAccessDeniedException">If access permissions of the user are insufficient.</exception>
+            <exception cref="T:StatNeth.Blaise.API.DataLink.DataLinkException">If secondaryKeyValue is not a secondary key. Or, if primaryKeyValue is not a primary key or one or more of its fields have an answer status different from response.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataLink.IDataLink.Write(StatNeth.Blaise.API.DataRecord.IDataRecord)">
+            <summary>
+            Writes a record to the database. If there already exists a record with the same primary key value as dataRecord, then the existing record will be overwritten.
+            Otherwise a new record will be added. Note that in case the datamodel has a primary key, all the key fields must have answer status response.
+            </summary>
+            <param name="dataRecord">The data record to write.</param>        
+            <exception cref="T:System.ArgumentNullException">If dataRecord is null.</exception>
+            <exception cref="T:System.ServiceModel.Security.SecurityAccessDeniedException">If access permissions of the user are insufficient.</exception>
+            <exception cref="T:StatNeth.Blaise.API.DataLink.DataLinkException">If dataRecord is not compatible with the datamodel of this IDataLink, or one of the primary key fields has an answer status different from response.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataLink.IDataLink.Write(StatNeth.Blaise.API.DataLink.IDataSet)">
+            <summary>
+            Writes all the records in a dataset to the database. This is done using a transaction, so either all or zero records are written.
+            </summary>
+            <param name="dataSet">The dataset to write.</param>
+            <exception cref="T:System.ArgumentNullException">If dataSet is null.</exception>
+            <exception cref="T:System.ServiceModel.Security.SecurityAccessDeniedException">If access permissions of the user are insufficient.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataLink.IDataLink.Delete(StatNeth.Blaise.API.DataRecord.IKey)">
+            <summary>
+            Deletes a record from the database based on matching primary key value.
+            </summary>
+            <param name="primaryKeyValue">The primary key value. Is not allowed to be null and all its field values must have answer status response. Use the method DataRecordManager.GetKey() from the DataRecord API to obtain an IKey.</param>
+            <exception cref="T:System.ArgumentNullException">If primaryKeyValue is null.</exception>
+            <exception cref="T:System.ServiceModel.Security.SecurityAccessDeniedException">If access permissions of the user are insufficient.</exception>
+            <exception cref="T:StatNeth.Blaise.API.DataLink.DataLinkException">If primaryKeyValue is not a primary key or one or more of its fields have an answer status different from response.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataLink.IDataLink.DeleteAll">
+            <summary>
+            Deletes all the records in the database.        
+            </summary>        
+            <exception cref="T:System.ServiceModel.Security.SecurityAccessDeniedException">If access permissions of the user are insufficient.</exception>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataLink.IDataSet">
+            <summary>
+            Represents a set of data records. Exposes the idea of a cursor that can be moved over the set.    
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataLink.IDataSet.KeyName">
+            <summary>
+            The name of the key where the set is sorted on. If string.Empty then the order is unspecified.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataLink.IDataSet.ActiveRecord">
+            <summary>
+            The active record. Use the move methods to influence what record becomes active.
+            Can be null if the set does not contain data or either BeginOfSet or EndOfSet are True.
+            Notes: 
+            1. When applied to a dataset resulting from IDataLink.Read(), then IDataRecord always points to one instance implementing IDataRecord.
+            2. When applied to a result of DataLinkManager.GetDataSet(list), you will always get a different instance of IDataRecord. 
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataLink.IDataSet.ContainsData">
+            <summary>
+            Does the set contain any records?
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataLink.IDataSet.BeginOfSet">
+            <summary>
+            Is the cursor positioned before the first record?
+            Note that for an empty set, both BeginOfSet and EndOfSet return True.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataLink.IDataSet.EndOfSet">
+            <summary>
+            Is the cursor positioned after the last record?
+            Note that for an empty set, both BeginOfSet and EndOfSet return True.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataLink.IDataSet.MoveNext">
+            <summary>
+            Move the cursor to the next record. Could result in EndOfSet becoming True.
+            In this case the ActiveRecord will become null.
+            When being called if BeginOfSet is True, then ActiveRecord will return the first record (if the set is not empty, null otherwise).
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataLink.IDataSet.MovePrevious">
+            <summary>
+            Move the cursor to the previous record. Could result in BeginOfSet becoming True.
+            In this case the ActiveRecord will become null.
+            When being called if EndOfSet is True, then ActiveRecord will return the last record (if the set is not empty, null otherwise).
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataLink.IDataSet.MoveFirst">
+            <summary>
+            Move the cursor to the first record. If the set contains records, then this results in BeginOfSet and EndOfSet both becoming False.
+            Otherwise (set is empty) BeginOfSet and EndOfSet remain True.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataLink.IDataSet.MoveLast">
+            <summary>
+            Move the cursor to the last record.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataLink.IDataSet.RecordCount">
+            <summary>
+            The number of records in the set. If 0 (empty set), then BeginOfSet and EndOfSet both return True.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataLink.IDataLink2">
+            <summary>
+            Extends IDataLink. Offers functionality for record locking and reading/deleting of records for datamodels without primary key.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataLink.IDataLink2.ReadRecord(StatNeth.Blaise.API.DataRecord.IKey,System.String)">
+            <summary>
+            Read a record based on primary key value.
+            If nonempty lock id provided then you are only allowed to read the record if it is either not locked or locked with the same lock id.
+            After you have read the record it will be locked with the (nonempty) lock id.
+            </summary>
+            <param name="primaryKeyValue">The primary key value. Is not allowed to be null and all its field values must have answer status response. Use the method DataRecordManager.GetKey() from the DataRecord API to obtain an IKey.</param>
+            <param name="lockID">The lock id. If null or string.Empty then the record will be read even if it is locked.</param>
+            <returns>An IDataRecord.</returns>
+            <exception cref="T:System.ArgumentNullException">If primaryKeyValue is null.</exception>
+            <exception cref="T:System.ServiceModel.Security.SecurityAccessDeniedException">If access permissions of the user are insufficient.</exception>
+            <exception cref="T:StatNeth.Blaise.API.DataLink.DataLinkException">When one or more key fields have an answer status different from response, or no record could be found matching the given key value. </exception>
+            <exception cref="T:StatNeth.Blaise.API.DataLink.DataLinkException">If you provided a nonempty lock id and the record you want to read is already locked with a different lock id.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataLink.IDataLink2.ReadRecord(System.Int32,System.String)">
+            <summary>
+            Read a record based on its form id. Only allowed if the datamodel has no primary key.
+            If nonempty lock id provided then you are only allowed to read the record if it is either not locked or locked with the same lock id.
+            After you have read the record it will be locked with the (nonempty) lock id.        
+            </summary>
+            <param name="formID">The form id.</param>
+            <param name="lockID">The lock id. If null or string.Empty then the record will be read even if it is locked.</param>
+            <returns>An IDataRecord.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">If formID &lt;= 0.</exception>
+            <exception cref="T:System.ServiceModel.Security.SecurityAccessDeniedException">If access permissions of the user are insufficient.</exception>
+            <exception cref="T:StatNeth.Blaise.API.DataLink.DataLinkException">If the datamodel has a primary key.</exception>
+            <exception cref="T:StatNeth.Blaise.API.DataLink.DataLinkException">If you provided a nonempty lock id and the record you want to read is already locked with a different lock id.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataLink.IDataLink2.Write(StatNeth.Blaise.API.DataRecord.IDataRecord,System.String,System.Boolean)">
+            <summary>
+            Writes a record to the database. 
+            You are only allowed to write the record if it is either not locked or locked with the same lock id. 
+            After you have written the record the parameter keepLocked determines whether the record should be locked.
+            </summary>
+            <param name="dataRecord">The data record to write.</param>
+            <param name="lockID">The lock id. If null or string.Empty then you are only allowed to write if the record is not locked already.</param>
+            <param name="keepLocked">Only applicable with nonempty lock id. Determines whether the record must be locked after successful write.</param>
+            <exception cref="T:System.ServiceModel.Security.SecurityAccessDeniedException">If access permissions of the user are insufficient.</exception>
+            <exception cref="T:StatNeth.Blaise.API.DataLink.DataLinkException">If the record you want to write is already locked with a different lock id.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataLink.IDataLink2.Delete(StatNeth.Blaise.API.DataRecord.IKey,System.String)">
+            <summary>
+            Deletes a record based on primary key.
+            You are only allowed to delete the record if it is either not locked or locked with the same lock id that you provide.
+            </summary>
+            <param name="primaryKeyValue">The primary key value. Is not allowed to be null and all its field values must have answer status response. Use the method DataRecordManager.GetKey() from the DataRecord API to obtain an IKey.</param>
+            <param name="lockID">The lock id. If null or string.Empty then you are only allowed to delete if the record is not locked already.</param>
+            <exception cref="T:System.ServiceModel.Security.SecurityAccessDeniedException">If access permissions of the user are insufficient.</exception>
+            <exception cref="T:StatNeth.Blaise.API.DataLink.DataLinkException">If the record you want to delete is already locked with a different lock id.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataLink.IDataLink2.Delete(System.Int32,System.String)">
+            <summary>
+            Deletes a record based on form id. Only allowed if the datamodel has no primary key.
+            You are only allowed to delete the record if it is either not locked or locked with the same lock id that you provide.
+            </summary>
+            <param name="formID">The form id.</param>
+            <param name="lockID">The lock id. If null or string.Empty then you are only allowed to delete if the record is not locked already.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">If formID &lt;= 0.</exception>
+            <exception cref="T:System.ServiceModel.Security.SecurityAccessDeniedException">If access permissions of the user are insufficient.</exception>
+            <exception cref="T:StatNeth.Blaise.API.DataLink.DataLinkException">If the datamodel has a primary key.</exception>
+            <exception cref="T:StatNeth.Blaise.API.DataLink.DataLinkException">If the record you want to delete is already locked with a different lock id.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataLink.IDataLink2.Lock(StatNeth.Blaise.API.DataRecord.IKey,System.String)">
+            <summary>
+            Locks a primary key value with the given lock id.
+            This will succeed only if it is either not locked or locked with the same lock id.
+            </summary>
+            <param name="primaryKeyValue">The primary key value. Is not allowed to be null and all its field values must have answer status response. Use the method DataRecordManager.GetKey() from the DataRecord API to obtain an IKey.</param>
+            <param name="lockID">The lock id.</param>
+            <exception cref="T:System.ArgumentNullException">If lockID is either null or string.Empty</exception>
+            <exception cref="T:System.ServiceModel.Security.SecurityAccessDeniedException">If access permissions of the user are insufficient.</exception>
+            <exception cref="T:StatNeth.Blaise.API.DataLink.DataLinkException">The item you want to lock is already locked with a different lock id.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataLink.IDataLink2.Lock(System.Int32,System.String)">
+            <summary>
+            Locks a form id with the given lock id.
+            This will succeed only if it is either not locked or locked with the same lock id.
+            </summary>
+            <param name="formID">The form id.</param>
+            <param name="lockID">The lock id.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">If formID &lt;= 0.</exception>
+            <exception cref="T:System.ArgumentNullException">If lockID is either null or string.Empty</exception>
+            <exception cref="T:System.ServiceModel.Security.SecurityAccessDeniedException">If access permissions of the user are insufficient.</exception>
+            <exception cref="T:StatNeth.Blaise.API.DataLink.DataLinkException">The item you want to lock is already locked with a different lock id.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataLink.IDataLink2.Unlock(StatNeth.Blaise.API.DataRecord.IKey,System.String)">
+            <summary>
+            Unlocks a primary key value with the given lock id.
+            This will succeed only if it is either not locked or locked with the same lock id.
+            </summary>
+            <param name="primaryKeyValue">The primary key value. Is not allowed to be null and all its field values must have answer status response. Use the method DataRecordManager.GetKey() from the DataRecord API to obtain an IKey.</param>
+            <param name="lockID">The lock id.</param>
+            <exception cref="T:System.ArgumentNullException">If lockID is either null or string.Empty</exception>
+            <exception cref="T:System.ServiceModel.Security.SecurityAccessDeniedException">If access permissions of the user are insufficient.</exception>
+            <exception cref="T:StatNeth.Blaise.API.DataLink.DataLinkException">The item you want to unlock is already locked with a different lock id.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataLink.IDataLink2.Unlock(System.Int32,System.String)">
+            <summary>
+            Unlocks a form id with the given lock id.
+            This will succeed only if it is either not locked or locked with the same lock id.
+            </summary>
+            <param name="formID">The form id.</param>
+            <param name="lockID">The lock id.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">If formID &lt;= 0.</exception>
+            <exception cref="T:System.ArgumentNullException">If lockID is either null or string.Empty</exception>
+            <exception cref="T:System.ServiceModel.Security.SecurityAccessDeniedException">If access permissions of the user are insufficient.</exception>
+            <exception cref="T:StatNeth.Blaise.API.DataLink.DataLinkException">The item you want to unlock is already locked with a different lock id.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataLink.IDataLink2.ReadRecord(System.Int32)">
+            <summary>
+            Read a record based on its form id. Only allowed if the datamodel has no primary key.
+            </summary>
+            <param name="formID">The form id.</param>
+            <returns>An IDataRecord.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">If formID &lt;= 0.</exception>
+            <exception cref="T:System.ServiceModel.Security.SecurityAccessDeniedException">If access permissions of the user are insufficient.</exception>
+            <exception cref="T:StatNeth.Blaise.API.DataLink.DataLinkException">If the datamodel has a primary key.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataLink.IDataLink2.Delete(System.Int32)">
+            <summary>
+            Delete a record based on its form id. Only allowed if the datamodel has no primary key.
+            </summary>
+            <param name="formID">The form id.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">If formID &lt;= 0.</exception>
+            <exception cref="T:System.ServiceModel.Security.SecurityAccessDeniedException">If access permissions of the user are insufficient.</exception>
+            <exception cref="T:StatNeth.Blaise.API.DataLink.DataLinkException">If the datamodel has a primary key.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataLink.IDataLink2.ContinueSession(System.String,System.Nullable{System.Int32})">
+            <summary>
+            Continue the session and renew the items locked with the given lock id.
+            </summary>
+            <param name="lockID">The lock id.</param>
+            <param name="lockTimeOutSeconds">The lock time out in seconds. If not provided then the default value 300 will be used.</param>
+            <exception cref="T:System.ArgumentNullException">If lockID is either null or string.Empty</exception>
+            <exception cref="T:System.ServiceModel.Security.SecurityAccessDeniedException">If access permissions of the user are insufficient.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataLink.IDataLink2.EndSession(System.String)">
+            <summary>
+            End the session and remove the items locked with the given lock id.
+            </summary>
+            <param name="lockID">The lock id. If null or string.Empty then the session gets ended and all locks are removed.</param>
+            <exception cref="T:System.ServiceModel.Security.SecurityAccessDeniedException">If access permissions of the user are insufficient.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataLink.IDataLink2.Read(System.Nullable{System.Int32},StatNeth.Blaise.API.DataLink.ReadOrder,System.Int32,System.Boolean)">
+            <summary>
+            Returns an IDataSet containing maxRecords records at the most, the first of which has a form id equal to the given formID.
+            If formID is null or &lt;= 0, the resulting set will contain the first record according to the form id ordering.
+            </summary>
+            <param name="formID">The form id to start with. If null or &lt;= 0, the result set will contain the first record according to the form id ordering.</param>
+            <param name="recordOrder">The ordering to use.</param>
+            <param name="maxRecords">The maximum number of records to return. If -1 then all applicable records will be returned in the set.</param>
+            <param name="includeFormIDRecord">Must the record that corresponds with formID be included in the data set?</param>
+            <returns>An IDataSet. If the set holds at least one record, the first record becomes the active one and the BeginOfSet and EndOfSet properties are False.
+            The BeginOfSet and EndOfSet properties are set to True if you get an empty set. In this case the RecordCount will be 0.
+            </returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">If maxRecords &lt; -1.</exception>
+            <exception cref="T:System.ServiceModel.Security.SecurityAccessDeniedException">If access permissions of the user are insufficient.</exception>
+            <exception cref="T:StatNeth.Blaise.API.DataLink.DataLinkException">If the datamodel has a primary key.</exception>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataLink.IDataLink3">
+            <summary>
+            Extends IDataLink2.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataLink.IDataLink3.Datamodel">
+            <summary>
+            The associated datamodel.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataLink.IDataLink3.Write(StatNeth.Blaise.API.DataLink.IDataSet,System.Boolean)">
+            <summary>
+            Writes all the records in a dataset to the database. This is done using a transaction, so either all or zero records are written.
+            </summary>
+            <param name="dataSet">The dataset to write.</param>
+            <param name="insertOnly">Must all records in the dataset be written using 'INSERT' statements? If True then the underlying code will not need
+            to determine if each record already exists. This can improve performance extremely.</param>
+            <exception cref="T:System.ArgumentNullException">If dataSet is null.</exception>
+            <exception cref="T:System.ServiceModel.Security.SecurityAccessDeniedException">If access permissions of the user are insufficient.</exception>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataLink.IDataLink5">
+            <summary>
+            Extends IDataLink4.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataLink.IDataLink5.ApplyHarmlessChanges(StatNeth.Blaise.API.Meta.IDatamodel)">
+            <summary>
+            Applies harmless changes. This method updates the existing bdix and data (if needed)
+            This method expects that the new datamodel is already present at the bdix location
+            </summary>
+            <param name="oldDataModel">The old datamodel</param>
+            <returns>True if the harmless chages were applied</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataLink.IDataLink5.ApplyHarmlessChanges(System.String,System.String,System.String)">
+            <summary>
+            Applies harmless changes. This method updates the existing bdix and data (if needed)
+            and replaces the existing datamodel file 
+            This method expects that the old datamodel is still present at the bdix location
+            </summary>
+            <param name="newDataModelFileName">New datamodel file</param>
+            <param name="dataModelSearchPaths">Search path for other datamodels required by the new datamodel</param>
+            <param name="librarySearchPaths">Search path for libraries that are required by the new datamodel</param>
+            <returns>True if the harmless chages were applied</returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataLink.IDataLink4">
+            <summary>
+            Extends IDataLink3.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataLink.IDataLink4.KeyExists(StatNeth.Blaise.API.DataRecord.IKey)">
+            <summary>
+            Does a record exist for the given key value?
+            </summary>
+            <param name="primaryKeyValue">The primary key value to look for. 
+            Is not allowed to be null and all its field values must have answer status response. 
+            Use the method DataRecordManager.GetKey() from the DataRecord API to obtain an IKey.</param>
+            <returns>True if key exists, false otherwise.</returns>
+            <exception cref="T:System.ArgumentNullException">If primaryKeyValue is null.</exception>
+            <exception cref="T:System.ServiceModel.Security.SecurityAccessDeniedException">If access permissions of the user are insufficient.</exception>
+            <exception cref="T:StatNeth.Blaise.API.DataLink.DataLinkException">When one or more key fields have an answer status different from response.</exception>        
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataLink.ProxyManager.Implementation">
+            <summary>
+            singleton
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataLink.ProxyManager.ServerDataProxies">
+            <summary>
+            Cache for the data proxies per user with server name as the key
+            </summary>        
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataLink.UserDataProxies">
+            <summary>
+            Cache for the DataService proxies with user name as the key
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataLink.ReadOrder">
+            <summary>
+            Specifies the way to order records with respect to some condition.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataLink.ReadOrder.Ascending">
+            <summary>
+            Order ascending.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataLink.ReadOrder.Descending">
+            <summary>
+            Order descending.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataLink.IRemoteDataServer">
+            <summary>
+            Offers access to survey data on a remote data server.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataLink.IRemoteDataServer.GetDataLink(System.Guid,System.String)">
+            <summary>
+            Returns an IDataLink4 interface for accessing stored data of an installed survey on the given server park.        
+            </summary>        
+            <param name="instrumentID">The identification of an installed survey.</param>
+            <param name="serverPark">The name of the server park. Optional. If omitted then the default 'LocalDevelopment' will be used.</param>
+            <returns>An IDataLink4.</returns>
+            <exception cref="T:System.ArgumentNullException">If instrumentID is empty.</exception>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataLink.IRemoteDataServer2">
+            <summary>
+            Extends IRemoteDataServer.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataLink.IRemoteDataServer2.GetDataLink(System.Guid,System.String,System.String,System.String)">
+            <summary>
+            Returns an IDataLink interface for accessing stored external data of a survey installed on the given server park.        
+            </summary>
+            <param name="instrumentID">The identification of an installed survey.</param>
+            <param name="serverPark">The name of the server park. Optional. If omitted then the default 'LocalDevelopment' will be used.</param>
+            <param name="externalDataFileName">The relative filename of the external data file, p.e. ExternalData/States.bdix</param>
+            <param name="externalMetaFileName">The relative filename of the external meta file, p.e. ExternalData/States.bmix</param>
+            <returns>An IDataLink4.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataLink.RemoteDataServer.GetDataLink(System.Guid,System.String,System.String,System.String)">
+            <summary>
+            Returns an IDataLink interface for accessing stored external data of a survey installed on the given server park.
+            </summary>        
+            <param name="instrumentID">The identification of an installed survey.</param>
+            <param name="serverPark">The name of the server park. Optional. If omitted then the default 'LocalDevelopment' will be used.</param>
+            /// <param name="externalDataFileName">the relative filename of the external data file, p.e. ExternalData/States.bdix</param>
+            /// <param name="externalMetaFileName">the relative filename of the external meta file, p.e. ExternalData/States.bmix</param>
+            <returns>An IDataLink.</returns>
+            <exception cref="T:System.ArgumentNullException">If instrumentID is empty.</exception>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataLink.Main">
+            <summary>
+            Placeholder for module initializer
+            </summary>
+            <remarks>
+            http://einaregilsson.com/module-initializers-in-csharp/
+            </remarks>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataLink.Main.Run">
+            <summary>
+            Run on first construction of this assembly
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,1882 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>StatNeth.Blaise.API.ServerManager</name>
+    </assembly>
+    <members>
+        <member name="T:StatNeth.Blaise.API.ServerManager.AuditTrailMode">
+            <summary>
+            Describes where to store audit trail data.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.ServerManager.AuditTrailMode.Server">
+            <summary>
+            Audit trail data is stored at server.
+            </summary>        
+        </member>
+        <member name="F:StatNeth.Blaise.API.ServerManager.AuditTrailMode.Local">
+            <summary>
+            Audit trail data is stored locally.
+            </summary>        
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerManager.HarmlessDataModificationMode">
+            <summary>
+            Describes how harmless updates take place.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.ServerManager.HarmlessDataModificationMode.Never">
+            <summary>
+            Do not allow the harmless update.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.ServerManager.HarmlessDataModificationMode.Always">
+            <summary>
+            Alllow harmless update of meta and data.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerManager.IActionPermission">
+            <summary>
+            Describes an action/permission that belongs to a role or user.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IActionPermission.Action">
+            <summary>
+            The action.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IActionPermission.Permission">
+            <summary>
+            The permission that applies to the action.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerManager.IActionPermissionCollection">
+            <summary>
+            Contains items of type IActionPermission.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IActionPermissionCollection.Count">
+            <summary>
+            The number of items in the collection.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IActionPermissionCollection.Item(System.Int32)">
+            <summary>
+            Returns an IActionPermission item.
+            </summary>
+            <param name="index">Numerical index of an IActionPermission item.</param>
+            <returns>An IActionPermission.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">If index is out of the valid range.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.IActionPermissionCollection.GetItem(System.String)">
+            <summary>
+            Returns an IActionPermission item based on its action.
+            Returns null if not found.
+            </summary>
+            <param name="actionName">Name of action.</param>
+            <returns>An IActionPermission.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.IActionPermissionCollection.Add(System.String)">
+            <summary>
+            Creates and adds a new IActionPermission item to the collection.
+            In order to use this method you must be connected as a user having permission for adding a role or user.
+            </summary>
+            <param name="actionName">The name of the action permission to add.</param>
+            <returns>An IActionPermission.</returns>
+            <exception cref="T:System.ArgumentNullException">If actionName is null or string.Empty.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">If actionName already exists.</exception>
+            <exception cref="T:System.ArgumentException">If the connected user does not have the appropriate permission.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.IActionPermissionCollection.Remove(System.String)">
+            <summary>
+            Removes the IActionPermission item with the specified name from the collection.
+            In order to use this method you must be connected as a user having permission for editing a role or user.
+            </summary>
+            <param name="actionName">Name of action to be removed.</param>
+            <exception cref="T:System.ArgumentNullException">If actionName is null or string.Empty.</exception>
+            <exception cref="T:System.ArgumentException">If the connected user does not have the appropriate permission.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.IActionPermissionCollection.RemoveAt(System.Int32)">
+            <summary>
+            Removes the IActionPermission item at the specified index.
+            In order to use this method you must be connected as a user having permission for editing a role or user.
+            </summary>
+            <param name="index">Index of item to remove.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">If index is out of the valid range.</exception>
+            <exception cref="T:System.ArgumentException">If the connected user does not have the appropriate permission.</exception>
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerManager.IConfiguration2">
+            <summary>
+            Extends IConfiguration.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IConfiguration2.Modes">
+            <summary>
+            Information on modes.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IConfiguration2.CatiRole">
+            <summary>
+            The Cati role.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IConfiguration2.CatiSpecificationFileName">
+            <summary>
+            The Cati specification filename (.btrx)
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IConfiguration2.SessionFileName">
+            <summary>
+            Survey specific session filename.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IConfiguration2.AuditTrailFileName">
+            <summary>
+            Survey specific audit trail filename.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IConfiguration2.WebDataEntryClient">
+            <summary>
+            The supported Web data entry client (AspForms, None, Mvc, MvcDebug).
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IConfiguration2.SetupFileName">
+            <summary>
+            Setup filename in case of Manipula dialogs setup.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IConfiguration2.StartCondition">
+            <summary>
+            Condition that determines who can run this survey.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IConfiguration2.WriteInterceptorSetupFileName">
+            <summary>
+            Filename in case the survey uses a write interceptor setup.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IConfiguration2.ActionsSetupFileName">
+            <summary>
+            Filename in case the survey uses an actions setup.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IConfiguration2.InitialAppCariSetting">
+            <summary>
+            Name of the Cari settings to use initially.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IConfiguration2.AllowDownloadOverMeteredConnection">
+            <summary>
+            AllowDownloadOverMeteredConnection.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IConfiguration2.LauncherId">
+            <summary>
+            Id of launcher instrument. Only relevant for Cati.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IConfiguration2.WaveName">
+            <summary>
+            Name of the wave in case this is a wave survey.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IConfiguration2.MainInstrumentId">
+            <summary>
+            Main instrument Id if this is a wave survey.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IConfiguration2.SurveyRole">
+            <summary>
+            Role of the survey
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IConfiguration2.ToWhomField">
+            <summary>
+            Fully qualified Blaise field name of the ToWhom field
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IConfiguration2.Dependencies">
+            <summary>
+            Surveys/Projects that are needed to run this survey
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IConfiguration2.DownloadInterceptorSetupFileName">
+            <summary>
+            Filename in case the survey uses a download interceptor setup.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IConfiguration2.BlaiseVersion">
+            <summary>
+            Blaise version.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerManager.IConnectedServer">
+            <summary>
+            Describes a connected server.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.IConnectedServer.GetServerPark(System.String)">
+            <summary>
+            Gets the server park.
+            </summary>
+            <param name="parkName">Name of the park.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">If parkName does not exist.</exception>
+            <returns>An IServerPark.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.IConnectedServer.CreateNewServerPark(System.String)">
+            <summary>
+            Creates and adds a new server park. The park must be saved using IServerPark.Save()
+            In order to use this method you must be connected as a user having the role 'ParkManager'.
+            </summary>
+            <param name="parkName">The name of the park.</param>
+            <returns>An IServerPark.</returns>
+            <exception cref="T:System.ArgumentNullException">If parkName is string.Empty or null.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">If parkName already exists.</exception>
+            <exception cref="T:System.ArgumentException">If the connected user does not have role 'ParkManager'.</exception>
+            <returns>An IServerPark.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.IConnectedServer.RemoveServerPark(System.String)">
+            <summary>
+            Removes a server park by name.
+            In order to use this method you must be connected as a user having the role 'ParkManager' and have access rights
+            on the given server park.
+            If there is no park with the given name then you will not be notified of this.
+            </summary>
+            <param name="parkName">The name of the park to remove.</param>
+            <exception cref="T:System.ArgumentNullException">If parkName is string.Empty or null.</exception>
+            <exception cref="T:System.ArgumentException">If the connected user does not have role 'ParkManager' or does not have access to the given server park.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.IConnectedServer.GetSurveys(System.String)">
+            <summary>Gets all the surveys that are installed on a given server park.</summary>
+            <param name="parkName">The name of the park.</param>
+            <exception cref="T:System.ArgumentNullException">If parkName is string.Empty or null.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">If parkName does not exist.</exception>
+            <returns>An ISurveyCollection.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.IConnectedServer.InstallSurvey(System.String,System.String)">
+            <summary>
+            Installs a survey package on the given server park. Uses default values for initial layout set group name and data entry settings name. 
+            Uses DataOverwriteMode.Never as overwrite mode.
+            In order to use this method you must be connected as a user having the role 'SurveyManager' with access to the given server park.
+            </summary>
+            <param name="parkName">The name of the park.</param>
+            <param name="fileName">File name of a survey package file (.bpkg or .mbpkg).</param>
+            <exception cref="T:System.ArgumentNullException">If parkName is string.Empty or null.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">If fileName is null or does not exist.</exception>
+            <exception cref="T:System.ArgumentException">If the connected user does not have role 'SurveyManager' or does not have access to the given server park.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.IConnectedServer.InstallSurvey(System.String,System.String,System.String,System.String,StatNeth.Blaise.API.ServerManager.DataOverwriteMode)">
+            <summary>
+            Installs a survey package on the given server park.
+            In order to use this method you must be connected as a user having the role 'SurveyManager' with access to the given server park.
+            </summary>
+            <param name="parkName">The name of the park.</param>
+            <param name="fileName">File name of a survey package file (.bpkg or .mbpkg).</param>
+            <param name="layoutSetGroupName">The initial layout set group name.</param>
+            <param name="dataEntrySettingsName">The initial data entry settings name.</param>
+            <param name="overwriteMode">The data over write mode to use when there is already an installed survey.</param>
+            <exception cref="T:System.ArgumentNullException">If parkName is string.Empty or null.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">If fileName is null or does not exist.</exception>
+            <exception cref="T:System.ArgumentException">If the connected user does not have role 'SurveyManager' or does not have access to the given server park.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.IConnectedServer.RemoveSurvey(System.String,System.Guid)">
+            <summary>
+            Removes a survey from the given server park.
+            In order to use this method you must be connected as a user having the role 'SurveyManager' with access to the given server park.
+            </summary>
+            <param name="parkName">The server park.</param>
+            <param name="instrumentID">The id of the survey.</param>
+            <exception cref="T:System.ArgumentNullException">If parkName is string.Empty or null.</exception>
+            <exception cref="T:System.ArgumentNullException">If instrumentID is Guid.Empty.</exception>
+            <exception cref="T:System.ArgumentException">If the connected user does not have role 'SurveyManager' or does not have access to the given server park.</exception>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IConnectedServer.Users">
+            <summary>
+            Gets all users who are registered for this connection.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.IConnectedServer.AddUser(System.String,System.Security.SecureString)">
+            <summary>
+            Creates and adds a new user. The user must be saved using IUser.Save()
+            In order to use this method you must be connected as a user having the role 'UserManager'.
+            </summary>
+            <param name="name">The name of the user to add.</param>
+            <param name="password">The password of the user.</param>
+            <exception cref="T:System.ArgumentNullException">If name or password is string.Empty or null.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">If a user with this name already exists.</exception>
+            <exception cref="T:System.ArgumentException">If the connected user does not have the role 'UserManager'.</exception>
+            <returns>The newly added IUser</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.IConnectedServer.RemoveUser(System.String)">
+            <summary>
+            Removes a user by name.
+            If there is no user with the given name then you will not be notified of this.
+            In order to use this method you must be connected as a user having the role 'UserManager'.
+            </summary>
+            <param name="name">The name of the user to remove.</param>
+            <exception cref="T:System.ArgumentNullException">If name is string.Empty or null.</exception>
+            <exception cref="T:System.ArgumentException">If the connected user does not have the role 'UserManager'.</exception>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IConnectedServer.ServerParks">
+            <summary>
+            Retrieves the server parks that exist for this connection.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerManager.IConnectedServer2">
+            <summary>
+            Extends IConnectedServer.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IConnectedServer2.UserRoles">
+            <summary>
+            The roles that users can use.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.IConnectedServer2.ChangePassword(System.String,System.Security.SecureString)">
+            <summary>
+            Change a user's password.
+            </summary>
+            <param name="userName">The name of the user whose password must be changed.</param>
+            <param name="password">The password.</param>
+            <exception cref="T:System.ArgumentNullException">If user name or password is string.Empty or null.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">If a user with this name does not exist.</exception>
+            <exception cref="T:System.ArgumentException">If the connected user does not have the role 'UserManager'.</exception>
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerManager.IConnectedServer3">
+            <summary>
+            Extends IConnectedServer2.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IConnectedServer3.Skills">
+            <summary>
+            The skills, which can be assigned to users.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerManager.IConnectedServer4">
+            <summary>
+            Extends IConnectedServer3.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.IConnectedServer4.InstallSurvey(System.String,System.String,System.String,System.String,StatNeth.Blaise.API.ServerManager.DataOverwriteMode,StatNeth.Blaise.API.ServerManager.HarmlessDataModificationMode)">
+            <summary>
+            Installs a survey package on the given server park.
+            In order to use this method you must be connected as a user having the role 'SurveyManager' with access to the given server park.
+            </summary>
+            <param name="parkName">The name of the park.</param>
+            <param name="fileName">File name of a survey package file (.bpkg).</param>
+            <param name="layoutSetGroupName">The initial layout set group name.</param>
+            <param name="dataEntrySettingsName">The initial data entry settings name.</param>
+            <param name="overwriteMode">The data overwrite mode to use when there is already an installed survey.</param>
+            <param name="harmlessDataModificationMode">Describes how harmless updates take place.</param>
+            <exception cref="T:System.ArgumentNullException">If parkName is string.Empty or null.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">If fileName is null or does not exist.</exception>
+            <exception cref="T:System.ArgumentException">If the connected user does not have role 'SurveyManager' or does not have access to the given server park.</exception>
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerManager.ILogicalRoot">
+            <summary>
+            Describes a logical root.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.ILogicalRoot.Name">
+            <summary>
+            The name of the logical root.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.ILogicalRoot.Location">
+            <summary>
+            The location of the logical root. For example: C:\Blaise5\Surveys
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.ILogicalRoot.WebsiteID">
+            <summary>
+            Identification of the web site.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.ILogicalRoot.WebsiteName">
+            <summary>
+            Name of the web site to use.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.ILogicalRoot.WebPort">
+            <summary>
+            The web port number.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerManager.ILogicalRootCollection">
+            <summary>
+            Contains items of type ILogicalRoot.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.ILogicalRootCollection.Count">
+            <summary>
+            The number of items in the collection.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.ILogicalRootCollection.Item(System.Int32)">
+            <summary>
+            Returns an ILogicalRoot item. Throws an argument out of range exception if invalid index.
+            </summary>
+            <param name="index">Numerical index of an ILogicalRoot item.</param>
+            <returns>An ILogicalRoot.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">If index is out of the valid range.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.ILogicalRootCollection.GetItem(System.String)">
+            <summary>
+            Returns an ILogicalRoot item based on its name.
+            Throws an argument out of range exception if item not found.
+            </summary>
+            <param name="name">Name of logical root.</param>
+            <returns>An ILogicalRoot.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.ILogicalRootCollection.Add(System.String,System.String,System.String)">
+            <summary>
+            Creates and adds an ILogicalRoot to the collection.
+            </summary>
+            <param name="name">The name.</param>
+            <param name="websiteName">The name of the web site to use. Can be left empty if the machine of execution has not the web role.</param>        
+            <param name="deploymentLocation">The path of the deployment location. Must exist in the file system.</param>                
+            <returns>The ILogicalRoot that was added.</returns>
+            <exception cref="T:System.ArgumentNullException">If name is null or string.Empty.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">If name already exists.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.ILogicalRootCollection.Remove(System.String)">
+            <summary>
+            Removes the ILogicalRoot item with the specified name from the collection.
+            Note that it is not allowed to remove the default root.
+            </summary>
+            <param name="name">Name of logical root to be removed.</param>
+            <exception cref="T:System.ArgumentNullException">If name is null or string.Empty.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.ILogicalRootCollection.RemoveAt(System.Int32)">
+            <summary>
+            Removes the ILogicalRoot item at the specified index.
+            Note that it is not allowed to remove the default root at index 0.
+            </summary>
+            <param name="index">Index of item to remove.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">If index is out of the valid range.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.ILogicalRootCollection.Clear">
+            <summary>
+            Removes all items -apart from the default root- from the collection.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerManager.IMachineConfigurationCollection">
+            <summary>
+            Configuration of a <see cref="T:StatNeth.Blaise.API.ServerManager.ISurvey"/> per machine.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IMachineConfigurationCollection.Count">
+            <summary>
+            The number of items in the collection.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IMachineConfigurationCollection.Item(System.String)">
+            <summary>
+            Gets the <see cref="T:StatNeth.Blaise.API.ServerManager.IConfiguration"/> with the specified machine name.
+            </summary>
+            <value>
+            The <see cref="T:StatNeth.Blaise.API.ServerManager.IConfiguration"/>.
+            </value>
+            <param name="machine">The machine name.</param>
+            <returns></returns>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IMachineConfigurationCollection.Machines">
+            <summary>
+            Gets the machines.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IMachineConfigurationCollection.Configurations">
+            <summary>
+            Gets the configurations.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.IMachineConfigurationCollection.Contains(System.String)">
+            <summary>
+            Determines whether this collection contains the specified machine.
+            </summary>
+            <param name="machine">The machine.</param>
+            <returns>
+            true if the IMachineConfigurationCollection contains an element with the key; otherwise, false.
+            </returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerManager.IMode">
+            <summary>
+            Describes a mode.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IMode.Name">
+            <summary>
+            Name.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IMode.DataChecksum">
+            <summary>
+            The data checksum.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerManager.IProductVersionInfo">
+            <summary>
+            Blaise product version info.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IProductVersionInfo.Major">
+            <summary>
+            Major.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IProductVersionInfo.Minor">
+            <summary>
+            Minor.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IProductVersionInfo.Release">
+            <summary>
+            Release.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IProductVersionInfo.Build">
+            <summary>
+            Build.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.IProductVersionInfo.ToString">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerManager.IServer2">
+            <summary>
+            Extends IServer.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IServer2.Binding">
+            <summary>
+            The binding used.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IServer2.MasterHostName">
+            <summary>
+            Specific master host name for slave serverpark.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IServer2.BlaiseVersion">
+            <summary>
+            Version of Blaise installation.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerManager.IServerPark5">
+            <summary>
+            Extends IServerPark4.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IServerPark5.DownloadSurveysOnlyIfCasesAreAvailable">
+            <summary>
+            Download Surveys Only If Cases Are Available
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.IServerPark5.InstallSurvey(System.String,System.String,System.String,StatNeth.Blaise.API.ServerManager.DataOverwriteMode,StatNeth.Blaise.API.ServerManager.HarmlessDataModificationMode)">
+            <summary>
+            Installs a survey package on the given server park.
+            In order to use this method you must be connected as a user having the role 'SurveyManager' with access to the given server park.
+            </summary>        
+            <param name="fileName">File name of a survey package file (.bpkg).</param>
+            <param name="layoutSetGroupName">The initial layout set group name.</param>
+            <param name="dataEntrySettingsName">The initial data entry settings name.</param>
+            <param name="overwriteMode">The data overwrite mode to use when there is already an installed survey.</param>
+            <param name="harmlessDataModificationMode">Describes how harmless updates take place.</param>
+            <exception cref="T:System.ArgumentNullException">If parkName is string.Empty or null.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">If fileName is null or does not exist.</exception>
+            <exception cref="T:System.ArgumentException">If the connected user does not have role 'SurveyManager' or does not have access to the given server park.</exception>
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerManager.ISkill">
+            <summary>
+            Describes a skill that a user can have.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.ISkill.Id">
+            <summary>
+            The unique skill Id.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.ISkill.Name">
+            <summary>
+            Name of the skill. Must be unique.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.ISkill.Description">
+            <summary>
+            Optional description of the skill.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerManager.ISkillCollection">
+            <summary>
+            Contains items of type ISkill.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.ISkillCollection.Count">
+            <summary>
+            The number of items in the collection.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.ISkillCollection.Item(System.Int32)">
+            <summary>
+            Returns an ISkill item.
+            </summary>
+            <param name="index">Numerical index of an ISkill item.</param>
+            <returns>An ISkill.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">If index is out of the valid range.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.ISkillCollection.GetItem(System.Int64)">
+            <summary>
+            Returns an ISkill item based on its identification.
+            Returns null if not found.
+            </summary>
+            <param name="id">Id of the skill.</param>
+            <returns>An ISkill.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.ISkillCollection.Add(System.String)">
+            <summary>
+            Creates and adds an ISkill item to the collection.
+            In order to use this method you must be connected as a user having permission for adding a skill.
+            </summary>
+            <param name="name">The (unique) name of the skill to add.</param>
+            <returns>An ISkill.</returns>        
+            <exception cref="T:System.ArgumentOutOfRangeException">If name already exists.</exception>
+            <exception cref="T:System.ArgumentException">If the connected user does not have the appropriate permission.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.ISkillCollection.Remove(System.Int64)">
+            <summary>
+            Removes the ISkill item with the specified identification from the collection.
+            In order to use this method you must be connected as a user having permission for editing a skill.
+            </summary>
+            <param name="id">Id of the skill to be removed.</param>        
+            <exception cref="T:System.ArgumentException">If the connected user does not have the appropriate permission.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.ISkillCollection.RemoveAt(System.Int32)">
+            <summary>
+            Removes the ISkill item at the specified index.
+            In order to use this method you must be connected as a user having permission for editing a role or user.
+            </summary>
+            <param name="index">Index of item to remove.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">If index is out of the valid range.</exception>
+            <exception cref="T:System.ArgumentException">If the connected user does not have the appropriate permission.</exception>
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerManager.IUser3">
+            <summary>
+            Extends IUser2.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IUser3.Skills">
+            <summary>
+            The skills of the user.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerManager.IUserPreference">
+            <summary>
+            A user preference information pair. 
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IUserPreference.Type">
+            <summary>
+            The (unique) preference type.
+            </summary>        
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IUserPreference.Value">
+            <summary>
+            The preference value.
+            </summary>        
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerManager.IUserPreferenceCollection">
+            <summary>
+            Contains items of type IUserPreference.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IUserPreferenceCollection.Count">
+            <summary>
+            The number of items in the collection.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IUserPreferenceCollection.Item(System.Int32)">
+            <summary>
+            Returns an IUserPreference item.
+            </summary>
+            <param name="index">Numerical index of an IUserPreference item.</param>
+            <returns>An IUserPreference.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">If index is out of the valid range.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.IUserPreferenceCollection.GetItem(System.String)">
+            <summary>
+            Returns an IUserPreference item based on its type.
+            Returns null if not found.
+            </summary>
+            <param name="preferenceType">Type of preference item.</param>
+            <returns>An IUserPreference.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.IUserPreferenceCollection.Add(System.String)">
+            <summary>
+            Creates and adds a new IUserPreference item to the collection.        
+            In order to use this method you must be connected as a user having permission for editing a user.
+            </summary>
+            <param name="preferenceType">The preference type to add.</param>
+            <returns>An IUserPreference.</returns>
+            <exception cref="T:System.ArgumentNullException">If preferenceType is null or string.Empty.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">If preferenceType already exists.</exception>        
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.IUserPreferenceCollection.Remove(System.String)">
+            <summary>
+            Removes the IUserPreference item with the specified type from the collection.
+            In order to use this method you must be connected as a user having permission for editing a user.
+            </summary>
+            <param name="preferenceType">The preference type to be removed.</param>
+            <exception cref="T:System.ArgumentNullException">If preferenceType is null or string.Empty.</exception>
+            <exception cref="T:System.ArgumentException">If the connected user does not have the appropriate permission.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.IUserPreferenceCollection.RemoveAt(System.Int32)">
+            <summary>
+            Removes the IUserPreference item at the specified index.
+            In order to use this method you must be connected as a user having permission for editing a user.
+            </summary>
+            <param name="index">Index of item to remove.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">If index is out of the valid range.</exception>
+            <exception cref="T:System.ArgumentException">If the connected user does not have the appropriate permission.</exception>
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerManager.IUserRole">
+            <summary>
+            Describes a user role.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IUserRole.Id">
+            <summary>
+            The identification.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IUserRole.Name">
+            <summary>
+            The name.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IUserRole.Description">
+            <summary>
+            The description.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IUserRole.Permissions">
+            <summary>
+            The actions that belong to the role.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerManager.IUserRoles">
+            <summary>
+            Contains items of type IUserRole.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IUserRoles.Count">
+            <summary>
+            The number of items in the collection.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IUserRoles.Item(System.Int32)">
+            <summary>
+            Returns an IUserRole item.
+            </summary>
+            <param name="index">Numerical index of an IUserRole item.</param>
+            <returns>An IUserRole.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">If index is out of the valid range.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.IUserRoles.GetItem(System.String)">
+            <summary>
+            Returns an IUserRole item based on its name.
+            Returns null if not found.
+            </summary>
+            <param name="roleName">Name of user role.</param>
+            <returns>An IUserRole.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.IUserRoles.Add(System.String)">
+            <summary>
+            Creates and adds a new IUserRole item to the collection.
+            In order to use this method you must be connected as a user having permission to add a role.
+            </summary>
+            <param name="roleName">The name of the user role to add.</param>
+            <returns>An IUserRole.</returns>
+            <exception cref="T:System.ArgumentNullException">If roleName is null or string.Empty.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">If roleName already exists.</exception>
+            <exception cref="T:System.ArgumentException">If the connected user does not have the appropriate permission.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.IUserRoles.Remove(System.String)">
+            <summary>
+            Removes the IUserRole item with the specified name from the collection.
+            In order to use this method you must be connected as a user having permission to remove a role.
+            </summary>
+            <param name="roleName">Name of user role to be removed.</param>
+            <exception cref="T:System.ArgumentNullException">If roleName is null or string.Empty.</exception>
+            <exception cref="T:System.ArgumentException">If the connected user does not have the appropriate permission.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.IUserRoles.RemoveAt(System.Int32)">
+            <summary>
+            Removes the IUserRole item at the specified index.
+            In order to use this method you must be connected as a user having permission to remove a role.
+            </summary>
+            <param name="index">Index of item to remove.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">If index is out of the valid range.</exception>
+            <exception cref="T:System.ArgumentException">If the connected user does not have the appropriate permission.</exception>
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerManager.IServerCollection">
+            <summary>
+            Servers of a <see cref="T:StatNeth.Blaise.API.ServerManager.IServerPark"/>. Contains items of type IServer.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IServerCollection.Count">
+            <summary>
+            The number of items in the collection.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IServerCollection.Item(System.Int32)">
+            <summary>
+            Returns an IServer item. Throws an argument out of range exception if invalid index.
+            </summary>
+            <param name="index">Numerical index of an IServer item.</param>
+            <returns>An IServer.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.IServerCollection.Add(System.String)">
+            <summary>
+            Creates and adds an IServer item to the collection.
+            </summary>
+            <param name="serverName">The name of the server to add.</param>
+            <returns>An IServer.</returns>
+            <exception cref="T:System.ArgumentNullException">If serverName is null or string.Empty.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.IServerCollection.RemoveAt(System.Int32)">
+            <summary>
+            Removes the IServer item at the specified index.
+            </summary>
+            <param name="index">Index of item to remove.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">If index is out of the valid range.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.IServerCollection.Clear">
+            <summary>
+            Removes all items from the collection.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerManager.IServerPark2">
+            <summary>
+            Extends IServerPark.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IServerPark2.RunMode">
+            <summary>
+            The run mode of the server park.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IServerPark2.IsPublic">
+            <summary>
+            Gets or sets a value indicating whether this server park is public 
+            (visible for Apps without credentials)
+            </summary>
+            <value><c>true</c> if this server park is public; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerManager.IServerPark3">
+            <summary>
+            Extends IServerPark2.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.IServerPark3.RemoveMachine(System.String)">
+            <summary>
+            Removes a machine with all roles from the park. This method also updates the database.
+            </summary>
+            <param name="machineName">The name of the physical machine to remove.</param>        
+            <exception cref="T:System.ArgumentOutOfRangeException">If the machine name is not part of the serverpark.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.IServerPark3.UpdateMachine(System.String,System.String[])">
+            <summary>
+            Updates the roles for a machine in the park. This method also updates the database.
+            </summary>
+            <param name="machineName">The name of the physical machine to remove.</param>  
+            <param name="roles">The new roles for the machine.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">If the machine name is not part of the serverpark.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.IServerPark3.AddMachine(System.String,System.String,System.String[],System.Int32)">
+            <summary>
+            Adds a machine and the roles it should fulfill to the park. This method also updates the database.
+            </summary>
+            <param name="machineName">The name of the physical machine to add.</param>        
+            <param name="logicalServerName">The name of the logical root to use. If string.Empty then the default will be used.</param>
+            <param name="roles">An array of role names that should be fulfilled. Use Constants.ServerRoleNames for this.</param>
+            <param name="adminPort">The admin port to use</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">If the logical root name is not supported as root by machine name.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">If roles contains an empty role, or contains the admin role or a role is not supported by machine name. 
+            You will also get this exception if a role is already in use by an IServer in the server park.</exception>
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerManager.IServerPark4">
+            <summary>
+            Extends IServerPark3.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IServerPark4.SessionMode">
+            <summary>
+            Describes where to store session data.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IServerPark4.AuditTrailMode">
+            <summary>
+            Describes where to store audit trail data.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IServerPark4.SyncDataWhenConnected">
+            <summary>
+            Should data be synchronized with the server whenever a connection with the server becomes available?
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IServerPark4.SyncSurveysWhenConnected">
+            <summary>
+            Should automatic installation of surveys be done whenever a connection with the server becomes available?
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IServerPark4.DeleteDataAfterUpload">
+            <summary>
+            Should data be deleted from the device after its upload has been completed?
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerManager.IServerParkCollection">
+            <summary>
+            Contains items of type IServerPark.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IServerParkCollection.Count">
+            <summary>
+            The number of items in the collection.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IServerParkCollection.Item(System.Int32)">
+            <summary>
+            Returns an IServerPark item.
+            </summary>
+            <param name="index">Numerical index of an IServerPark item.</param>
+            <returns>An IServerPark.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">If index is out of the valid range.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.IServerParkCollection.GetItem(System.String)">
+            <summary>
+            Returns an IServerPark item based on its name.
+            Throws an argument out of range exception if item not found.
+            </summary>
+            <param name="parkName">Name of server park.</param>
+            <returns>An IServerPark.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.IServerParkCollection.Add(System.String)">
+            <summary>
+            Creates and adds a new IServerPark item to the collection. The park must be saved using IServerPark.Save()
+            In order to use this method you must be connected as a user having the role 'ParkManager'.
+            </summary>
+            <param name="parkName">The name of the park to add.</param>
+            <returns>An IServerPark.</returns>
+            <exception cref="T:System.ArgumentNullException">If parkName is null or string.Empty.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">If parkName already exists.</exception>
+            <exception cref="T:System.ArgumentException">If the connected user does not have role 'ParkManager'.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.IServerParkCollection.Remove(System.String)">
+            <summary>
+            Removes the IServerPark item with the specified name from the collection.
+            In order to use this method you must be connected as a user having the role 'ParkManager' and have access rights
+            on the given server park.
+            Note that it is not allowed to remove the LocalDevelopment park.
+            </summary>
+            <param name="parkName">Name of server park to be removed.</param>
+            <exception cref="T:System.ArgumentNullException">If parkName is null or string.Empty.</exception>
+            <exception cref="T:System.ArgumentException">If the connected user does not have role 'ParkManager' or does not have access to the given server park.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.IServerParkCollection.RemoveAt(System.Int32)">
+            <summary>
+            Removes the IServerPark item at the specified index.
+            In order to use this method you must be connected as a user having the role 'ParkManager' and have access rights
+            on the given server park.
+            </summary>
+            <param name="index">Index of item to remove.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">If index is out of the valid range.</exception>
+            <exception cref="T:System.ArgumentException">If the connected user does not have role 'ParkManager' or does not have access to the given server park.</exception>        
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.IServerParkCollection.Clear">
+            <summary>
+            Removes all items from the collection.
+            In order to use this method you must be connected as a user having the role 'ParkManager' with access on all server parks in the collection.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerManager.IStringCollection">
+            <summary>
+            Contains items of type string.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IStringCollection.Count">
+            <summary>
+            The number of items in the collection.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IStringCollection.Item(System.Int32)">
+            <summary>
+            Returns a string. Throws an argument out of range exception if invalid index.
+            </summary>
+            <param name="index">The numerical index.</param>
+            <returns>A string.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.IStringCollection.Add(System.String)">
+            <summary>
+            Adds a string to the collection.
+            </summary>
+            <param name="item">The string to add.</param>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.IStringCollection.Add(System.String[])">
+            <summary>
+            Adds an array of strings to the collection. 
+            </summary>
+            <param name="items">The strings to add.</param>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.IStringCollection.RemoveAt(System.Int32)">
+            <summary>
+            Removes the item at the specified index.
+            </summary>
+            <param name="index">Index of item to remove.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">If index is out of the valid range.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.IStringCollection.Remove(System.String)">
+            <summary>
+            Removes a string from the collection.
+            </summary>
+            <param name="item">The item to remove.</param>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.IStringCollection.Clear">
+            <summary>
+            Removes all items from the collection.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerManager.ISurvey2">
+            <summary>
+            Extends ISurvey.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.ISurvey2.GetReportingInfo">
+            <summary>
+            Gets the reporting information.
+            </summary>
+            <returns>
+            Collected data, sessions and audit trails.
+            </returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerManager.ISurveyCollection">
+            <summary>
+            Contains items of type ISurvey.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.ISurveyCollection.Count">
+            <summary>
+            Gets the count.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.ISurveyCollection.Item(System.Int32)">
+            <summary>
+            Returns an ISurvey item. Throws an argument out of range exception if invalid index.
+            </summary>
+            <param name="index">Numerical index of an ISurvey item.</param>
+            <returns>An ISurvey.</returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerManager.ISurveyReportingInfo">
+            <summary>
+            Survey Reporting Information
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.ISurveyReportingInfo.ReportDate">
+            <summary>Date and time the report was created.</summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.ISurveyReportingInfo.DataRecordCount">
+            <summary>Number of data records.</summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.ISurveyReportingInfo.DataStatusCount">
+            <summary>Number of data records grouped by status.</summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.ISurveyReportingInfo.SessionRecordCount">
+            <summary>Number of sessions.</summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.ISurveyReportingInfo.SessionStatusCount">
+            <summary>Sessions grouped by status.</summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.ISurveyReportingInfo.AuditTrailSessionCount">
+            <summary>Number of audit trail sessions.</summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.ISurveyReportingInfo.AuditTrailDeviceCount">
+            <summary>Number of audit trail sessions per device.</summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerManager.IUser2">
+            <summary>
+            Extends IUser.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IUser2.Role">
+            <summary>
+            The role that is assigned to the user.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IUser2.LastLogin">
+            <summary>
+            The date/time that the user last logged in at the authentication service.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IUser2.LastLogout">
+            <summary>
+            If a user logs out, the last logout date will be stored. 
+            So if the LastLogout > LastActivity, the user is logged out.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IUser2.LastActivity">
+            <summary>
+            The date/time the user last performed an action on an arbitrary service.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IUser2.Permissions">
+            <summary>
+            The actions that the user can perform or excplicitly can't.
+            The user permissions override the role permissions.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IUser2.Preferences">
+            <summary>
+            User preferences, such as the selected timezone.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.IUser2.ChangePassword(System.Security.SecureString)">
+            <summary>
+            Change the user's password.
+            </summary>        
+            <param name="password">The password.</param>
+            <exception cref="T:System.ArgumentNullException">If password is string.Empty or null.</exception>                
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerManager.IUserCollection">
+            <summary>
+            Contains items of type IUser.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IUserCollection.Count">
+            <summary>
+            The number of items in the collection.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IUserCollection.Item(System.Int32)">
+            <summary>
+            Returns an IUser item.
+            </summary>
+            <param name="index">Numerical index of an IUser item.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">If index is out of the valid range.</exception>
+            <returns>An IUser.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.IUserCollection.GetItem(System.String)">
+            <summary>
+            Returns an IUser item based on its name.
+            Throws an argument out of range exception if item not found.
+            </summary>
+            <param name="name">The user name.</param>
+            <returns>An IUser.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.IUserCollection.Add(System.String,System.Security.SecureString)">
+            <summary>
+            Creates and adds a new user to the collection.
+            In order to use this method you must be connected as a user having the role 'UserManager'.
+            </summary>
+            <param name="name">The user name.</param>
+            <param name="password">The password of the user.</param>
+            <exception cref="T:System.ArgumentNullException">If name or password is string.Empty or null.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">If a user with this name already exists.</exception>
+            <returns>An IUser.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.IUserCollection.Remove(System.String)">
+            <summary>
+            Removes the IUser item with the specified name from the collection.
+            If there is no user with the given name then you will not be notified of this.
+            In order to use this method you must be connected as a user having the role 'UserManager'.
+            </summary>
+            <param name="name">The user name.</param>
+            <exception cref="T:System.ArgumentNullException">If name is string.Empty or null.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.IUserCollection.RemoveAt(System.Int32)">
+            <summary>
+            Removes the IUser item at the specified index.
+            In order to use this method you must be connected as a user having the role 'UserManager'.
+            </summary>
+            <param name="index">Index of item to remove.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">If invalid index.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.IUserCollection.Clear">
+            <summary>
+            Removes all items from the collection.
+            In order to use this method you must be connected as a user having the role 'UserManager'.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerManager.IUserRoleCollection">
+            <summary>
+            *** NO LONGER SUPPORTED: use IUser2.Role instead ***
+            Roles of a <see cref="T:StatNeth.Blaise.API.ServerManager.IUser"/>. Contains items of type string.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerManager.IUserServerParkCollection">
+            <summary>
+            Server parks of a <see cref="T:StatNeth.Blaise.API.ServerManager.IUser"/>. Contains items of type string.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerManager.IUserSkill">
+            <summary>
+            Represents a skill of a user. Identifies the level a user has in this skill and if the skill is enabled.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IUserSkill.Id">
+            <summary>
+            The unique skill Id.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IUserSkill.Level">
+            <summary>
+             Determines the level of the skill for the user.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IUserSkill.Enabled">
+            <summary>
+            Determines whether the skill is enabled for the user.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerManager.IUserSkillCollection">
+            <summary>
+            Contains items of type IUserSkill.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IUserSkillCollection.Count">
+            <summary>
+            The number of items in the collection.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IUserSkillCollection.Item(System.Int32)">
+            <summary>
+            Returns an IUserSkill item.
+            </summary>
+            <param name="index">Numerical index of an IUserSkill item.</param>
+            <returns>An IUserSkill.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">If index is out of the valid range.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.IUserSkillCollection.GetItem(System.Int64)">
+            <summary>
+            Returns an IUserSkill item based on its identification.
+            Returns null if not found.
+            </summary>
+            <param name="id">Id of the skill.</param>
+            <returns>An IUserSkill.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.IUserSkillCollection.Add(System.Int64)">
+            <summary>
+            Creates and adds an IUserSkill item to the collection.
+            In order to use this method you must be connected as a user having permission for adding a skill.
+            </summary>
+            <param name="id">The id of the skill to add.</param>
+            <returns>An IUserSkill.</returns>        
+            <exception cref="T:System.ArgumentOutOfRangeException">If id already exists.</exception>
+            <exception cref="T:System.ArgumentException">If the connected user does not have the appropriate permission.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.IUserSkillCollection.Remove(System.Int64)">
+            <summary>
+            Removes the IUserSkill item with the specified identification from the collection.
+            In order to use this method you must be connected as a user having permission for editing a skill.
+            </summary>
+            <param name="id">Id of the skill to be removed.</param>        
+            <exception cref="T:System.ArgumentException">If the connected user does not have the appropriate permission.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.IUserSkillCollection.RemoveAt(System.Int32)">
+            <summary>
+            Removes the IUserSkill item at the specified index.
+            In order to use this method you must be connected as a user having permission for editing a role or user.
+            </summary>
+            <param name="index">Index of item to remove.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">If index is out of the valid range.</exception>
+            <exception cref="T:System.ArgumentException">If the connected user does not have the appropriate permission.</exception>
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerManager.PermissionStatus">
+            <summary>
+            The permission status to use with actions.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.ServerManager.PermissionStatus.Off">
+            <summary>
+            Switch the status off.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.ServerManager.PermissionStatus.On">
+            <summary>
+            Switch the status on.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerManager.ServerManager">
+            <summary>
+            The entry point to management of Blaise 5 server parks, surveys, users and logical roots.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.ServerManager.ConnectToServer(System.String,System.Int32,System.String,System.Security.SecureString)">
+            <summary>
+            Connects to a management server. Also called the admin server (or server having 'Admin' role) internally.
+            </summary>
+            <param name="serverName">The name of the server.</param>
+            <param name="port">The admin port. Default value is 8031.</param>
+            <param name="username">The user name.</param>
+            <param name="password">The password.</param>
+            <exception cref="T:StatNeth.Blaise.API.ServerManager.ConnectionException">Connection fails.</exception>    
+            <returns>An IConnectedServer.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.ServerManager.ConnectToLocalMachine">
+            <summary>
+            Connects to the local machine.
+            </summary>            
+            <exception cref="T:StatNeth.Blaise.API.ServerManager.ConnectionException">Connection fails.</exception>    
+            <returns>An IConnectedServer.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.ServerManager.GetLogicalRoots">
+            <summary>
+            Retrieves the logical roots. Contains always the default root.
+            </summary>
+            <returns>An ILogicalRootCollection.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.ServerManager.GetRoles">
+            <summary>
+            Retrieves the roles that are assigned to the local machine.
+            </summary>
+            <returns>An IServerRoleCollection</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.ServerManager.ConnectToServer(System.String,System.Int32,System.String,System.Security.SecureString,System.String)">
+            <summary>
+            Connects to a management server. Also called the admin server (or server having 'Admin' role) internally.
+            </summary>
+            <param name="serverName">The name of the server.</param>
+            <param name="port">The admin port. Default value is 8031.</param>
+            <param name="username">The user name.</param>
+            <param name="password">The password.</param>
+            <param name="binding">http or https</param>
+            <exception cref="T:StatNeth.Blaise.API.ServerManager.ConnectionException">Connection fails.</exception>    
+            <returns>An IConnectedServer.</returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerManager.SessionMode">
+            <summary>
+            Describes where to store session data.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.ServerManager.SessionMode.Server">
+            <summary>
+            Session data is stored at server.
+            </summary>        
+        </member>
+        <member name="F:StatNeth.Blaise.API.ServerManager.SessionMode.Local">
+            <summary>
+            Session data is stored locally.
+            </summary>        
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerManager.DataOverwriteMode">
+            <summary>
+            Indicates how survey installation should treat (previously installed) data files.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.ServerManager.DataOverwriteMode.Never">
+            <summary>
+            Preserve data files.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.ServerManager.DataOverwriteMode.IncompatibleData">
+            <summary>
+            Only overwrite incompatible data files.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.ServerManager.DataOverwriteMode.Always">
+            <summary>
+            Always overwrite data files.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerManager.RunMode">
+            <summary>
+            Describes the possible run modes for a server park that is going to be used by apps.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.ServerManager.RunMode.ThinClient">
+            <summary>
+            Also known as Client Server. All roles are remotely executed.
+            This requires no download or installation of the survey to the app. During execution an active connection must be available
+            until the end of the survey.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.ServerManager.RunMode.ThickClient">
+            <summary>
+            All roles are locally executed, except the Data role.
+            Requires a connection for downloading and installing the survey to the app. During execution an active connection must be available
+            until the end of the survey.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.ServerManager.RunMode.ThickClientWithFallback">
+            <summary>
+            Thick Client, where survey data is stored locally if no (data) connection is available.
+            This local data is sent to the server when a connection is available again and the next survey is started or from the 
+            management part of the app.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.ServerManager.RunMode.Disconnected">
+            <summary>
+            All roles are locally executed, survey data is manually uploaded to a server.
+            Requires a connection for downloading and installing the survey to the app. During execution all data is stored on the device. 
+            No connection is needed to complete the survey. Manual upload of the data must be started from the management part of the app.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerManager.SurveyReportingInfo">
+            <summary>
+            Wrapper implementation for <see cref="T:StatNeth.Blaise.API.ServerManager.ISurveyReportingInfo"/>
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.SurveyReportingInfo.#ctor(StatNeth.Blaise.Administer.DataContract.Reporting.ReportingInfo)">
+            <summary>
+            Initializes a new instance of the <see cref="T:StatNeth.Blaise.API.ServerManager.SurveyReportingInfo"/> class.
+            </summary>
+            <param name="info">The information.</param>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.SurveyReportingInfo.ReportDate">
+            <summary>Gets the report date.</summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.SurveyReportingInfo.DataRecordCount">
+            <summary>Gets the data record count.</summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.SurveyReportingInfo.DataStatusCount">
+            <summary>Gets the data record count per status.</summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.SurveyReportingInfo.SessionRecordCount">
+            <summary>Gets the session record count.</summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.SurveyReportingInfo.SessionStatusCount">
+            <summary>Gets the session record count per status.</summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.SurveyReportingInfo.AuditTrailSessionCount">
+            <summary>Gets the audit trail session count.</summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.SurveyReportingInfo.AuditTrailDeviceCount">
+            <summary>Gets the audit trail session count per device.</summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.ServerCollection.IsValidOnlyAllowLocalMachineInLocalDevelopmentServerpark(System.String)">
+            <summary>
+            Determines whether only local machines are added to local development serverpark
+            </summary>
+            <param name="serverName">Name of the server.</param>
+            <returns>
+                <c>true</c> in case of other serverpark or local machine
+                <c>false</c> when adding other machine to LocalDevelopment
+            </returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerManager.IExtraInfoCollection">
+            <summary>
+            Extra info collection of a <see cref="T:StatNeth.Blaise.API.ServerManager.IServer"/>. Contains pairs consisting of a string key and a string value.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IExtraInfoCollection.Item(System.String)">
+            <summary>
+            Gets the <see cref="T:System.String"/> value with the specified key.
+            </summary>
+            <param name="key">The key.</param>
+            <returns>The value.</returns>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IExtraInfoCollection.Count">
+            <summary>
+            The number of items in the collection.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IExtraInfoCollection.Keys">
+            <summary>
+            Gets the keys.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IExtraInfoCollection.Values">
+            <summary>
+            Gets the values.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.IExtraInfoCollection.Contains(System.String)">
+            <summary>
+            Determines whether this collection contains the specified key.
+            </summary>
+            <param name="key">The key.</param>
+            <returns>
+            True if the IExtraInfoCollection contains an element with the key; otherwise, false.
+            </returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.IExtraInfoCollection.Add(System.String,System.String)">
+            <summary>
+            Adds the specified key and value to the collection.
+            </summary>
+            <param name="key">The key.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.IExtraInfoCollection.Clear">
+            <summary>
+            Removes all keys and values from the collection.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.IExtraInfoCollection.Remove(System.String)">
+            <summary>
+            Removes the value with the specified key from the collection.
+            </summary>
+            <param name="key">The key.</param>
+            <returns>True if the element is successfully found and removed; otherwise, false. </returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerManager.IServerRoleCollection">
+            <summary>
+            Roles of a <see cref="T:StatNeth.Blaise.API.ServerManager.IServer"/>. Contains items of type string.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerManager.ConnectionException">
+            <summary>
+            Represents errors that occur during connection operations.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.ConnectionException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:StatNeth.Blaise.API.ServerManager.ConnectionException"/> class.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.ConnectionException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:StatNeth.Blaise.API.ServerManager.ConnectionException"/> class.
+            </summary>
+            <param name="message">The message that describes the error.</param>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.ConnectionException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:StatNeth.Blaise.API.ServerManager.ConnectionException"/> class.
+            </summary>
+            <param name="message">The message that describes the error.</param>
+            <param name="innerexception">The inner exception.</param>
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerManager.IConfiguration">
+            <summary>
+            Configuration settings of a <see cref="T:StatNeth.Blaise.API.ServerManager.ISurvey"/>
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IConfiguration.Version">
+            <summary>
+            Gets the version.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IConfiguration.InstrumentName">
+            <summary>
+            Gets the name of the instrument.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IConfiguration.InstrumentId">
+            <summary>
+            Gets the instrument unique identifier.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IConfiguration.MetaFileName">
+            <summary>
+            Gets the file name of the meta file.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IConfiguration.ResourceFileName">
+            <summary>
+            Gets the file name of the resource file.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IConfiguration.DataFileName">
+            <summary>
+            Gets the file name of the data file.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IConfiguration.InitialDataEntrySettingsName">
+            <summary>
+            Gets the initial name of the data entry settings.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IConfiguration.InitialLayoutSetGroupName">
+            <summary>
+            Gets the initial name of the layout set group.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IConfiguration.InitialLayoutSetName">
+            <summary>
+            Gets the initial name of the layout set.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IConfiguration.SurveyRoot">
+            <summary>
+            Gets the survey root.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IConfiguration.StartPageFileName">
+            <summary>
+            Gets the file name of the start page file.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IConfiguration.SilverlightApplicationFileName">
+            <summary>
+            Gets the name of the Silverlight application file.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IConfiguration.Status">
+            <summary>
+            Gets the status.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IConfiguration.InstallDate">
+            <summary>
+            Gets the install date.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IConfiguration.ServerParkName">
+            <summary>
+            Gets the name of the server park.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IConfiguration.PackageFileName">
+            <summary>
+            Gets the file name of the package file.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IConfiguration.DataChecksum">
+            <summary>
+            Gets the data checksum.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerManager.IServer">
+            <summary>
+            Offers server information.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IServer.Name">
+            <summary>
+            Name of the server.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IServer.ExternalName">
+            <summary>
+            IP address or name by which the server is known on the Internet.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IServer.LogicalRoot">
+            <summary>
+            The logical root this server uses. If left empty then the default one will be used.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IServer.IPAddressV4">
+            <summary>
+            IPv4 address of the server.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IServer.IPAddressV6">
+            <summary>
+            IPv6 address of the server.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IServer.Port">
+            <summary>
+            Port used on the server to host <see cref="P:StatNeth.Blaise.API.ServerManager.IServer.Roles"/>. If not specified then some default (depending on the roles) will be used.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IServer.WebsiteID">
+            <summary>
+            The identification of the website used.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IServer.Location">
+            <summary>
+            Location in the file system where surveys are stored.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IServer.Roles">
+            <summary>
+            Roles hosted on the server.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IServer.Status">
+            <summary>
+            Status of the server.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IServer.ExtraInfo">
+            <summary>
+            Extra info of the server.
+            </summary>
+            <remarks>Contains "Type" on web server.</remarks>
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerManager.IServerPark">
+            <summary>
+            Describes a server park.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IServerPark.Name">
+            <summary>
+            Name of the server park.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IServerPark.Location">
+            <summary>
+            Location in the file system for surveys in the server park.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IServerPark.WebsiteID">
+            <summary>
+            Identification of website to use for surveys in the server park.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IServerPark.LoadBalancer">
+            <summary>
+            Load balancer location of the server park.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IServerPark.Servers">
+            <summary>
+            Servers in the server park. This collection always contains one item for the management server ('admin' role), 
+            which is the machine you connected with to get an IConnectedServer interface.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IServerPark.Surveys">
+            <summary>
+            The surveys that are installed on the server park.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.IServerPark.InstallSurvey(System.String,System.String,System.String,StatNeth.Blaise.API.ServerManager.DataOverwriteMode)">
+            <summary>
+            Installs a survey package on the server park. This method also updates the database.
+            In order to use this method you must be connected as a user having the role 'SurveyManager' and having access rights
+            on this server park.
+            </summary>
+            <param name="fileName">File name of a survey package file (.bpkg) or .mbpkg.</param>
+            <param name="layoutSetGroupName">The initial layoutSetGroupName.</param>
+            <param name="dataEntrySettingsName">The initial dataEntrySettingsName.</param>
+            <param name="overwriteMode">The data overwrite mode.</param>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.IServerPark.InstallSurvey(System.String)">
+            <summary>
+            Installs a survey package on the server park. Uses default values for initial layout set group name and data entry settings name. 
+            Uses DataOverwriteMode.Never as overwrite mode. This method also updates the database.
+            In order to use this method you must be connected as a user having the role 'SurveyManager' and having access rights
+            on this server park.
+            </summary>
+            <param name="fileName">File name of a survey package file (.bpkg or .mbpkg).</param>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.IServerPark.RemoveSurvey(System.Guid)">
+            <summary>
+            Removes the survey with the given id from the server park. This method also updates the database.
+            In order to use this method you must be connected as a user having the role 'SurveyManager' and having access rights
+            on this server park.
+            </summary>
+            <param name="instrumentID">The id of the survey.</param>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.IServerPark.AddMachine(System.String,System.String,System.String[])">
+            <summary>
+            Adds a machine and the roles it should fulfill to the park. This method also updates the database.
+            </summary>
+            <param name="machineName">The name of the physical machine to add.</param>        
+            <param name="logicalRootName">The name of the logical root to use. If string.Empty then the default will be used.</param>
+            <param name="roles">An array of role names that should be fulfilled. Use Constants.ServerRoleNames for this.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">If the logical root name is not supported as root by machine name.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">If roles contains an empty role, or contains the admin role or a role is not supported by machine name. 
+            You will also get this exception if a role is already in use by an IServer in the server park.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.IServerPark.Save">
+            <summary>
+            Adds or updates the server park to the database.
+            In order to use this method you must be connected as a user having the role 'ParkManager'.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerManager.ISurvey">
+            <summary>
+            Survey information.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.ISurvey.Name">
+            <summary>
+            Name of the survey.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.ISurvey.InstrumentID">
+            <summary>
+            Instrument unique identifier.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.ISurvey.ServerPark">
+            <summary>
+            Name of the server park the survey is installed on.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.ISurvey.Status">
+            <summary>
+            Overall status of the survey like 'Installing', 'Active', 'Inactive'.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.ISurvey.InstallDate">
+            <summary>
+            Installation date of the survey.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.ISurvey.Configuration">
+            <summary>
+            Gets the configuration information per machine.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.ISurvey.RefreshConfiguration">
+            <summary>
+            Refreshes the configuration information.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.ISurvey.Activate">
+            <summary>
+            Activates the survey. An active survey can be started.
+            In order to use this method you must be connected as a user having the role 'SurveyManager' with access to the server park this survey is installed on.
+            </summary>
+            <exception cref="T:System.ArgumentException">If the connected user does not have role 'SurveyManager' or does not have access to the server park.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.ISurvey.Deactivate">
+            <summary>
+            Deactivates the survey. An inactive survey will not start but can be finished if busy.
+            In order to use this method you must be connected as a user having the role 'SurveyManager' with access to the server park this survey is installed on.
+            </summary>
+            <exception cref="T:System.ArgumentException">If the connected user does not have role 'SurveyManager' or does not have access to the server park.</exception>
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerManager.IUser">
+            <summary>
+            Offers information of a user.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IUser.Name">
+            <summary>
+            Name of the user.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IUser.Description">
+            <summary>
+            Description of the user.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IUser.Roles">
+            <summary>
+            *** NO LONGER SUPPORTED: use IUser2.Role instead *** 
+            Roles the user is member of.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerManager.IUser.ServerParks">
+            <summary>
+            Server parks that are accessible to the user.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.IUser.Save">
+            <summary>
+            Adds or updates the user to the database.
+            In order to use this method you must be connected as a user having the role 'UserManager'.
+            </summary>
+            <exception cref="T:System.ArgumentException">If the connected user does not have the role 'UserManager'.</exception>
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerManager.Main">
+            <summary>
+            Placeholder for module initializer
+            </summary>
+            <remarks>
+            http://einaregilsson.com/module-initializers-in-csharp/
+            </remarks>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerManager.Main.Run">
+            <summary>
+            Run on first construction of this assembly
+            </summary>
+        </member>
+    </members>
+</doc>

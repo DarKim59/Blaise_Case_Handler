@@ -1,0 +1,442 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>StatNeth.Blaise.API.ServerEvents</name>
+    </assembly>
+    <members>
+        <member name="T:StatNeth.Blaise.API.ServerEvents.EndReason">
+            <summary>
+            Indicates why the session was ended
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.ServerEvents.EndReason.Completed">
+            <summary>
+            The interview was completed 
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.ServerEvents.EndReason.Aborted">
+            <summary>
+            The interview was aborted (interrupted)
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.ServerEvents.EndReason.Expired">
+            <summary>
+            The interview session was expired
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.ServerEvents.EndReason.Evicted">
+            <summary>
+            The interview session was removed before session timeout
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.ServerEvents.EndReason.Switched">
+            <summary>
+            A session with the same keyvalue is resumed
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerEvents.EventsListener.SubscribeEventsListenService(System.String,System.Collections.Generic.IEnumerable{System.String},System.String,System.Int32)">
+            <summary>
+            Subscribe To the EventService
+            </summary>
+            <param name="returnAddress">address of client service that should receive the events</param>
+            <param name="topicNames">names of the topics of interest</param>
+            <param name="eventServerName">name of the server (with the AuditTrail Role) that hosts the Events Service</param>
+            <param name="eventsPort">port of the server (with the AuditTrail Role) that hosts the Events Service</param>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerEvents.EventsListener.SubscribeEventsListenService(System.String,System.Collections.Generic.IEnumerable{System.String},System.String,System.String,System.Int32)">
+            <summary>
+            Subscribe To the EventService
+            </summary>
+            <param name="returnAddress">address of client service that should receive the events</param>
+            <param name="topicNames">names of the topics of interest</param>
+            <param name="binding">specifies what kind of binding should be used. Default is "", otherwise "https"</param>
+            <param name="eventServerName">name of the server (with the AuditTrail Role) that hosts the Events Service</param>
+            <param name="eventsPort">port of the server (with the AuditTrail Role) that hosts the Events Service</param>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerEvents.EventsListener.UnsubscribeEventsListenService(System.String,System.Collections.Generic.IEnumerable{System.String},System.String,System.Int32)">
+            <summary>
+            UnSubscribe To the EventService
+            </summary>
+            <param name="returnAddress">address of client service that was receiving the events</param>
+            <param name="topicNames">names of the topics of interest</param>
+            <param name="eventServerName">name of the server (with the AuditTrail Role) that hosts the Events Service</param>
+            <param name="eventsPort">port of the server (with the AuditTrail Role) that hosts the Events Service</param>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerEvents.EventsListener.UnsubscribeEventsListenService(System.String,System.Collections.Generic.IEnumerable{System.String},System.String,System.String,System.Int32)">
+            <summary>
+            UnSubscribe To the EventService
+            </summary>
+            <param name="returnAddress">address of client service that was receiving the events</param>
+            <param name="topicNames">names of the topics of interest</param>
+            <param name="binding">specifies what kind of binding should be used. Default is "", otherwise "https"</param>
+            <param name="eventServerName">name of the server (with the AuditTrail Role) that hosts the Events Service</param>
+            <param name="eventsPort">port of the server (with the AuditTrail Role) that hosts the Events Service</param>
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerEvents.EventsManager">
+            <summary>
+            Provides listener for server-side events specified by topic names  
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerEvents.EventsManager.EventsListenServiceStarted(System.String,System.Collections.Generic.IEnumerable{System.String},System.String,System.Int32)">
+             <summary>
+             Specify that an EventsListenService has been started: 
+             the events server will send server side events (of the specified topics) to this service.
+             This EventsListService should implement IPublishService (defined in StatNeth.Blaise.ServerEvents.Publish.IServiceContract).
+             Use this method if the events server (server with AuditTrail Role) uses a default binding (http).
+            See also EventsListenServiceStopped. 
+             </summary>
+             <param name="returnAddress">Address of the EventsListenService (i.e. "http://localhost:7001/EventsListenService")</param>
+             <param name="topicNames">Names of topics of interest: names of enum type TopicNames.DataEntryTopic (i.e. StartSession) </param>
+             <param name="eventServerName">name of the events server (server with AuditTrail Role)</param>
+             <param name="eventsPort">port of the events server (server with AuditTrail Role)</param>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerEvents.EventsManager.EventsListenServiceStopped(System.String,System.Collections.Generic.IEnumerable{System.String},System.String,System.Int32)">
+            <summary>
+            Specify that an EventsListenService has stopped (listening): 
+            the events server will no longer send server side events (of the specified topics) to this service.
+            This EventsListService should implement IPublishService (defined in StatNeth.Blaise.ServerEvents.Publish.IServiceContract).
+            Use this method if the events server (server with AuditTrail Role) uses a default binding (http).
+            See also EventsListenServiceStarted.
+            </summary>
+            <param name="returnAddress">Address of the EventsListenService (i.e. "http://localhost:7001/EventsListenService")</param>
+            <param name="topicNames">Names of topics of interest: names of enum type TopicNames.DataEntryTopic (i.e. StartSession) </param>
+            <param name="eventServerName">name of the events server (server with AuditTrail Role)</param>
+            <param name="eventsPort">port of the events server (server with AuditTrail Role)</param>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerEvents.EventsManager.EventsListenServiceStarted(System.String,System.Collections.Generic.IEnumerable{System.String},System.String,System.String,System.Int32)">
+             <summary>
+             Specify that an EventsListenService has been started: 
+             the events server will send server side events (of the specified topics) to this service.
+             This EventsListService should implement IPublishService (defined in StatNeth.Blaise.ServerEvents.Publish.IServiceContract).
+             Use this method if the events server (server with AuditTrail Role) requires https.
+            See also EventsListenServiceStopped. 
+             </summary>
+             <param name="returnAddress">Address of the EventsListenService (i.e. "http://localhost:7001/EventsListenService")</param>
+             <param name="topicNames">Names of topics of interest: names of enum type TopicNames.DataEntryTopic (i.e. StartSession) </param>
+             <param name="eventsServerName">name of the events server (server with AuditTrail Role)</param>
+             <param name="eventsBinding">binding of the events server (server with AuditTrail Role). Default is "", otherwise "https"</param>
+             <param name="eventsPort">port of the events server (server with AuditTrail Role)</param>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerEvents.EventsManager.EventsListenServiceStopped(System.String,System.Collections.Generic.IEnumerable{System.String},System.String,System.String,System.Int32)">
+            <summary>
+            Specify that an EventsListenService has stopped (listening) using an explicit binding: 
+            the events server will no longer send server side events (of the specified topics) to this service.
+            This EventsListService should implement IPublishService (defined in StatNeth.Blaise.ServerEvents.Publish.IServiceContract).
+            Use this method if the events server (server with AuditTrail Role) requires https.
+            See also EventsListenServiceStarted.
+            </summary>
+            <param name="returnAddress">Address of the EventsListenService (i.e. "http://localhost:7001/EventsListenService")</param>
+            <param name="topicNames">Names of topics of interest: names of enum type TopicNames.DataEntryTopic (i.e. StartSession) </param>
+            <param name="eventsServerName">name of the events server (server with AuditTrail Role)</param>
+            <param name="eventsBinding">binding of the events server (server with AuditTrail Role). Default is "", otherwise "https"</param>
+            <param name="eventsPort">port of the events server (server with AuditTrail Role)</param>
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerEvents.EventTranslator">
+            <summary>
+            Translates string messages of a topic to specific Events
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerEvents.EventTranslator.GetEvent(System.String,System.String)">
+            <summary>
+            GetEvent
+            </summary>
+            <param name="topicName"></param>
+            <param name="message"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerEvents.EventTranslator.IsDataEntryEvent(System.String)">
+            <summary>
+            Determines whether topicName is the topic of a DataEntryEvent
+            </summary>
+            <param name="topicName">name of the topic</param>
+            <returns>true if topicName is a  DataEntryEvent</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerEvents.EventTranslator.GetDataEntryEvent(System.String,System.String)">
+            <summary>
+            Translates a message to a IDataEntryEvent (if appropriate)
+            </summary>
+            <param name="topicName">name of the topic</param>
+            <param name="message">message</param>
+            <returns>A DataEntryEvent defiend by message</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerEvents.EventTranslator.IsCatiEvent(System.String)">
+            <summary>
+            Determines whether topicName is the topic of a CatiEvent
+            </summary>
+            <param name="topicName">name of the topic</param>
+            <returns>true if topicName is a CatiEvent</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerEvents.EventTranslator.GetCatiEvent(System.String,System.String)">
+            <summary>
+            Translates a message to a ICatiEvent (if appropriate)
+            </summary>
+            <param name="topicName">name of the topic</param>
+            <param name="message">message</param>
+            <returns>A CatiEvent defiend by message</returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerEvents.IDataEntryEvent2">
+            <summary>
+            Interface that specifies data entry events
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerEvents.IDataEntryEvent2.Mode">
+            <summary>
+            Specifies the mode the instrument is running in
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerEvents.IDataEntryEvent2.Language">
+            <summary>
+            Specifies the active language
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerEvents.IDataEntryEvent2.DataEntrySettings">
+            <summary>
+            Specifies the active data entry settings
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerEvents.IDataEntryEvent2.Features">
+            <summary>
+            Specifies the client features (only for StartSession, otherwise null)
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerEvents.IEvent">
+            <summary>
+            Interface that specifies data entry events
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerEvents.IEvent.TimeStamp">
+            <summary>
+            Time that the event occured
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerEvents.IEvent.InstrumentId">
+            <summary>
+            InstrumentId for involved Instrument
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerEvents.IEvent.PrimaryKeyValue">
+            <summary>
+            PrimaryKeyvalue of the session
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerEvents.IEvent.TopicName">
+            <summary>
+            The topic name
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerEvents.ICatiEvent">
+            <summary>
+            Interface that specifies CATI events
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerEvents.ICatiEvent.Topic">
+            <summary>
+            The Topic of the event
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerEvents.ICatiEvent.MainInstrumentId">
+            <summary>
+            InstrumentId of the main instrument
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerEvents.ICatiEvent.Interviewer">
+            <summary>
+            The name of the interviewer involved
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerEvents.ICatiEvent.Number">
+            <summary>
+            Specifies the number that was requested (only available for DialNumberRequested) 
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerEvents.ICatiEvent.AdditionalInfo">
+            <summary>
+            Specifies the additional info for the number that was requested (only available for DialNumberRequested) 
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerEvents.ICatiEvent2">
+            <summary>
+            Interface that specifies CATI 
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerEvents.ICatiEvent2.AppointmentInfo">
+            <summary>
+            Specifies the appointment info for the appointment that was made (only available for AppointmentMade)
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerEvents.ICatiEvent2.DialResult">
+            <summary>
+            Specifies the dial result of the DialAttempt (only available for DialAttemptEnded)
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerEvents.ICatiEvent2.Treatment">
+            <summary>
+            Specifices the treatment where the DialAttemptEnded originated from (only available for DialAttemptEnded)
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerEvents.ICatiEvent2.CallNr">
+            <summary>
+            Specifies the call number for the dial attempt (only available for DialAttemptEnded)
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerEvents.ICatiEvent2.DialNr">
+            <summary>
+            Specifies the dial number for the dial attempt (only available for DialAttemptEnded)
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerEvents.ICatiEvent2.BusyDials">
+            <summary>
+            Specifies the number of busy dials number for the dial attempt (only available for DialAttemptEnded)
+            The value includes the current result if it was busy
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerEvents.IDataEntryEvent">
+            <summary>
+            Interface that specifies data entry events
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerEvents.IDataEntryEvent.Topic">
+            <summary>
+            The Topic of the event
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerEvents.IDataEntryEvent.SessionId">
+            <summary>
+            Session Id of the involved Session
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerEvents.IDataEntryEvent.ResumedSessionId">
+            <summary>
+            Specifies the Id of a resumed session if KeyStatus is Resumed
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerEvents.IDataEntryEvent.EndReason">
+            <summary>
+            Specifies reason for EndSession event
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerEvents.IDataEntryEvent.KeyStatus">
+            <summary>
+            Specifies status of session when the Keyvalue is Determined 
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerEvents.KeyStatus">
+            <summary>
+            Status of a session after the Keyvalue has been determined
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.ServerEvents.KeyStatus.New">
+            <summary>
+            It is a new Session
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.ServerEvents.KeyStatus.Read">
+            <summary>
+            The session is filled with a read record from the database 
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.ServerEvents.KeyStatus.Resumed">
+            <summary>
+            It is a resumed session 
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerEvents.ServerEventArgs">
+            <summary>
+            Arguments for OnServerEvents event
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerEvents.ServerEventArgs.Topic">
+            <summary>
+            Topic of Messages
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.ServerEvents.ServerEventArgs.Messages">
+            <summary>
+            Messages that can be translated using the EventTranslator
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerEvents.CatiEnumerations">
+            <summary>
+            Contains enumeration types for CatiEvents
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerEvents.CatiEnumerations.DialResult">
+            <summary>
+            DialResult for Cati Events (only DialAttemptEnded)
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerEvents.CatiEnumerations.AppointmentType">
+            <summary>
+            Appointment type for Cati Events (only AppointmentMade)
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerEvents.TopicNames">
+            <summary>
+            Contains types that specify the topic names 
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerEvents.TopicNames.DataEntryTopic">
+            <summary>
+            Topics of Data Entry Events
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.ServerEvents.TopicNames.DataEntryTopic.StartSession">
+            <summary>
+            Start session 
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.ServerEvents.TopicNames.DataEntryTopic.EndSession">
+            <summary>
+            end session
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.ServerEvents.TopicNames.DataEntryTopic.KeyvalueDetermined">
+            <summary>
+            keyvalue of session is determined
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerEvents.TopicNames.CatiTopic">
+            <summary>
+            Topics of Cati Events
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.ServerEvents.TopicNames.CatiTopic.CaseIssued">
+            <summary>
+            Case issued
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.ServerEvents.TopicNames.CatiTopic.DialNumberRequested">
+            <summary>
+            Number is requested to be autodialed
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.ServerEvents.TopicNames.CatiTopic.DialAttemptEnded">
+            <summary>
+            Dial attempt has ended
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.ServerEvents.TopicNames.CatiTopic.AppointmentMade">
+            <summary>
+            An appointment has been made
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.ServerEvents.TopicNames.CatiTopic.CaseCompleted">
+            <summary>
+            Case has been finished
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.ServerEvents.Main">
+            <summary>
+            Placeholder for module initializer
+            </summary>
+            <remarks>
+            http://einaregilsson.com/module-initializers-in-csharp/
+            </remarks>
+        </member>
+        <member name="M:StatNeth.Blaise.API.ServerEvents.Main.Run">
+            <summary>
+            Run on first construction of this assembly
+            </summary>
+        </member>
+    </members>
+</doc>

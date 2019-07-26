@@ -1,0 +1,4722 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>StatNeth.Blaise.API.DataEntry</name>
+    </assembly>
+    <members>
+        <member name="T:StatNeth.Blaise.API.DataEntry.ActionManager">
+            <summary>
+            Manager that can Create Actions
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntry.ActionManager.CreateAction(StatNeth.Blaise.API.DataEntry.Actions.ActionKind)">
+            <summary>
+            Create Action
+            </summary>
+            <param name="kind"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntry.ActionManager.CreateAction2(StatNeth.Blaise.API.DataEntry.Actions.ActionKind2)">
+            <summary>
+            Create Action2 (extends Action with StartSurvey and Print Action)
+            </summary>
+            <param name="kind"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntry.ActionManager.CreateAction3(StatNeth.Blaise.API.DataEntry.Actions.ActionKind3)">
+            <summary>
+            Create Action3 (extendeds Action2 with AssignFieldProperty Action)
+            </summary>
+            <param name="kind"></param>
+            <returns></returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.ActionsConverter">
+            <summary>
+            Converts Layout Actions to API Actions
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntry.ActionsConverter.Convert(System.Collections.Generic.IEnumerable{StatNeth.Blaise.Layout.Actions.Action})">
+            <summary>
+            Convert Layout Actions to Api IActionCollection
+            </summary>
+            <param name="actions"></param>
+            <returns></returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Actions.ActionKind">
+            <summary>
+            Specfies the Action
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind.NextPage">
+            <summary>
+            Goto Next Page 
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind.PreviousPage">
+            <summary>
+            Previous Page
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind.FirstPage">
+            <summary>
+            First Page
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind.LastPage">
+            <summary>
+            Last Page
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind.CurrentPage">
+            <summary>
+            Current (Interview) Page
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind.NextField">
+            <summary>
+            Goto Next Field
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind.Save">
+            <summary>
+            Save current Record in the Database
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind.Quit">
+            <summary>
+            Quit the Interview (goto AbortPage if it is defined)
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind.SetLanguage">
+            <summary>
+            Modify the active language
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind.SetLayoutSetGroup">
+            <summary>
+            Change the used LayoutSetGroup
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind.SetLayoutSet">
+            <summary>
+            Change the used LayoutSet
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind.SetDataEntrySettings">
+            <summary>
+            Change the used DataEntry Settings
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind.SetParallel">
+            <summary>
+            Goto a parallel
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind.GotoField">
+            <summary>
+            Goto a Field
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind.SuppressSignal">
+            <summary>
+            Suppress a signal
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind.ShowCustomPage">
+            <summary>
+            Goto a Custom Page
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind.ToggleVisibility">
+            <summary>
+            Reverse the Visibility of a Control 
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind.AssignField">
+            <summary>
+            Assign a value to a Field (or make it empty)
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind.SetStyle">
+            <summary>
+            Change the current (Resource) Style
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind.SetDeviceFeatures">
+            <summary>
+            Not to be used
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind.GotoBlockField">
+            <summary>
+            Goto a BlockField
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind.GotoGroup">
+            <summary>
+            Goto a Group
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind.GotoUri">
+            <summary>
+            Goto a URI in the browser
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind.StartSurvey">
+            <summary>
+            Start a Survey
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind.ProcedureCall">
+            <summary>
+            Execute a procedure (specified as expression)
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind.Conditional">
+            <summary>
+            An If-Then-Else Action
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind.SetControlProperty">
+            <summary>
+            Set the property of a Control
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind.Custom">
+            <summary>
+            A custom Action
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Actions.ActionKind2">
+            <summary>
+            Specfies the Action
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind2.NextPage">
+            <summary>
+            Goto Next Page 
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind2.PreviousPage">
+            <summary>
+            Previous Page
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind2.FirstPage">
+            <summary>
+            First Page
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind2.LastPage">
+            <summary>
+            Last Page
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind2.CurrentPage">
+            <summary>
+            Current (Interview) Page
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind2.NextField">
+            <summary>
+            Goto Next Field
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind2.Save">
+            <summary>
+            Save current Record in the Database
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind2.Quit">
+            <summary>
+            Quit the Interview (goto AbortPage if it is defined)
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind2.SetLanguage">
+            <summary>
+            Modify the active language
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind2.SetLayoutSetGroup">
+            <summary>
+            Change the used LayoutSetGroup
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind2.SetLayoutSet">
+            <summary>
+            Change the used LayoutSet
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind2.SetDataEntrySettings">
+            <summary>
+            Change the used DataEntry Settings
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind2.SetParallel">
+            <summary>
+            Goto a parallel
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind2.GotoField">
+            <summary>
+            Goto a Field
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind2.SuppressSignal">
+            <summary>
+            Suppress a signal
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind2.ShowCustomPage">
+            <summary>
+            Goto a Custom Page
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind2.ToggleVisibility">
+            <summary>
+            Reverse the Visibility of a Control 
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind2.AssignField">
+            <summary>
+            Assign a value to a Field (or make it empty)
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind2.SetStyle">
+            <summary>
+            Change the current (Resource) Style
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind2.SetDeviceFeatures">
+            <summary>
+            Not to be used
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind2.GotoBlockField">
+            <summary>
+            Goto a BlockField
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind2.GotoGroup">
+            <summary>
+            Goto a Group
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind2.GotoUri">
+            <summary>
+            Goto a URI in the browser
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind2.StartSurvey">
+            <summary>
+            Start a Survey
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind2.ProcedureCall">
+            <summary>
+            Execute a procedure (specified as expression)
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind2.Conditional">
+            <summary>
+            An If-Then-Else Action
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind2.SetControlProperty">
+            <summary>
+            Set the property of a Control
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind2.Custom">
+            <summary>
+            A custom Action
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind2.PreviousField">
+            <summary>
+            Goto Previous Field
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind2.Print">
+            <summary>
+            Print Action
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind2.Finish">
+            <summary>
+            Finish Action (save data in database; delete session; goto Receipt Page)
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Actions.ActionKind3">
+            <summary>
+            Specfies the Action
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind3.NextPage">
+            <summary>
+            Goto Next Page 
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind3.PreviousPage">
+            <summary>
+            Previous Page
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind3.FirstPage">
+            <summary>
+            First Page
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind3.LastPage">
+            <summary>
+            Last Page
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind3.CurrentPage">
+            <summary>
+            Current (Interview) Page
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind3.NextField">
+            <summary>
+            Goto Next Field
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind3.Save">
+            <summary>
+            Save current Record in the Database
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind3.Quit">
+            <summary>
+            Quit the Interview (goto AbortPage if it is defined)
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind3.SetLanguage">
+            <summary>
+            Modify the active language
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind3.SetLayoutSetGroup">
+            <summary>
+            Change the used LayoutSetGroup
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind3.SetLayoutSet">
+            <summary>
+            Change the used LayoutSet
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind3.SetDataEntrySettings">
+            <summary>
+            Change the used DataEntry Settings
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind3.SetParallel">
+            <summary>
+            Goto a parallel
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind3.GotoField">
+            <summary>
+            Goto a Field
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind3.SuppressSignal">
+            <summary>
+            Suppress a signal
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind3.ShowCustomPage">
+            <summary>
+            Goto a Custom Page
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind3.ToggleVisibility">
+            <summary>
+            Reverse the Visibility of a Control 
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind3.AssignField">
+            <summary>
+            Assign a value to a Field (or make it empty)
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind3.SetStyle">
+            <summary>
+            Change the current (Resource) Style
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind3.SetDeviceFeatures">
+            <summary>
+            Not to be used
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind3.GotoBlockField">
+            <summary>
+            Goto a BlockField
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind3.GotoGroup">
+            <summary>
+            Goto a Group
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind3.GotoUri">
+            <summary>
+            Goto a URI in the browser
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind3.StartSurvey">
+            <summary>
+            Start a Survey
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind3.ProcedureCall">
+            <summary>
+            Execute a procedure (specified as expression)
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind3.Conditional">
+            <summary>
+            An If-Then-Else Action
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind3.SetControlProperty">
+            <summary>
+            Set the property of a Control
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind3.Custom">
+            <summary>
+            A custom Action
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind3.PreviousField">
+            <summary>
+            Goto Previous Field
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind3.Print">
+            <summary>
+            Print Action
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind3.Finish">
+            <summary>
+            Finish Action (save data in database; delete session; goto Receipt Page)
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind3.AssignFieldProperty">
+            <summary>
+            Assign a Value to a FieldProperty
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Actions.ActionKind3.GotoParallelEnd">
+            <summary>
+            Goto to end of parallel (try to leave)
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Actions.IAction">
+            <summary>
+            Action to be executed
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Actions.IAction.KindName">
+            <summary>
+            Name that indicates what kind of action it is. Shoule be a Name of a value of the (newest) ActionKind enum type.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Actions.IAction.Name">
+            <summary>
+            Specifies the name of a property that should be modified by the Action. For instance, a Language for a SetLanguage action. 
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Actions.IAction.ValueAsString">
+            <summary>
+            Value for the AssignField or SetControlProperty action
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Actions.IAction.CustomProperties">
+            <summary>
+            Custom properties for a Custom Action
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Actions.IAction.ThenBranch">
+            <summary>
+            Then Branch of Conditional Action
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Actions.IAction.ElseBranch">
+            <summary>
+            Else Branch of Conditional Action
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Actions.IAction.ControlName">
+            <summary>
+            Control Name of SetControlProperty Action
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Actions.IAction.PropertyName">
+            <summary>
+            Property Name of SetControlProperty Action
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Actions.IAction.ValueTypeName">
+            <summary>
+            ValueType Name of SetControlProperty Action
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Actions.IAction.InstrumentID">
+            <summary>
+            InstrumentID of StartSurvey Action
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Actions.IAction2">
+            <summary>
+            Action with additional properties for Print Action
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Actions.IAction2.KeyValue">
+            <summary>
+            KeyValue of StartSurvey Action
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Actions.IAction2.RuntimeParameters">
+            <summary>
+            RuntimeParameters of StartSurvey Action
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Actions.IAction2.Fields">
+            <summary>
+            Fields of StartSurvey Action
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Actions.IAction2.LayoutSetGroup">
+            <summary>
+            LayoutSetGroup of Print Action
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Actions.IAction2.LayoutSet">
+            <summary>
+            LayoutSet of Print Action
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Actions.IAction2.Language">
+            <summary>
+            Language of Print Action
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Actions.IAction2.Style">
+            <summary>
+            Style of Print Action
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Actions.IAction2.DataEntrySettings">
+            <summary>
+            DataEntrySettings of Print Action
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Actions.IAction2.Orientation">
+            <summary>
+            Orientation of Print Action
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Actions.IAction2.PaperSize">
+            <summary>
+            PaperSize of Print Action
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Actions.IAction2.PageRange">
+            <summary>
+            PageRange of Print Action
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Actions.IAction2.IncludeKeyParallel">
+            <summary>
+            IncludeKeyParallel of Print Action
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Actions.IAction2.IncludeMainParallel">
+            <summary>
+            IncludeMainParallel of Print Action
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Actions.IAction2.IncludeParallels">
+            <summary>
+            IncludeParallels of Print Action
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Actions.IAction2.IncludeCurrentParallel">
+            <summary>
+            IncludeCurrentParallel of Print Action
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Actions.IAction2.OutputFileName">
+            <summary>
+            OutputFileName of Print Action
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Actions.IAction2.SuccessMessageKey">
+            <summary>
+            SuccessMessageKey of Print Action
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Actions.IAction3">
+            <summary>
+            DataEntry.Actions IAction3 interface
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Actions.IAction3.FieldName">
+            <summary>
+            Specifies the Name of the Field of an AssignFieldProperty Action 
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Actions.IAction3.FieldPropertyName">
+            <summary>
+            Specifies the Name of the FieldProperty an AssignFieldProperty Action. 
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Actions.IActionCollection">
+            <summary>
+            Collection of Actions
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Actions.IActionCollection.Count">
+            <summary>
+            Count
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Actions.IActionCollection.Item(System.Int32)">
+            <summary>
+            get item by Index
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.AuditTrailLevel">
+            <summary>
+            Level of detail for audit trail events
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.AuditTrailLevel.None">
+            <summary>
+            No audit trail
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.AuditTrailLevel.Session">
+            <summary>
+            session events
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.AuditTrailLevel.Page">
+            <summary>
+            page level events
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.AuditTrailLevel.Field">
+            <summary>
+            field level events
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.AuditTrailLevel.Answer">
+            <summary>
+            answer level events
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.AuditTrailLevel.Keyboard">
+            <summary>
+            Most detailed level that includes key strokes
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.AuditTrail.IAuditTrailState">
+            <summary>
+            DataEntry.AuditTrail IAuditTrailState interface
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.AuditTrail.IAuditTrailState.InstrumentGuid">
+            <summary>
+            Id of the Survey 
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.AuditTrail.IAuditTrailState.RuleSessionId">
+            <summary>
+            Id of the Session Data
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.AuditTrail.IAuditTrailState.ServerPark">
+            <summary>
+            Name of the ServerPark in which the Survey is installed
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.AuditTrail.IAuditTrailState.AuditTrailServerName">
+            <summary>
+            The Name that is used to communicate with the server
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.AuditTrail.IAuditTrailState.AuditTrailPort">
+            <summary>
+            The Port that should be used to commuicate
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.AuditTrail.IEventInfo">
+            <summary>
+            DataEntry.AuditTrail interface IEventInfo
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.AuditTrail.IEventInfo.TimeStamp">
+            <summary>
+            Time of Event
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.AuditTrail.IEventInfo.Content">
+            <summary>
+            Event Content
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.ClientFeatures.Device">
+            <summary>
+            Device on which data entry client runs
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.ClientFeatures.Device.Unknown">
+            <summary>
+            Unknown Device
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.ClientFeatures.Device.WindowsDesktop">
+            <summary>
+            Microsoft Windows Desktop
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.ClientFeatures.Device.Browser">
+            <summary>
+            Internet Browser
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.ClientFeatures.Device.IPad">
+            <summary>
+            Apple iPad
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.ClientFeatures.Device.IPhone">
+            <summary>
+            Apple iPhone
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.ClientFeatures.Device.AndroidTablet">
+            <summary>
+            Android Tablet
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.ClientFeatures.Device.AndroidPhone">
+            <summary>
+            Android Phone
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.ClientFeatures.Device.WindowsTablet">
+            <summary>
+            Microsoft Windows Tablet
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.ClientFeatures.Device.WindowsPhone">
+            <summary>
+            Microsoft Windows Phone
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.ClientFeatures.Device.DocumentCreator">
+            <summary>
+            Document Creator
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.ClientFeatures.DeviceBrowser">
+            <summary>
+            Browser that runs the Web Survey 
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.ClientFeatures.DeviceBrowser.None">
+            <summary>
+            None available
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.ClientFeatures.DeviceBrowser.InternetExplorer">
+            <summary>
+            Microsoft InternetExplorer or Edge
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.ClientFeatures.DeviceBrowser.Firefox">
+            <summary>
+            Mozilla's FireFox
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.ClientFeatures.DeviceBrowser.Chrome">
+            <summary>
+            Google Chrome
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.ClientFeatures.DeviceBrowser.Opera">
+            <summary>
+            Opera
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.ClientFeatures.DeviceBrowser.Safari">
+            <summary>
+            Apple's Safari
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.ClientFeatures.DeviceBrowser.Other">
+            <summary>
+            Other or unknown
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.ClientFeatures.DevicePlatform">
+            <summary>
+            Platform on which data entry client runs
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.ClientFeatures.DevicePlatform.Windows">
+            <summary>
+            Microsoft Windows
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.ClientFeatures.DevicePlatform.HTML">
+            <summary>
+            Browser with HTML support
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.ClientFeatures.DevicePlatform.Silverlight">
+            <summary>
+            SilverLight Legacy
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.ClientFeatures.DevicePlatform.IOS">
+            <summary>
+            Apple IOS
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.ClientFeatures.DevicePlatform.Android">
+            <summary>
+            Google Android
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.ClientFeatures.DevicePlatform.WindowsPhone">
+            <summary>
+            Windows Phone
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.ClientSideProperties.ComputablePropertyDefinition">
+            <summary>
+            DataEntry.ClientSideProperties ComputablePropertyDefinition
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.ClientSideProperties.ComputablePropertyDefinition.ControlID">
+            <summary>
+            Control ID
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.ClientSideProperties.ComputablePropertyDefinition.PropertyName">
+            <summary>
+            Name of Property
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.ClientSideProperties.ComputablePropertyDefinitionCollection">
+            <summary>
+            ComputablePropertyDefinitionCollection
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.ClientSideProperties.ComputablePropertyDefinitionCollection.Definitions">
+            <summary>
+            Gets the ComputablePropertyDefinition
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.ClientSideProperties.IComputablePropertyDefinition">
+            <summary>
+            Data Entry IComputablePropertyDefinition
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.ClientSideProperties.IComputablePropertyDefinition.ControlID">
+            <summary>
+            Control ID
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.ClientSideProperties.IComputablePropertyDefinition.PropertyName">
+            <summary>
+            Property Name
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.ClientSideProperties.IComputablePropertyDefinitionCollection">
+            <summary>
+            Collection of <see cref="T:StatNeth.Blaise.API.DataEntry.ClientSideProperties.IComputablePropertyDefinition"/>
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.ClientSideProperties.IComputablePropertyDefinitionCollection.Count">
+            <summary>
+            Count
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Controls.ControlCreatedEventArgs">
+            <summary>
+            Argments of OnControlCreated Event
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Controls.ControlCreatedEventArgs.ControlDefinition">
+            <summary>
+            Definition of the Control
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Controls.ControlCreatedEventArgs.Control">
+            <summary>
+            The actual UI Control that may be modifies
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Controls.CreateFieldPropertyCategoryControlEventArgs">
+            <summary>
+            Event Arguments for OnCreateFieldPropertyCategoryControl event
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntry.Controls.CreateFieldPropertyCategoryControlEventArgs.IsValid(StatNeth.Blaise.Layout.Controls.Common.IInputControl2,System.String@)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <param name="message"></param>
+            <returns></returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Controls.CreateFieldPropertyControlEventArgs">
+            <summary>
+            Event Arguments for OnCreateFieldPropertyControl event
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntry.Controls.CreateFieldPropertyControlEventArgs.IsValid(StatNeth.Blaise.Layout.Controls.Common.IInputControl2,System.String@)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <param name="message"></param>
+            <returns></returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Controls.CreateTextControlEventArgs">
+            <summary>
+            CreateTextControlEventArgs
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Controls.IControlContainerDefinition">
+            <summary>
+            interface IControlContainerDefinition : IBaseControlDefinition
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntry.Controls.IControlContainerDefinition.GetChildren">
+            <summary>
+            Gets the collection of IBaseControlDefinition
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Controls.IControlContainerDefinition.IsSkipLinkTarget">
+            <summary>
+            IsSkipLinkTarget
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Controls.IControlContainerDefinition.SkipLinkName">
+            <summary>
+            SkipLinkName
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Controls.IControlContainerDefinition.SkipLinkDescription">
+            <summary>
+            SkipLinkDescription
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Controls.IControlContainerDefinition.SkipLinkIndex">
+            <summary>
+            SkipLinkIndex
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Controls.IHasEditableURI">
+            <summary>
+            interface IHasEditableURI
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Controls.IHasEditableURI.URI">
+            <summary>
+            URI string
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Controls.ITextControlDefinition">
+            <summary>
+            interface ITextControlDefinition : IBaseControlDefinition
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Controls.ITextControlDefinition.Font">
+            <summary>
+            Gets the Font
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Controls.ITextControlDefinition.Text">
+            <summary>
+            Gets the Text
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Controls.ControlAction">
+            <summary>
+            Indicates whether a control should be created or updated
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Controls.ControlAction.Create">
+            <summary>
+            Create a new Control
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Controls.ControlAction.Update">
+            <summary>
+            Update an existing control
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Controls.ControlFactory">
+            <summary>
+            Factory for creating data entry controls in a consistent manner.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Controls.ControlFactory.CustomControlValidator">
+            <summary>
+            Notify for validation of a custom control
+            </summary>
+            <param name="control">custom control object</param>
+            <param name="message">validation message</param>
+            <returns></returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntry.Controls.ControlFactory.#ctor(StatNeth.Blaise.Runtime.DataEntry.Shared.IControlFactory)">
+            <summary>
+            Factory construct
+            </summary>
+            <param name="factory"></param>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Controls.ControlFactory.Factory">
+            <summary>
+            gets the Factory
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntry.Controls.ControlFactory.SetEventArgs(StatNeth.Blaise.API.DataEntry.Controls.CreateActionsControlEventArgs,StatNeth.Blaise.Runtime.DataEntry.Shared.Controller.ActionsControlEventArgs)">
+            <summary>
+            SetEventArgs
+            </summary>
+            <param name="args"><see cref="M:StatNeth.Blaise.API.DataEntry.Controls.ControlFactory.CreateActionsControlEventArgs(StatNeth.Blaise.API.DataEntry.Controls.IActionsControlDefinition,StatNeth.Blaise.API.DataEntry.Actions.IActionCollection,StatNeth.Blaise.Layout.Controls.Common.IControl)"/></param>
+            <param name="e"><see cref="T:StatNeth.Blaise.Runtime.DataEntry.Shared.Controller.ActionsControlEventArgs"/></param>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Controls.ControlFactory.HasOnCreateActionsControlEvent">
+            <summary>
+            HasOnCreateActionsControlEvent Event
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntry.Controls.ControlFactory.NotifyCreateActionsControl(StatNeth.Blaise.API.DataEntry.Controls.IActionsControlDefinition,StatNeth.Blaise.API.DataEntry.Actions.IActionCollection,StatNeth.Blaise.Layout.Controls.Common.IControl)">
+            <summary>
+            CreateActionsControlEventArgs
+            </summary>
+            <param name="definition"><see cref="T:StatNeth.Blaise.API.DataEntry.Controls.IActionsControlDefinition"/></param>
+            <param name="actions"><see cref="T:StatNeth.Blaise.API.DataEntry.Actions.IActionCollection"/></param>
+            <param name="customControl"><see cref="T:StatNeth.Blaise.Layout.Controls.Common.IControl"/></param>
+            <returns></returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntry.Controls.ControlFactory.CreateActionsControlEventArgs(StatNeth.Blaise.API.DataEntry.Controls.IActionsControlDefinition,StatNeth.Blaise.API.DataEntry.Actions.IActionCollection,StatNeth.Blaise.Layout.Controls.Common.IControl)">
+            <summary>
+            
+            </summary>
+            <param name="definition"></param>
+            <param name="actions"></param>
+            <param name="customControl"></param>
+            <returns></returns>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Controls.ControlFactory.ControlValidator">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntry.Controls.ControlFactory.ValidateCustomControl(System.Object,System.String@)">
+            <summary>
+            
+            </summary>
+            <param name="control"></param>
+            <param name="message"></param>
+            <returns></returns>
+        </member>
+        <member name="E:StatNeth.Blaise.API.DataEntry.Controls.ControlFactory.OnCreateDataFieldInputControl">
+            <summary>
+            OnCreateDataFieldInputControl see <see cref="T:StatNeth.Blaise.API.DataEntry.Controls.CreateDataFieldInputControlEventArgs"/>
+            </summary>
+        </member>
+        <member name="E:StatNeth.Blaise.API.DataEntry.Controls.ControlFactory.OnCreateCategoryInputControl">
+            <summary>
+            OnCreateCategoryInputControl
+            </summary>
+        </member>
+        <member name="E:StatNeth.Blaise.API.DataEntry.Controls.ControlFactory.OnCreateSpecialAnswerInputControl">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="E:StatNeth.Blaise.API.DataEntry.Controls.ControlFactory.OnCreateErrorControl">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="E:StatNeth.Blaise.API.DataEntry.Controls.ControlFactory.OnControlCreated">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="E:StatNeth.Blaise.API.DataEntry.Controls.ControlFactory.OnCreateFieldPropertyControl">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="E:StatNeth.Blaise.API.DataEntry.Controls.ControlFactory.OnCreateFieldPropertyCategoryControl">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="E:StatNeth.Blaise.API.DataEntry.Controls.ControlFactory.OnCreateTextControl">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Controls.CreateActionsControlEventArgs">
+            <summary>
+            Arguments of OnCreateActionsControl Event
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntry.Controls.CreateActionsControlEventArgs.#ctor(StatNeth.Blaise.API.DataEntry.Controls.IActionsControlDefinition,StatNeth.Blaise.API.DataEntry.Actions.IActionCollection,StatNeth.Blaise.Layout.Controls.Common.IControl,StatNeth.Blaise.API.DataEntry.Controls.ControlFactory.CustomControlValidator)">
+            <summary>
+            
+            </summary>
+            <param name="definition"></param>
+            <param name="actions"></param>
+            <param name="customControl"></param>
+            <param name="validator"></param>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Controls.CreateCategoryInputControlEventArgs">
+            <summary>
+            Argments of OnCreateCategoryInputControl Event
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntry.Controls.CreateCategoryInputControlEventArgs.IsValid(StatNeth.Blaise.Layout.Controls.Common.IInputControl,System.String@)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <param name="message"></param>
+            <returns></returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Controls.CreateControlEventArgs`2">
+            <summary>
+            CreateControlEventArgs
+            </summary>
+            <typeparam name="C"></typeparam>
+            <typeparam name="I"></typeparam>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntry.Controls.CreateControlEventArgs`2.#ctor(`0,`1,StatNeth.Blaise.API.DataEntry.Controls.ControlFactory.CustomControlValidator)">
+            <summary>
+            
+            </summary>
+            <param name="controlDefinition"></param>
+            <param name="customControl"></param>
+            <param name="validator"></param>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Controls.CreateControlEventArgs`2.ControlDefinition">
+            <summary>
+            Definition of the Control
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Controls.CreateControlEventArgs`2.CustomControl">
+            <summary>
+            Set this property if you want to create a custom control
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntry.Controls.CreateControlEventArgs`2.IsValid(`1,System.String@)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <param name="message"></param>
+            <returns></returns>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Controls.CreateControlEventArgs`2.ControlAction">
+            <summary>
+            Indicates whether a control should be created or updated
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Controls.CreateControlEventArgs`2.IsHandled">
+            <summary>
+            Set this propperty to true if you want to indicate that no standard control should be created
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Controls.CreateDataControlEventArgs`3">
+            <summary>
+            CreateDataControlEventArgs
+            </summary>
+            <typeparam name="C"></typeparam>
+            <typeparam name="I"></typeparam>
+            <typeparam name="D"></typeparam>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntry.Controls.CreateDataControlEventArgs`3.#ctor(`0,`2,`1,StatNeth.Blaise.API.DataEntry.Controls.ControlFactory.CustomControlValidator)">
+            <summary>
+            
+            </summary>
+            <param name="controlDefinition"></param>
+            <param name="dataObject"></param>
+            <param name="customControl"></param>
+            <param name="validator"></param>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Controls.CreateDataControlEventArgs`3.DataObject">
+            <summary>
+            Additional Blaise Data-object that is linked to the control
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Controls.CreateDataFieldInputControlEventArgs">
+            <summary>
+            Argments of OnCreateDataFieldInputControl Event
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntry.Controls.CreateDataFieldInputControlEventArgs.IsValid(StatNeth.Blaise.Layout.Controls.Common.IInputControl,System.String@)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <param name="message"></param>
+            <returns></returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Controls.CreateErrorControlEventArgs">
+            <summary>
+            Argments of OnCreateErrorControl Event
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Controls.CreateSpecialAnswerInputControlEventArgs">
+            <summary>
+            Argments of OnCreateSpecialAnswerInputControl Event
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntry.Controls.CreateSpecialAnswerInputControlEventArgs.IsValid(StatNeth.Blaise.Layout.Controls.Common.IInputControl,System.String@)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <param name="message"></param>
+            <returns></returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Controls.IActionsControlDefinition">
+            <summary>
+            IActionsControlDefinition
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Controls.IActionsControlDefinition.Font">
+            <summary>
+            Font of Text
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Controls.IActionsControlDefinition.Text">
+            <summary>
+            Text
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Controls.IActionsControlDefinition.URI">
+            <summary>
+            URI of hyperlink or Image control
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Controls.ICategoryInputControlDefinition">
+            <summary>
+            ICategoryInputControlDefinition
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Controls.IControlFactory">
+            <summary>
+            Factory for creating the controls of the page
+            </summary>
+        </member>
+        <member name="E:StatNeth.Blaise.API.DataEntry.Controls.IControlFactory.OnCreateDataFieldInputControl">
+            <summary>
+            Event that allows to create custom DataField input controls.
+            </summary>
+        </member>
+        <member name="E:StatNeth.Blaise.API.DataEntry.Controls.IControlFactory.OnCreateCategoryInputControl">
+            <summary>
+            Event that allows to create custom Category input controls.
+            </summary>
+        </member>
+        <member name="E:StatNeth.Blaise.API.DataEntry.Controls.IControlFactory.OnCreateSpecialAnswerInputControl">
+            <summary>
+            Event that allows to create custom Special Answers input controls.
+            </summary>
+        </member>
+        <member name="E:StatNeth.Blaise.API.DataEntry.Controls.IControlFactory.OnCreateErrorControl">
+            <summary>
+            Event that allows to create custom field error controls (ErrorText, SuppressButton).
+            </summary>
+        </member>
+        <member name="E:StatNeth.Blaise.API.DataEntry.Controls.IControlFactory.OnControlCreated">
+            <summary>
+            Event that allows to modify created standard controls.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Controls.IHasFieldPropertyControlEvents">
+            <summary>
+            Defines events that are fired when a Field Property Control or a Field Property Category Control is created
+            </summary>
+        </member>
+        <member name="E:StatNeth.Blaise.API.DataEntry.Controls.IHasFieldPropertyControlEvents.OnCreateFieldPropertyControl">
+            <summary>
+            Event that is fired when a Field Property Control  is created
+            </summary>
+        </member>
+        <member name="E:StatNeth.Blaise.API.DataEntry.Controls.IHasFieldPropertyControlEvents.OnCreateFieldPropertyCategoryControl">
+            <summary>
+            Event that is fired when a Field Property Category Control is created
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Controls.IControlFactory2">
+            <summary>
+            EXtendes IControlFactory with events for Field Property Controls
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Controls.IHasTextControlEvent">
+            <summary>
+            Defines Event that is fired when a Text Control  is created
+            </summary>
+        </member>
+        <member name="E:StatNeth.Blaise.API.DataEntry.Controls.IHasTextControlEvent.OnCreateTextControl">
+            <summary>
+            Event that is fired when a Text Control  is created
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Controls.IControlFactory3">
+            <summary>
+            Extends IControlFactory2 with event for Text Control
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Controls.IErrorControlDefinition">
+            <summary>
+            interface IErrorControlDefinition : IBaseControlDefinition
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Controls.IErrorControlDefinition.Font">
+            <summary>
+            Gets the Font
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Controls.IErrorControlDefinition.Text">
+            <summary>
+            Gets the Text
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Controls.ISpecialAnswerInputControlDefinition">
+            <summary>
+            Special Answer Input Control Definition
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Controls.IBaseControlDefinition">
+            <summary>
+            Base Interface for Control Definitions
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Controls.IBaseControlDefinition.ID">
+            <summary>
+            ID
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Controls.IBaseControlDefinition.Kind">
+            <summary>
+            Name of value of appropriate ControlKind Enum type 
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Controls.IBaseControlDefinition.RowIndex">
+            <summary>
+            RowIndex
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Controls.IBaseControlDefinition.ColumnIndex">
+            <summary>
+            ColumnIndex
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Controls.IBaseControlDefinition.RowSpan">
+            <summary>
+            RowSpan
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Controls.IBaseControlDefinition.ColSpan">
+            <summary>
+            ColSpan
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Controls.IBaseControlDefinition.Enabled">
+            <summary>
+            Is control Enabled?
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Controls.IBaseControlDefinition.HorizontalAlignment">
+            <summary>
+            Horizontal Alignment
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Controls.IBaseControlDefinition.VerticalAlignment">
+            <summary>
+            Vertical Alignment
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Controls.IBaseControlDefinition.Background">
+            <summary>
+            Background
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Controls.IBaseControlDefinition.Height">
+            <summary>
+            Height
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Controls.IBaseControlDefinition.Margin">
+            <summary>
+            Margin
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Controls.IBaseControlDefinition.ScreenReaderText">
+            <summary>
+            ScreenReaderText 
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Controls.IBaseControlDefinition.ToolTip">
+            <summary>
+            ToolTip
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Controls.IBaseControlDefinition.ToolTipFont">
+            <summary>
+            Font of the ToolTip
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Controls.IBaseControlDefinition.Visibility">
+            <summary>
+            Visibility
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Controls.IBaseControlDefinition.Width">
+            <summary>
+            Width
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Controls.IBaseControlDefinition.CustomProperties">
+            <summary>
+            Custom Properties
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Controls.IFieldInputControlDefinition">
+            <summary>
+            Field Input Control Definition
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Controls.IFieldInputControlDefinition.Font">
+            <summary>
+            Font 
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Controls.IFieldInputControlDefinition.SystemTexts">
+            <summary>
+            System Texts
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.DataObjects.ICategory2">
+            <summary>
+            Interface for FieldProperty Category
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataObjects.ICategory2.FieldProperty">
+            <summary>
+            Owner of a Field Property Category
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.DataObjects.IDataField2">
+            <summary>
+            IDataField extended with Field Properties
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.DataObjects.IError2">
+            <summary>
+            interface IError2, supports <see cref="T:StatNeth.Blaise.API.DataEntry.DataObjects.IError"/> and <see cref="T:StatNeth.Blaise.API.DataEntry.DataObjects.IHasInvolvedFields"/>
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.DataObjects.IFieldProperty">
+            <summary>
+            interface IFieldProperty, supoorts <see cref="T:StatNeth.Blaise.API.DataRecord.IFieldData"/>
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataObjects.IFieldProperty.ValueType">
+            <summary>
+            ValueType 
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataObjects.IFieldProperty.Categories">
+            <summary>
+            Categories of an Enum or Set Field
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataObjects.IFieldProperty.Field">
+            <summary>
+            Owner of the Field Property
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.DataObjects.IFieldPropertyCollection">
+            <summary>
+            Collection of Field Properties
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataObjects.IFieldPropertyCollection.Count">
+            <summary>
+            Count of created items
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataObjects.IFieldPropertyCollection.Item(System.Int32)">
+            <summary>
+            get created item by Index
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntry.DataObjects.IFieldPropertyCollection.GetItem(System.String)">
+            <summary>
+            Obtain FieldProperty by Name. This method might create the item (if necessary).
+            </summary>
+            <param name="fieldPropertyName"></param>
+            <returns></returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.DataObjects.IGroup">
+            <summary>
+            interface IGroup
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataObjects.IGroup.RouteItems">
+            <summary>
+            Gets the RouteItems
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.DataObjects.IHasFieldProperties">
+            <summary>
+            Interface for owner of FieldProperties 
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataObjects.IHasFieldProperties.FieldProperties">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.DataObjects.IHasInvolvedFields">
+            <summary>
+            Has Involved fields
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataObjects.IHasInvolvedFields.InvolvedFields">
+            <summary>
+            Involved Fields of a failed check
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.DataObjects.IInvolvedField">
+            <summary>
+            Involved Field of a failed check
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataObjects.IInvolvedField.Name">
+            <summary>
+            name of the check
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataObjects.IInvolvedField.IsVisited">
+            <summary>
+            is field visited
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.DataObjects.IInvolvedFieldsCollection">
+            <summary>
+            Invollved fields of a failed check
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataObjects.IInvolvedFieldsCollection.Count">
+            <summary>
+            Count
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataObjects.IInvolvedFieldsCollection.Item(System.Int32)">
+            <summary>
+            get item by Index
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.DataObjects.IParallelCollection">
+            <summary>
+            interface IParallelCollection
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataObjects.IParallelCollection.Count">
+            <summary>
+            Count
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataObjects.IParallelCollection.Item(System.Int32)">
+            <summary>
+            get item by Index
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.DataObjects.IRouteItem">
+            <summary>
+            DataField or Group 
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataObjects.IRouteItem.Kind">
+            <summary>
+            Indicates whether the routeItem is a IDataField or IGroup
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.DataObjects.IRouteItem2">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.DataObjects.IRouteItemBase">
+            <summary>
+            Base Interface for Route Items
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataObjects.IRouteItemBase.RouteStatus">
+            <summary>
+            RouetStatus
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataObjects.IRouteItemBase.RoleTexts">
+            <summary>
+            Texts of the RouteItem per Role
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.DataObjects.IRouteItemCollection">
+            <summary>
+            interface IRouteItemCollection
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataObjects.IRouteItemCollection.Count">
+            <summary>
+            Count
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataObjects.IRouteItemCollection.Item(System.Int32)">
+            <summary>
+            get item by Index
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntry.DataObjects.IRouteItemCollection.GetItem(System.String)">
+            <summary>
+            Gets the RouteItem
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.DataObjects.RouteItemKind">
+            <summary>
+            enum RouteItemKind
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.DataObjects.RouteItemKind.DataField">
+            <summary>
+            DataField
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.DataObjects.RouteItemKind.Group">
+            <summary>
+            Group
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.DataObjects.RouteStatus">
+            <summary>
+            enum RouteStatus
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.DataObjects.RouteStatus.Ask">
+            <summary>
+            Show and allow input 
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.DataObjects.RouteStatus.Show">
+            <summary>
+            Show readonly
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.DataObjects.RouteStatus.Keep">
+            <summary>
+            Hidden on route
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.DataObjects.RouteStatus.OffRoute">
+            <summary>
+            not on route
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.DataObjects.IParallel">
+            <summary>
+            Parallel Interface
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataObjects.IParallel.Name">
+            <summary>
+            Name 
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataObjects.IParallel.IsActive">
+            <summary>
+            IsActive
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataObjects.IParallel.CanBeActive">
+            <summary>
+            Indicates whether it is allowed to go to this parallel
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataObjects.IParallel.RoleTexts">
+            <summary>
+            Texts per role
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.DataObjects.ErrorKind">
+            <summary>
+            Kind of error occurred
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.DataObjects.ErrorKind.Route">
+            <summary>
+            Indicates that a required field has not been answered, or an off route field has been answered
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.DataObjects.ErrorKind.Signal">
+            <summary>
+            Indicates a failed signal
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.DataObjects.ErrorKind.Check">
+            <summary>
+            Indicates a failed check
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.DataObjects.ErrorKind.RangeCheck">
+            <summary>
+            Indicates a failed range check
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.DataObjects.ICategory">
+            <summary>
+            Interface for Category
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataObjects.ICategory.Code">
+            <summary>
+            Gets the category's code number. Categories without code number are one-based. One-based means the initial element of a sequence of categories is assigned the index 1.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataObjects.ICategory.Name">
+            <summary>
+            Gets the category's name.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataObjects.ICategory.Field">
+            <summary>
+            Gets the category's field.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataObjects.ICategory.IsSelected">
+            <summary>
+            True when a category is selected, false when it is not.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataObjects.ICategory.RoleTexts">
+            <summary>
+            Gets the category's role text.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.DataObjects.ICategoryCollection">
+            <summary>
+            Collection of <see cref="T:StatNeth.Blaise.API.DataEntry.DataObjects.ICategory"/>
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataObjects.ICategoryCollection.Count">
+            <summary>
+            Count
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntry.DataObjects.ICategoryCollection.GetItem(System.Int32)">
+            <summary>
+            Returns a category item by its code.  
+            </summary>
+            <param name="code">Categories without code number are one-based. One-based means the initial element of a sequence of categories is assigned the index 1.</param>
+            <returns>Returns the category specified by its code or a default value if the code is not found.</returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.DataObjects.IError">
+            <summary>
+            interface IError
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataObjects.IError.Name">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataObjects.IError.ErrorKind">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataObjects.IError.IsRelevant">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataObjects.IError.IsSuppressed">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataObjects.IError.RoleTexts">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.DataObjects.IErrorCollection">
+            <summary>
+            Collection of <see cref="T:StatNeth.Blaise.API.DataEntry.DataObjects.IError"/>
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataObjects.IErrorCollection.Count">
+            <summary>
+            Count
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataObjects.IErrorCollection.Item(System.Int32)">
+            <summary>
+            get item by Index
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataObjects.IErrorCollection.IsRelevant">
+            <summary>
+            IsRelevant
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataObjects.IErrorCollection.FirstRelevant">
+            <summary>
+            FirstRelevant <see cref="T:StatNeth.Blaise.API.DataEntry.DataObjects.IError"/>
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.DataObjects.IFieldCollection">
+            <summary>
+            FieldCollection
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataObjects.IFieldCollection.Count">
+            <summary>
+            Count
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataObjects.IFieldCollection.Item(System.Int32)">
+            <summary>
+            get item by Index
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntry.DataObjects.IFieldCollection.GetItem(System.String)">
+            <summary>
+            Gets the item of type <see cref="T:StatNeth.Blaise.API.DataEntry.DataObjects.IDataField"/>
+            </summary>
+            <param name="fieldName"></param>
+            <returns></returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.DataObjects.IRoleTexts">
+            <summary>
+            RoleTexts
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntry.DataObjects.IRoleTexts.GetRoleText(System.String)">
+            <summary>
+            Get Text by Role
+            </summary>
+            <param name="role"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntry.DataObjects.IRoleTexts.RoleTextExists(System.String)">
+            <summary>
+            Is text for Role defined?
+            </summary>
+            <param name="role"></param>
+            <returns></returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.DataObjects.ISpecialAnswer">
+            <summary>
+            interface ISpecialAnswer
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataObjects.ISpecialAnswer.AnswerName">
+            <summary>
+            Gets the AnswerName
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataObjects.ISpecialAnswer.Field">
+            <summary>
+            Gets the data field
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataObjects.ISpecialAnswer.IsSelected">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.DataObjects.IDataField">
+            <summary>
+            DataField interface
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataObjects.IDataField.ValueType">
+            <summary>
+            ValueType 
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataObjects.IDataField.LookupInformation">
+            <summary>
+            not implemented yet
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataObjects.IDataField.Categories">
+            <summary>
+            Categories of an Enum or Set Field
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataObjects.IDataField.IsVisited">
+            <summary>
+            Indicataes whether the Field is Visited or not
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataObjects.IDataField.Errors">
+            <summary>
+            Errors of the Field
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.DataObjects.IValueType">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataObjects.IValueType.DataType">
+            <summary>
+            Gets the data type
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataObjects.IValueType.Cardinality">
+            <summary>
+            The maximum number of elements in case of a set. Returns null if no maximum was defined, or for structure different from set.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataObjects.IValueType.MaxLength">
+            <summary>
+            The maximum length in case of integer, real or string structure. 
+            Returns null if no length was defined, or for types different from integer, real or string.
+            Note: if value is null for a string type this type was defined as OPEN. 
+            Also: if value is 255 for a string type this type was defined as STRING.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataObjects.IValueType.MinValue">
+            <summary>
+            The minimum value in case of integer or real structure. Is null otherwise.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataObjects.IValueType.MaxValue">
+            <summary>
+            The maximum value in case of integer or real structure. Is null otherwise.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataObjects.IValueType.Decimals">
+            <summary>
+            The number of decimals in case of real structure. Returns null if no decimals were defined, or for types different from real.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataObjects.IValueType.Ranges">
+            <summary>
+            The ranges in case of integer or real structure. Is null otherwise.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.ExecuteActionsEventArgs">
+            <summary>
+            Class that provides event data for the actions.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.ExecuteActionsEventArgs.Actions">
+            <summary>
+            Gets the IActionCollection
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.ExecuteActionsEventArgs.ControlID">
+            <summary>
+            Control ID
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.IHasAddCustomAuditTrailEvent">
+            <summary>
+            Has Add Custom AuditTrail event
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntry.IHasAddCustomAuditTrailEvent.AddCustomAuditTrailEvent(System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            Add Custom AuditTrail event
+            </summary>
+            <param name="eventValues">name value pairs</param>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.IHasAuditTrailLevel">
+            <summary>
+            Provides access to audit trail level
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.IHasAuditTrailLevel.AuditTrailLevel">
+            <summary>
+            The AuditTrail level
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.IHasOnQuestionnaireErrorEvent">
+            <summary>
+            Has OnQuestionnaireError event
+            </summary>
+        </member>
+        <member name="E:StatNeth.Blaise.API.DataEntry.IHasOnQuestionnaireErrorEvent.OnQuestionnaireError">
+            <summary>
+            OnQuestionnaireError event
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.IHasBeforeLeaveFieldEvent">
+            <summary>
+            has Before Leave Field event
+            </summary>
+        </member>
+        <member name="E:StatNeth.Blaise.API.DataEntry.IHasBeforeLeaveFieldEvent.BeforeLeaveField">
+            <summary>
+            Before Leave Field event
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.IHasIncludeNonPageFields">
+            <summary>
+            Interfaces that allows to determine which fields are available in the RouetItems of the Page
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.IHasIncludeNonPageFields.IncludeNonPageFields">
+            <summary>
+            Indicates whether fields that are not defined by the page (but in the Record) should be included in the RouteItems of the Page
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.IHasIncludeNonPageFields.NonPageFieldFilter">
+            <summary>
+            Names of the non page fields that should be included; 
+            If null and IncludeNonPageFields =true, all fields are included
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.IHasOnStreamResponseCompleted">
+            <summary>
+            Interface thta offers event for intercepting response of print action
+            </summary>
+        </member>
+        <member name="E:StatNeth.Blaise.API.DataEntry.IHasOnStreamResponseCompleted.OnStreamResponseCompleted">
+            <summary>
+            result of print action 
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.IHasScreenSizeChanged">
+            <summary>
+            Interface for responding to changes in screen size
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntry.IHasScreenSizeChanged.ScreenSizeChanged(System.Int32,System.Int32)">
+            <summary>
+            Notify that screen size has changed
+            </summary>
+            <param name="newWidth">new width in pixels</param>
+            <param name="newHeight">new height in pixels</param>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.LeaveFieldEventArgs">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.LeaveFieldEventArgs.IsAllowed">
+            <summary>
+             Leave (Current) Field is allowed
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.LeaveFieldEventArgs.FieldName">
+            <summary>
+            Field name
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Page.IDatamodel2">
+            <summary>
+            Extends IDatamodel with LayoutSetGroups
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Page.IDatamodel2.LayoutSetGroups">
+            <summary>
+            LayoutSetGroups
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Page.ILanguage">
+            <summary>
+            interface ILanguage
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Page.ILanguage.CultureID">
+            <summary>
+            CultureID
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Page.ILanguage.IsLeftToRight">
+            <summary>
+            IsLeftToRight
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Page.ILanguageCollection">
+            <summary>
+            Collection of Languages <see cref="T:StatNeth.Blaise.API.DataEntry.Page.ILanguage"/>
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Page.ILanguageCollection.Count">
+            <summary>
+            Count
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Page.ILanguageCollection.Item(System.Int32)">
+            <summary>
+            get item by Index
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Page.ILayoutSet">
+            <summary>
+            LayoutSet
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Page.ILayoutSet.Name">
+            <summary>
+            Name
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Page.ILayoutSet.ResourceSetName">
+            <summary>
+            ResourceSet Name
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Page.ILayoutSet.StyleName">
+            <summary>
+            Style Name
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Page.ILayoutSetCollection">
+            <summary>
+            Collection of LayoutSets <see cref="T:StatNeth.Blaise.API.DataEntry.Page.ILayoutSet"/>
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Page.ILayoutSetCollection.Count">
+            <summary>
+            Count
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Page.ILayoutSetCollection.Item(System.Int32)">
+            <summary>
+            get item by Index
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Page.ILayoutSetGroup">
+            <summary>
+            LayoutSetGroup definition
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Page.ILayoutSetGroup.Name">
+            <summary>
+            Name
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Page.ILayoutSetGroup.LayoutSets">
+            <summary>
+            LayoutSets
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Page.ILayoutSetGroupCollection">
+            <summary>
+            Collection of LayoutSetGroups
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Page.ILayoutSetGroupCollection.Count">
+            <summary>
+            Count
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Page.ILayoutSetGroupCollection.Item(System.Int32)">
+            <summary>
+            get item by Index
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Page.RenderInfoConverter">
+            <summary>
+            RenderInfoConverter
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntry.Page.RenderInfoConverter.Convert(StatNeth.Blaise.Layout.RenderInformation.Datamodel)">
+            <summary>
+            Convert
+            </summary>
+            <param name="datamodel"><see cref="T:StatNeth.Blaise.Layout.RenderInformation.Datamodel"/></param>
+            <returns><see cref="T:StatNeth.Blaise.API.DataEntry.Page.IDatamodel2"/></returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntry.Page.RenderInfoConverter.Convert(StatNeth.Blaise.Layout.RenderInformation.RouteItemCollection)">
+            <summary>
+            Convert
+            </summary>
+            <param name="routeItems"><see cref="T:StatNeth.Blaise.Layout.RenderInformation.RouteItemCollection"/></param>
+            <returns><see cref="T:StatNeth.Blaise.API.DataEntry.DataObjects.IRouteItemCollection"/></returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Page.IDatamodel">
+            <summary>
+            interface IDatamodel
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Page.IDatamodel.RoleTexts">
+            <summary>
+            RoleTexts
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Page.IDatamodel.Languages">
+            <summary>
+            Languages
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Page.IDatamodel.Parallels">
+            <summary>
+            Parallels
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Page.IPage">
+            <summary>
+            IPage
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Page.IPage.Datamodel">
+            <summary>
+            Gets the Datamodel
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Page.IPage.RouteItems">
+            <summary>
+            Gets the RouteItems
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Page.IPage2">
+            <summary>
+            Page with PageId
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Page.IPage2.PageId">
+            <summary>
+            Id of the Page: Page Index
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.ExecuteCustomActionEventArgs">
+            <summary>
+            Class that provides event data for the custom actions.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.ExecuteCustomActionEventArgs.Action">
+            <summary>
+            Get the Action
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.RouteItemEventDefinition.IRouteItemEventDefinition">
+            <summary>
+            ShortcurDefinition
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.RouteItemEventDefinition.IRouteItemEventDefinition.FieldName">
+            <summary>
+            FieldName where this route item events works on
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.RouteItemEventDefinition.IRouteItemEventDefinition.Kind">
+            <summary>
+            Kind of RouteItemEvent
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.RouteItemEventDefinition.IRouteItemEventDefinition.OnExecute">
+            <summary>
+            Actions that should be executed
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.RouteItemEventDefinition.IRouteItemEventDefinitionCollection">
+            <summary>
+            RouteItemEvents collection
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.RouteItemEventDefinition.IRouteItemEventDefinitionCollection.Count">
+            <summary>
+            Count
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.RouteItemEventDefinition.IRouteItemEventDefinitionCollection.Item(System.Int32)">
+            <summary>
+            Item by index
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.RouteItemEventDefinition.RouteItemEventDefinition">
+            <summary>
+            RouteItemEventDefinition
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.RouteItemEventDefinition.RouteItemEventDefinition.FieldName">
+            <summary>
+            FieldName
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.RouteItemEventDefinition.RouteItemEventDefinition.Kind">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.RouteItemEventDefinition.RouteItemEventDefinition.OnExecute">
+            <summary>
+            Actions for execution
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.RouteItemEventDefinition.RouteItemEventDefinition.Definition">
+            <summary>
+            RouteItemEventDefinition
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.RouteItemEventDefinition.RouteItemEventKind">
+            <summary>
+            Kind of RouteItemEvent
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.RouteItemEventDefinition.RouteItemEventKind.Enter">
+            <summary>
+            Enter
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.RouteItemEventDefinition.RouteItemEventKind.Leave">
+            <summary>
+            Leave
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Security.IHasLoginRequired">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="E:StatNeth.Blaise.API.DataEntry.Security.IHasLoginRequired.OnLoginRequired">
+            <summary>
+            Event that is fired when Login is required to access to survey
+            Specify a UserName and a Password, or redirect to BiLogin.aspx
+            
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Security.LoginRequiredEventArgs">
+            <summary>
+            Arguments of OnLoginRequires event
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Security.LoginRequiredEventArgs.Reason">
+            <summary>
+            Reason why login is required
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Security.LoginRequiredEventArgs.Attempt">
+            <summary>
+            Number of login attempts
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.ShortcutDefinition.IShortcutDefinition">
+            <summary>
+            ShortcurDefinition
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.ShortcutDefinition.IShortcutDefinition.Name">
+            <summary>
+            Unique name to idenity the Shortcut
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.ShortcutDefinition.IShortcutDefinition.Kind">
+            <summary>
+            Kind of Shortcut
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.ShortcutDefinition.IShortcutDefinition.Key">
+            <summary>
+            Defined key for KeyStroke
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.ShortcutDefinition.IShortcutDefinition.Shift">
+            <summary>
+            Shift-Key?
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.ShortcutDefinition.IShortcutDefinition.Ctrl">
+            <summary>
+            Ctrl-Key?
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.ShortcutDefinition.IShortcutDefinition.Alt">
+            <summary>
+            Alt-Key?
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.ShortcutDefinition.IShortcutDefinition.Gesture">
+            <summary>
+            Gesture name
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.ShortcutDefinition.IShortcutDefinition.SpeechCommand">
+            <summary>
+            Speechcommand
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.ShortcutDefinition.IShortcutDefinition.OnExecute">
+            <summary>
+            Actions that should be executed
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.ShortcutDefinition.IShortcutDefinitionCollection">
+            <summary>
+            Shortcuts collection
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.ShortcutDefinition.IShortcutDefinitionCollection.Count">
+            <summary>
+            Count
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.ShortcutDefinition.IShortcutDefinitionCollection.Item(System.Int32)">
+            <summary>
+            Item by index
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.ShortcutDefinition.ShortcutDefinition">
+            <summary>
+            ShortcutDefinition
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.ShortcutDefinition.ShortcutDefinition.Name">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.ShortcutDefinition.ShortcutDefinition.Kind">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.ShortcutDefinition.ShortcutDefinition.Key">
+            <summary>
+            Key of KeyBoard
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.ShortcutDefinition.ShortcutDefinition.Shift">
+            <summary>
+            Gets a value indicating whether the SHIFT key was pressed
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.ShortcutDefinition.ShortcutDefinition.Ctrl">
+            <summary>
+            Gets a value indicating whether the CONTROL key was pressed
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.ShortcutDefinition.ShortcutDefinition.Alt">
+            <summary>
+            Gets a value indicating whether the ALT key was pressed
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.ShortcutDefinition.ShortcutDefinition.Gesture">
+            <summary>
+            Touch screen gesture/movement
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.ShortcutDefinition.ShortcutDefinition.SpeechCommand">
+            <summary>
+            Spoken command
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.ShortcutDefinition.ShortcutDefinition.OnExecute">
+            <summary>
+            Event to execute
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.ShortcutDefinition.ShortcutDefinition.Definition">
+            <summary>
+            ShortcutDefinition <see cref="T:StatNeth.Blaise.Layout.Actions.ShortcutDefinition"/>
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.ShortcutDefinition.ShortcutKind">
+            <summary>
+            Kind of Shortcut
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.ShortcutDefinition.ShortcutKind.Keystroke">
+            <summary>
+            Key combination
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.ShortcutDefinition.ShortcutKind.Gesture">
+            <summary>
+            Gesture, i.e. SwipeLeft
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.ShortcutDefinition.ShortcutKind.Speech">
+            <summary>
+            Spoken command
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.StreamResponseCompletedEventArgs">
+            <summary>
+            StreamResponseCompletedEventArgs
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.StreamResponseCompletedEventArgs.StreamData">
+            <summary>
+            byte[] StreamData
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.StreamResponseCompletedEventArgs.OutputFileName">
+            <summary>
+            string OutputFileName
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.StreamResponseCompletedEventArgs.SuccessMessage">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.StreamResponseCompletedEventArgs.IsHandled">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.TextMarkup.ICurrentableFont">
+            <summary>
+            Active font description of a table
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.TextMarkup.ICurrentableFont.Family">
+            <summary>
+            Defines a group of type faces having a similar basic design and certain variations in styles.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.TextMarkup.ICurrentableFont.Size">
+            <summary>
+            Font Size
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.TextMarkup.ICurrentableFont.Color">
+            <summary>
+            Color of the Font
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.TextMarkup.ICurrentableFont.Italic">
+            <summary>
+            Gets a value that indicates whether this font has the italic style applied
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.TextMarkup.ICurrentableFont.Bold">
+            <summary>
+            Gets a value that indicates whether this Font is bold
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.TextMarkup.ICurrentableFont.Underline">
+            <summary>
+            Gets a value that indicates whether this Font is underlined
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.TextMarkup.GridUnitType">
+            <summary>
+            Type of Grid Unit is used while sizing
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.TextMarkup.GridUnitType.Auto">
+            <summary>
+            Automatic fitting
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.TextMarkup.GridUnitType.Pixel">
+            <summary>
+            This type of sizing means that the row or column will get an absolute size and will not resize when the parent grid is resized
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.TextMarkup.GridUnitType.Percentage">
+            <summary>
+            Percentage sizing means that you set a dimension of the row or column to a fraction in percent of the available space
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.TextMarkup.GridUnitType.Star">
+            <summary>
+            The cell size is a percentage of the "remaining size" of its content. The remaining size is the size of the grid, minus the fixed and auto size
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.TextMarkup.IFont">
+            <summary>
+            DataEntry.TextMarkup IFont interface
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.TextMarkup.IFont.Family">
+            <summary>
+            Font Family
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.TextMarkup.IFont.Size">
+            <summary>
+            Font Size
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.TextMarkup.IFont.Color">
+            <summary>
+            Color
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.TextMarkup.IFont.Italic">
+            <summary>
+            Is Italic
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.TextMarkup.IFont.Bold">
+            <summary>
+            Is Bold
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.TextMarkup.IFont.Underline">
+            <summary>
+            Is Underlined
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.TextMarkup.IGridUnit">
+            <summary>
+            DataEntry.TextMarkup IGridUnit interface
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.TextMarkup.IGridUnit.Value">
+            <summary>
+            Value 
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.TextMarkup.IGridUnit.UnitType">
+            <summary>
+            Type of unit
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.TextMarkup.IParagraph">
+            <summary>
+            DataEntry.TextMarkup IParagraph interface
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.TextMarkup.IParagraph.Alignment">
+            <summary>
+            HorizontalAlignment
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.TextMarkup.IParagraph.Runs">
+            <summary>
+            Runs
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.TextMarkup.IRichText">
+            <summary>
+            DataEntry.TextMarkup IRichText
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.TextMarkup.IRichText.Elements">
+            <summary>
+            Elements
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.TextMarkup.IRichTextElement">
+            <summary>
+            DataEntry.TextMarkup IRichTextElement
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.TextMarkup.IRichTextElement.Kind">
+            <summary>
+            Kind of RichTextElement
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.TextMarkup.IRichTextElement.Columns">
+            <summary>
+            Collection of Columns
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.TextMarkup.IRichTextElement.Rows">
+            <summary>
+            Collection of Rows
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.TextMarkup.IRun">
+            <summary>
+            DataEntry.TextMarkup IRun
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.TextMarkup.IRun.Font">
+            <summary>
+            Default Font for Run
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.TextMarkup.IRun.Elements">
+            <summary>
+            Elements in Run
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.TextMarkup.IRunElement">
+            <summary>
+            DataEntry.TextMarkup IRunElement
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.TextMarkup.IRunElement.Kind">
+            <summary>
+            Kind of Run Element
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.TextMarkup.IRunElement.Background">
+            <summary>
+            background brush
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.TextMarkup.IRunElement.Height">
+            <summary>
+            Height
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.TextMarkup.IRunElement.Width">
+            <summary>
+            Width
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.TextMarkup.IRunElement.Text">
+            <summary>
+            Text
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.TextMarkup.IRunElement.StrokeColor">
+            <summary>
+            Stroke Color
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.TextMarkup.IRunElement.StrokeWidth">
+            <summary>
+            Stroke Width
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.TextMarkup.IRunElement.StrokeStyle">
+            <summary>
+            Stroke Style
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.TextMarkup.ITableCell">
+            <summary>
+            DataEntry.TextMarkup ITableCell
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.TextMarkup.ITableCell.Paragraphs">
+            <summary>
+            Paragraphs
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.TextMarkup.ITableCell.RowSpan">
+            <summary>
+            Row Span
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.TextMarkup.ITableCell.ColSpan">
+            <summary>
+            Column Span
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.TextMarkup.ITableCell.Background">
+            <summary>
+            Background brush
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.TextMarkup.ITableCell.BorderColor">
+            <summary>
+            Border Color
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.TextMarkup.ITableCell.BorderWidth">
+            <summary>
+            Border Width
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.TextMarkup.ITableCell.ColumnIndex">
+            <summary>
+            Column Index
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.TextMarkup.ITableCell.Margin">
+            <summary>
+            Margin
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.TextMarkup.ITableCell.VerticalTextAlignment">
+            <summary>
+            VerticalTextAlignment
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.TextMarkup.ITableColumn">
+            <summary>
+            DataEntry.TextMarkup ITableColumn
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.TextMarkup.ITableColumn.Background">
+            <summary>
+            Background brush
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.TextMarkup.ITableColumn.Width">
+            <summary>
+            Width units
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.TextMarkup.ITableRow">
+            <summary>
+            DataEntry.TextMarkup interface ITableRow
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.TextMarkup.ITableRow.Background">
+            <summary>
+            Background Brush
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.TextMarkup.ITableRow.Cells">
+            <summary>
+            Cells
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.TextMarkup.LineStyle">
+            <summary>
+            Line Style (not in use)
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.TextMarkup.RichTextElementKind">
+            <summary>
+            DataEntry.TextMarkup RichTextElementKind enum
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.TextMarkup.RichTextElementKind.Paragraph">
+            <summary>
+            Paragraph or text
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.TextMarkup.RichTextElementKind.Table">
+            <summary>
+            Table or grid style
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.TextMarkup.RunElementKind">
+            <summary>
+            DataEntry.TextMarkup RunElementKind enum
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.TextMarkup.RunElementKind.Text">
+            <summary>
+            of type Text
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.TextMarkup.RunElementKind.Tab">
+            <summary>
+            of type Tab
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.TextMarkup.RunElementKind.Image">
+            <summary>
+            of type Image
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.TextMarkup.RunElementKind.Hyperlink">
+            <summary>
+            of type Hyperlink
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.TextMarkup.RunElementKind.Ellipse">
+            <summary>
+            Ellipse
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.TextMarkup.RunElementKind.Line">
+            <summary>
+            Line
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.TextMarkup.RunElementKind.Rectangle">
+            <summary>
+            of type Rectangle
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.TextMarkup.RunElementKind.Button">
+            <summary>
+            of type Button
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Types.BrushType">
+            <summary>
+            Brush Type of control
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.BrushType.SolidColor">
+            <summary>
+            Solid
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.BrushType.LinearGradient">
+            <summary>
+            Gradient
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.BrushType.Image">
+            <summary>
+            Image
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Types.CustomPropertyKind">
+            <summary>
+            Custom Property Kind. Indicates whether a CustomProperty of type string has a special meaning.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.CustomPropertyKind.Unspecified">
+            <summary>
+            Standard type 
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.CustomPropertyKind.Text">
+            <summary>
+            Key of a SystemText in the Resource Database
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.CustomPropertyKind.Image">
+            <summary>
+            Key of an Image in the Resource Database
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.CustomPropertyKind.Audio">
+            <summary>
+            Key of Audio item in the Resource Database
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.CustomPropertyKind.Video">
+            <summary>
+            Key of Video item in the Resource Database
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.CustomPropertyKind.Document">
+            <summary>
+            Key of a document in the Resource Database
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.CustomPropertyKind.Font">
+            <summary>
+            Name of a Font in the Resource Database
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.CustomPropertyKind.Control">
+            <summary>
+            Name of a Control in the same Template
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Types.CustomPropertyType">
+            <summary>
+            Indicates Type of a Custom Property
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.CustomPropertyType.Boolean">
+            <summary>
+            Boolean
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.CustomPropertyType.Brush">
+            <summary>
+            Brush
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.CustomPropertyType.Color">
+            <summary>
+            Color
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.CustomPropertyType.CornerRadius">
+            <summary>
+            Corner Radius
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.CustomPropertyType.Double">
+            <summary>
+            Double
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.CustomPropertyType.GridType">
+            <summary>
+            Grid Type
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.CustomPropertyType.HorizontalAlignment">
+            <summary>
+            Horizontal Alignment
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.CustomPropertyType.Int">
+            <summary>
+            Integer
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.CustomPropertyType.LineStyle">
+            <summary>
+            LineStyle
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.CustomPropertyType.Orientation">
+            <summary>
+            Orientation
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.CustomPropertyType.ScrollBarVisibility">
+            <summary>
+            ScrollBar Visibility
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.CustomPropertyType.String">
+            <summary>
+            String
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.CustomPropertyType.Thickness">
+            <summary>
+            Thickness
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.CustomPropertyType.TickPlacement">
+            <summary>
+            TickPlacement
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.CustomPropertyType.Unit">
+            <summary>
+            Unit
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.CustomPropertyType.VerticalAlignment">
+            <summary>
+            Vertical Alignment
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.CustomPropertyType.Visibility">
+            <summary>
+            Visibility
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Types.GridType">
+            <summary>
+            DataEntry.Types GridType enum
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.GridType.None">
+            <summary>
+            No grid
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.GridType.Horizontal">
+            <summary>
+            Horizontal grid
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.GridType.Vertical">
+            <summary>
+            Vertical grid
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.GridType.Both">
+            <summary>
+            Both horizonatl and vertical grid
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Types.HorizontalAlignment">
+            <summary>
+            Indicates where an element should be displayed on the horizontal axis relative to the allocated layout slot of the parent element
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.HorizontalAlignment.Left">
+            <summary>
+            An element aligned to the left of the layout slot for the parent element
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.HorizontalAlignment.Center">
+            <summary>
+            An element aligned to the center of the layout slot for the parent element
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.HorizontalAlignment.Right">
+            <summary>
+            An element aligned to the right of the layout slot for the parent element
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Types.IBrush">
+            <summary>
+            Defines objects used to fill the interiors of graphical shapes such as rectangles, ellipses, pies, polygons, and paths.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.IBrush.BrushType">
+            <summary>
+            Type of Brush
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.IBrush.SolidColor">
+            <summary>
+            Gets the color of this SolidBrush object
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.IBrush.Id">
+            <summary>
+            Gets the Id of the ImageBrush
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.IBrush.Opacity">
+            <summary>
+            Gets the Opacity of the ImageBrush
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.IBrush.Stretch">
+            <summary>
+            How does the ImageBrush stretches
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.IBrush.PixelHeight">
+            <summary>
+            ImageBrush Height 
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.IBrush.PixelWidth">
+            <summary>
+            ImageBrush Width
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.IBrush.StartPoint">
+            <summary>
+            Starting Point of LinearGradientBrush
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.IBrush.EndPoint">
+            <summary>
+            End Point of LinearGradientBrush
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.IBrush.GradientStops">
+            <summary>
+            Gradient Stops of LinearGradientBrush
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Types.IColor">
+            <summary>
+            Represents an ARGB (alpha, red, green, blue) color
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.IColor.A">
+            <summary>
+            Gets the alpha component value of this IColor 
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.IColor.R">
+            <summary>
+            Gets the red component value of this IColor
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.IColor.G">
+            <summary>
+            Gets the green component value of this IColor
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.IColor.B">
+            <summary>
+            Gets the blue component value of this IColor
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Types.ICornerRadius">
+            <summary>
+            Represents the radii of a rectangle's corners
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.ICornerRadius.TopLeft">
+            <summary>
+            Gets the radius of the top-left corner
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.ICornerRadius.TopRight">
+            <summary>
+            Gets the radius of the top-right corner
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.ICornerRadius.BottomRight">
+            <summary>
+            Gets the radius of the bottom-right corner
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.ICornerRadius.BottomLeft">
+            <summary>
+            Gets the radius of the bottom-left corner
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Types.ICustomProperty">
+            <summary>
+            Custom Property Interface
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.ICustomProperty.Name">
+            <summary>
+            Name
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.ICustomProperty.CustomPropertyTypeName">
+            <summary>
+            Name of a CustomPropertyType value. Determines which value is Assigned.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.ICustomProperty.KindName">
+            <summary>
+            Name of a CustomPropertyKind value
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.ICustomProperty.Tag">
+            <summary>
+            Tag
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.ICustomProperty.StringValue">
+            <summary>
+            String Value. Assigned if CustomProperty has appropriate type name.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.ICustomProperty.BooleanValue">
+            <summary>
+            Boolean Value. Assigned if CustomProperty has appropriate type name.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.ICustomProperty.IntegerValue">
+            <summary>
+            Integer Value. Assigned if CustomProperty has appropriate type name.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.ICustomProperty.DoubleValue">
+            <summary>
+            Double Value. Assigned if CustomProperty has appropriate type name.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.ICustomProperty.BrushValue">
+            <summary>
+            Brush Value. Assigned if CustomProperty has appropriate type name.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.ICustomProperty.ColorValue">
+            <summary>
+            Color Value. Assigned if CustomProperty has appropriate type name.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.ICustomProperty.CornerRadiusValue">
+            <summary>
+            CornerRadius Value. Assigned if CustomProperty has appropriate type name.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.ICustomProperty.Font">
+            <summary>
+            Font. Assigned if Kind is Font. 
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.ICustomProperty.GridTypeValue">
+            <summary>
+            GridType Value. Assigned if CustomProperty has appropriate type name.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.ICustomProperty.HorizontalAlignmentValue">
+            <summary>
+            HorizontalAlignment Value. Assigned if CustomProperty has appropriate type name.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.ICustomProperty.LineStyleValue">
+            <summary>
+            LineStyle Value. Assigned if CustomProperty has appropriate type name.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.ICustomProperty.OrientationValue">
+            <summary>
+            Orientation Value. Assigned if CustomProperty has appropriate type name.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.ICustomProperty.ScrollBarVisibilityValue">
+            <summary>
+            ScrollBarVisibility Value. Assigned if CustomProperty has appropriate type name.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.ICustomProperty.VerticalAlignmentValue">
+            <summary>
+            VerticalAlignment Value. Assigned if CustomProperty has appropriate type name.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.ICustomProperty.VisibilityValue">
+            <summary>
+            Visibility Value. Assigned if CustomProperty has appropriate type name.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.ICustomProperty.ThicknessValue">
+            <summary>
+            Thickness Value. Assigned if CustomProperty has appropriate type name.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.ICustomProperty.UnitValue">
+            <summary>
+            Unit Value. Assigned if CustomProperty has appropriate type name.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.ICustomProperty.SystemText">
+            <summary>
+            SystemText. Assigned if Kind is SystemText.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Types.ICustomPropertyCollection">
+            <summary>
+            Collection of <see cref="T:StatNeth.Blaise.API.DataEntry.Types.ICustomProperty"/>
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.ICustomPropertyCollection.Count">
+            <summary>
+            Count
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.ICustomPropertyCollection.Item(System.Int32)">
+            <summary>
+            get item by Index
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Types.IGradientStop">
+            <summary>
+            Describes the location and color of a transition point in a gradient
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.IGradientStop.OffSet">
+            <summary>
+            Gets the location of the gradient stop within the gradient vector
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.IGradientStop.Color">
+            <summary>
+            Gets or sets the color of the gradient stop
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Types.IGradientStopCollection">
+            <summary>
+            Collection of <see cref="T:StatNeth.Blaise.API.DataEntry.Types.IGradientStop"/>
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.IGradientStopCollection.Count">
+            <summary>
+            Count
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.IGradientStopCollection.Item(System.Int32)">
+            <summary>
+            get item by Index
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Types.INamedValueProperty">
+            <summary>
+            interface INamedValueProperty : IValueProperty
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.INamedValueProperty.Name">
+            <summary>
+            Name
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Types.INamedValuePropertyCollection">
+            <summary>
+            Collection of <see cref="T:StatNeth.Blaise.API.DataEntry.Types.INamedValueProperty"/>
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.INamedValuePropertyCollection.Count">
+            <summary>
+            Count
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.INamedValuePropertyCollection.Item(System.Int32)">
+            <summary>
+            get item by Index
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntry.Types.INamedValuePropertyCollection.Add(System.String)">
+            <summary>
+            Add 
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Types.IPoint">
+            <summary>
+            Represents an ordered pair of integer x- and y-coordinates that defines a point in a two-dimensional plane
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.IPoint.X">
+            <summary>
+            Gets the x-coordinate of this Point
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.IPoint.Y">
+            <summary>
+            Gets the y-coordinate of this Point
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Types.IThickness">
+            <summary>
+            Describes the thickness of a frame around a rectangle. Four Int values describe the Left, Top, Right, and Bottom sides of the rectangle, respectively
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.IThickness.Bottom">
+            <summary>
+            Gets or sets the bottom.
+            </summary>
+            <value>
+            The bottom.
+            </value>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.IThickness.Left">
+            <summary>
+            Gets or sets the left.
+            </summary>
+            <value>
+            The left.
+            </value>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.IThickness.Right">
+            <summary>
+            Gets or sets the right.
+            </summary>
+            <value>
+            The right.
+            </value>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.IThickness.Top">
+            <summary>
+            Gets or sets the top.
+            </summary>
+            <value>
+            The top.
+            </value>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Types.IUnit">
+            <summary>
+            Interface IUnit
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.IUnit.Value">
+            <summary>
+            Value of Unit
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.IUnit.UnitType">
+            <summary>
+            Type of Unit
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Types.IValueProperty">
+            <summary>
+            interface IValueProperty
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.IValueProperty.Value">
+            <summary>
+            Value
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Types.IValuePropertyCollection">
+            <summary>
+            Collection of <see cref="T:StatNeth.Blaise.API.DataEntry.Types.IValueProperty"/>
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.IValuePropertyCollection.Count">
+            <summary>
+            Count
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.IValuePropertyCollection.Item(System.Int32)">
+            <summary>
+            get item by Index
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntry.Types.IValuePropertyCollection.Add">
+            <summary>
+            Add a new element
+            </summary>
+            <returns>new element of type <see cref="T:StatNeth.Blaise.API.DataEntry.Types.IValueProperty"/></returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Types.LineStyle">
+            <summary>
+            Data Entry LineStyle
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.LineStyle.Solid">
+            <summary>
+            Solid Line
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.LineStyle.Dash">
+            <summary>
+            Dashed Line
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.LineStyle.Dot">
+            <summary>
+            Dotted Line
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Types.MediumType">
+            <summary>
+            Data Entry MediumType
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.MediumType.Image">
+            <summary>
+            Image or picture
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.MediumType.Audio">
+            <summary>
+            Audio
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.MediumType.Video">
+            <summary>
+            Video
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.MediumType.Document">
+            <summary>
+            Document or file
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Types.Orientation">
+            <summary>
+            Data Entry Orientation
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.Orientation.Horizontal">
+            <summary>
+            Default. Fill Order is Horizontal
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.Orientation.Vertical">
+            <summary>
+            Fill Order is Vertical
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Types.PageRange">
+            <summary>
+            Data Entry Page Range
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.PageRange.AllPages">
+            <summary>
+            All Pages
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.PageRange.CurrentPage">
+            <summary>
+            Active Page
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Types.PaperOrientation">
+            <summary>
+            Data Entry PaperOrientation
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.PaperOrientation.Portrait">
+            <summary>
+            Default. Portrait
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.PaperOrientation.Landscape">
+            <summary>
+            Landscape
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Types.PaperSize">
+            <summary>
+            Data Entry PaperSize
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.PaperSize.A4">
+            <summary>
+            A4 - 210mm × 297mm
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.PaperSize.A3">
+            <summary>
+            A3 - 297mm × 420mm
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.PaperSize.A5">
+            <summary>
+            A5 - 148mm × 210mm
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.PaperSize.Letter">
+            <summary>
+            Letter - 215.9mm × 279.4mm
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.PaperSize.Tabloid">
+            <summary>
+            Tabloid - 279mm × 432mm
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Types.ScrollBarVisibility">
+            <summary>
+            Data Entry ScrollBarVisibility
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.ScrollBarVisibility.None">
+            <summary>
+            No scroll bar is shown.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.ScrollBarVisibility.Visible">
+            <summary>
+            a scroll bar is shown.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.ScrollBarVisibility.Auto">
+            <summary>
+            Automatic Scrollbars
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Types.Stretch">
+            <summary>
+            Data Entry Stretch
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.Stretch.Center">
+            <summary>
+            Center
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.Stretch.Stretch">
+            <summary>
+            Stretch
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.Stretch.Fit">
+            <summary>
+            Fit to parent
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.Stretch.Fill">
+            <summary>
+            Fill
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.Thickness.Bottom">
+            <summary>
+            Gets or sets the bottom.
+            </summary>
+            <value>
+            The bottom.
+            </value>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.Thickness.Left">
+            <summary>
+            Gets or sets the left.
+            </summary>
+            <value>
+            The left.
+            </value>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.Thickness.Right">
+            <summary>
+            Gets or sets the right.
+            </summary>
+            <value>
+            The right.
+            </value>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.Thickness.Top">
+            <summary>
+            Gets or sets the top.
+            </summary>
+            <value>
+            The top.
+            </value>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.ThicknessDef.Bottom">
+            <summary>
+            Gets or sets the bottom.
+            </summary>
+            <value>
+            The bottom.
+            </value>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.ThicknessDef.Left">
+            <summary>
+            Gets or sets the left.
+            </summary>
+            <value>
+            The left.
+            </value>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.ThicknessDef.Right">
+            <summary>
+            Gets or sets the right.
+            </summary>
+            <value>
+            The right.
+            </value>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.ThicknessDef.Top">
+            <summary>
+            Gets or sets the top.
+            </summary>
+            <value>
+            The top.
+            </value>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.Unit.Value">
+            <summary>
+            Gets or sets the value.
+            </summary>
+            <value>
+            The value.
+            </value>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.Unit.UnitType">
+            <summary>
+            Gets or sets the type of the unit.
+            </summary>
+            <value>
+            The type of the unit.
+            </value>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.UnitDef.Value">
+            <summary>
+            Gets or sets the value.
+            </summary>
+            <value>
+            The value.
+            </value>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Types.UnitDef.UnitType">
+            <summary>
+            Gets or sets the type of the unit.
+            </summary>
+            <value>
+            The type of the unit.
+            </value>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Types.UnitType">
+            <summary>
+            Data Entry UnitType
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.UnitType.Auto">
+            <summary>
+            Auto
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.UnitType.Pixel">
+            <summary>
+            Pixel
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.UnitType.Stretch">
+            <summary>
+            Stretch
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Types.VerticalAlignment">
+            <summary>
+            Data Entry Type VerticalAlignment
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.VerticalAlignment.Top">
+            <summary>
+            Align to Top
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.VerticalAlignment.Center">
+            <summary>
+            Center
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.VerticalAlignment.Bottom">
+            <summary>
+            Align to bottom
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Types.Visibility">
+            <summary>
+            Data Entry Type Visibility
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.Visibility.Visible">
+            <summary>
+            Display the element.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.Visibility.Hidden">
+            <summary>
+            Do not display the element, but reserve space for the element in layout. 
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Types.Visibility.Collapsed">
+            <summary>
+            Do not display the element, and do not reserve space for it in layout.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.DataEntryController">
+            <summary>
+            A DataEntryController communicates with the servers of the serverpark to host an interview session for a data entry client
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntry.DataEntryController.#ctor(StatNeth.Blaise.Runtime.DataEntry.Shared.Controller.DepController,StatNeth.Blaise.API.DataEntry.ServerPark.IServerPark,StatNeth.Blaise.Security.BlaiseTokens)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="depController"></param>
+            <param name="serverpark"></param>
+            <param name="tokens"></param>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntry.DataEntryController.CreateControlFactory">
+            <summary>
+            Create a ControlFactory
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataEntryController.RefreshMode">
+            <summary>
+            Gets the RefreshMode
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataEntryController.Controller">
+            <summary>
+            Gets the DEP Controller
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataEntryController.HasOnSetControlEvents">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntry.DataEntryController.NotifySetControlEvents(System.Object,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="control"></param>
+            <param name="add"></param>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntry.DataEntryController.CreateSetControlEventsEventArgs(System.Object,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="control"></param>
+            <param name="add"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntry.DataEntryController.StartInterview(System.Guid,System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.Int32,System.Int32)">
+            <summary>
+            Start an Interview session (to obtain the first page of the interview).
+            </summary>
+            <param name="instrumentId">The instrumentId is a globally unique identifier (GUID) to identify the project (questionnaire).</param>
+            <param name="instrumentName">The InstrumentName is the name of the project (questionnaire).</param>
+            <param name="runtimeParameters">Blaise instruments can run in different languages, different modes of behavior, and use different layout. These settings can be passed on as runtime arguments to the data entry session.</param>
+            <param name="cultureId">A cultureId identifies a group of settings that define unique ways of representing numbers, currency, dates and times and the direction in which texts are written right-to-left or left-to-right.</param>
+            <param name="screenWidth">The width of the user's screen, in pixels.</param>
+            <param name="screenHeight">The height of the user's screen, in pixels.</param>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataEntryController.FieldSeparator">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntry.DataEntryController.ExecuteAction(StatNeth.Blaise.API.DataEntry.Actions.IAction)">
+            <summary>
+            Execute an action.
+            </summary>
+            <param name="action"></param>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntry.DataEntryController.ExecuteActions(System.Collections.Generic.IEnumerable{StatNeth.Blaise.API.DataEntry.Actions.IAction},System.String)">
+            <summary>
+            Execute actions of a control.
+            </summary>
+            <param name="actions"></param>
+            <param name="controlID"></param>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntry.DataEntryController.CreateActions(System.Collections.Generic.IEnumerable{StatNeth.Blaise.Layout.Actions.Action})">
+            <summary>
+            
+            </summary>
+            <param name="actions"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntry.DataEntryController.CreateAction(StatNeth.Blaise.Layout.Actions.Action)">
+            <summary>
+            
+            </summary>
+            <param name="action"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntry.DataEntryController.CreateExecuteCustomActionEventArgs(StatNeth.Blaise.API.DataEntry.Actions.IAction)">
+            <summary>
+            
+            </summary>
+            <param name="action"></param>
+            <returns></returns>
+        </member>
+        <member name="E:StatNeth.Blaise.API.DataEntry.DataEntryController.OnQuestionnaireCompleted">
+            <summary>
+            Occurs when the interview session is successfully completed.
+            </summary>
+        </member>
+        <member name="E:StatNeth.Blaise.API.DataEntry.DataEntryController.OnQuestionnaireAborted">
+            <summary>
+            Occurs when the Intreview session is aborted.
+            </summary>
+        </member>
+        <member name="E:StatNeth.Blaise.API.DataEntry.DataEntryController.OnQuestionnaireError">
+            <summary>
+            Occurs when there is an error in the Intereview session.
+            </summary>
+        </member>
+        <member name="E:StatNeth.Blaise.API.DataEntry.DataEntryController.OnPageControlsCreated">
+            <summary>
+            Occurs when the new page definition has been processed (and new UI-controls are created). 
+            </summary>
+        </member>
+        <member name="E:StatNeth.Blaise.API.DataEntry.DataEntryController.BeforeExecuteActions">
+            <summary>
+            Event that occurs just before the actions will be executed (i.e. send to the data entry server).
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataEntryController.ServerPark">
+            <summary>
+            ServerPark
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataEntryController.InterviewState">
+            <summary>
+            InterviewState
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataEntryController.Page">
+            <summary>
+            Gets the Page
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntry.DataEntryController.GetControlFactory">
+            <summary>
+            Gets the active ControlFactory
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntry.DataEntryController.GotoField(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="fieldName"></param>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntry.DataEntryController.GetControl(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="ID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntry.DataEntryController.InputControlGotFocus(StatNeth.Blaise.Layout.Controls.Common.IInputControl)">
+            <summary>
+            
+            </summary>
+            <param name="control"></param>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataEntryController.AuditTrailLevel">
+            <summary>
+            Gets the AuditTrailLevel
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataEntryController.IncludeNonPageFields">
+            <summary>
+            Gets or sets IncludeNonPageFields
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataEntryController.NonPageFieldFilter">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="E:StatNeth.Blaise.API.DataEntry.DataEntryController.OnStreamResponseCompleted">
+            <summary>
+            OnStreamResponseCompleted Event of <see cref="T:StatNeth.Blaise.API.DataEntry.StreamResponseCompletedEventArgs"/>
+            </summary>
+        </member>
+        <member name="E:StatNeth.Blaise.API.DataEntry.DataEntryController.OnLoginRequired">
+            <summary>
+            event that is fired when login is required
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntry.DataEntryController.ScreenSizeChanged(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="newWidth"></param>
+            <param name="newHeight"></param>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntry.DataEntryController.AddCustomAuditTrailEvent(System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            Add Custom AuditTrail event
+            </summary>
+            <param name="eventValues">name value pairs</param>
+        </member>
+        <member name="E:StatNeth.Blaise.API.DataEntry.DataEntryController.BeforeLeaveField">
+            <summary>
+            before leave (active) field event
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.DataEntryControllerObtainedEventArgs">
+            <summary>
+            Class that represents event data for the DataEntryController.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.DataEntryControllerObtainedEventArgs.DataEntryController">
+            <summary>
+            DataEntryController
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.IDataEntryController">
+            <summary>
+            A DataEntryController communicates with the servers of the serverpark to host an interview session for a data entry client
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntry.IDataEntryController.StartInterview(System.Guid,System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.Int32,System.Int32)">
+            <summary>
+            Start an Interview session (to obtain the first page of the interview).
+            </summary>
+            <param name="instrumentId">The instrumentId is a globally unique identifier (GUID) to identify the project (questionnaire).</param>
+            <param name="instrumentName">The InstrumentName is the name of the project (questionnaire).</param>
+            <param name="runtimeParameters">Blaise instruments can run in different languages, different modes of behavior, and use different layout. These settings can be passed on as runtime arguments to the data entry session.</param>
+            <param name="cultureId">A cultureId identifies a group of settings that define unique ways of representing numbers, currency, dates and times and the direction in which texts are written right-to-left or left-to-right.</param>
+            <param name="screenWidth">The width of the user's screen, in pixels.</param>
+            <param name="screenHeight">The height of the user's screen, in pixels.</param>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntry.IDataEntryController.ExecuteAction(StatNeth.Blaise.API.DataEntry.Actions.IAction)">
+            <summary>
+            Execute an action.
+            </summary>
+            <param name="action">A specific piece of functionality.</param>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntry.IDataEntryController.ExecuteActions(System.Collections.Generic.IEnumerable{StatNeth.Blaise.API.DataEntry.Actions.IAction},System.String)">
+            <summary>
+            Execute actions of a control.
+            </summary>
+            <param name="actions">A list of actions.</param>
+            <param name="controlID">The (unique) ID of the control</param>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntry.IDataEntryController.GetControlFactory">
+            <summary>
+            Return the ControlFactory
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.IDataEntryController.ServerPark">
+            <summary>
+            Definition of the ServerPark that hosts the interview.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.IDataEntryController.InterviewState">
+            <summary>
+            The essential state of the interview that is needed by the DataEntryServer.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.IDataEntryController.Page">
+            <summary>
+            Contains the Blaise data objects that are on the page.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntry.IDataEntryController.GetControl(System.String)">
+            <summary>
+            Obtain the UI-control by its ID.
+            </summary>
+            <param name="ID">Unique identifier of the user interface control.</param>
+            <returns>The instance of the specified user interface control.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntry.IDataEntryController.InputControlGotFocus(StatNeth.Blaise.Layout.Controls.Common.IInputControl)">
+            <summary>
+            Notify that a input control (for some field) has been focused. This can change the active field on the page and this can lead to a page update.
+            </summary>
+            <param name="control">The user interface component.</param>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntry.IDataEntryController.GotoField(System.String)">
+            <summary>
+            Change the active field of the interview (See InputControlGotFocus).
+            </summary>
+            <param name="fieldName">A variable to be measured on the survey page.</param>
+        </member>
+        <member name="E:StatNeth.Blaise.API.DataEntry.IDataEntryController.OnQuestionnaireCompleted">
+            <summary>
+            Occurs when the interview session is successfully completed.
+            </summary>
+        </member>
+        <member name="E:StatNeth.Blaise.API.DataEntry.IDataEntryController.OnQuestionnaireAborted">
+            <summary>
+            Occurs when the Intreview session is aborted.
+            </summary>
+        </member>
+        <member name="E:StatNeth.Blaise.API.DataEntry.IDataEntryController.OnPageControlsCreated">
+            <summary>
+            Occurs when the new page definition has been processed (and new UI-controls are created). 
+            </summary>
+        </member>
+        <member name="E:StatNeth.Blaise.API.DataEntry.IDataEntryController.BeforeExecuteActions">
+            <summary>
+            Event that occurs just before the actions will be executed (i.e. send to the data entry server).
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.IDataEntryController2">
+            <summary>
+            Extended interface for DataEntryController with AuditTrail level
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.IDataEntryController3">
+            <summary>
+            DataEntryController that supports handling response of print action
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.IDataEntryController4">
+            <summary>
+            DataEntryController with ScreenSizeChanged method
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.IDataEntryController5">
+            <summary>
+            DataEntryController with OnLoginRequired event
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.IDataEntryController6">
+            <summary>
+            DataEntryController that can provide access to all (relevant) fields of the session 
+            (not only the fields that occur on the actual Page) 
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.IDataEntryController7">
+            <summary>
+            DataEntryController that can add custom audittrail event
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.IDataEntryController8">
+            <summary>
+            DataEntryController that has before Leave Field event
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.IInterviewState">
+            <summary>
+            Specifies the essential information of the state of an interview session
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.IInterviewState.InstrumentGuid">
+            <summary>
+            Id of the Survey 
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.IInterviewState.LanguageName">
+            <summary>
+            Name of the active Language
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.IInterviewState.ParallelName">
+            <summary>
+            Name of the active Parallel
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.IInterviewState.ActualLayoutSetName">
+            <summary>
+            Name of the used LayoutSet
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.IInterviewState.ActiveFieldName">
+            <summary>
+            Name of the Active Field
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.IInterviewState.CustomPageName">
+            <summary>
+            Name of the used Custom Page or 'IntroPage', 'ReceiptPage', 'AbortPage', or 'ErrorPage'.
+            If empty the current page is an normal Interview page
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.IInterviewState.DataEntrySettingsName">
+            <summary>
+            Name of the used Data Entry settings
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.IInterviewState.LayoutSetGroupName">
+            <summary>
+            Name of the used LayoutSetGroup
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.IInterviewState.RuleSessionId">
+            <summary>
+            Id of the Session Data
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.IInterviewState.ServerPark">
+            <summary>
+            Name of the ServerPark in which the Survey is installed
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.IInterviewState.StyleName">
+            <summary>
+            Name of the used Style
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.IInterviewState.InstrumentName">
+            <summary>
+            Name of the Survey
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.IInterviewState.FormID">
+            <summary>
+            ID that has a value if the data is stored in the Database 
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.ILoadBalancer">
+            <summary>
+            A LoadBalancer can be used to obtain a ServerPark at the start of a new interview session.
+            A Serverpark specifies the addresses of the Servers that should be used to host an interview session. 
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntry.ILoadBalancer.RequestServerPark(System.String,System.String)">
+            <summary>
+            Request for ServerPark. Result will be delivered by ServerParkObtained event.
+            </summary>
+            <param name="address">Address of the LoadBalancer Service</param>
+            <param name="parkName">Name of the ServerPark</param>
+        </member>
+        <member name="E:StatNeth.Blaise.API.DataEntry.ILoadBalancer.ServerParkObtained">
+            <summary>
+            Event that provides the ServerPark.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.InterviewState">
+            <summary>
+            Class that specifies essential information of the state of an interview session
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.InterviewState.State">
+            <summary>
+            gets the State
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntry.InterviewState.#ctor(StatNeth.Blaise.Layout.RenderInformation.IInterviewState)">
+            <summary>
+            InterviewState
+            </summary>
+            <param name="state"></param>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.InterviewState.InstrumentGuid">
+            <summary>
+            Globally unique identifier of the survey.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.InterviewState.LanguageName">
+            <summary>
+            LanguageName is the identifier of the language in which the questionnaire is presented.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.InterviewState.ParallelName">
+            <summary>
+            ParallelName identifies the active sub questionnaire.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.InterviewState.ActualLayoutSetName">
+            <summary>
+            ActualLayoutSetName identifies the actual LayoutSet.  
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.InterviewState.ActiveFieldName">
+            <summary>
+            ActiveFielName identifies the current field.  
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.InterviewState.CustomPageName">
+            <summary>
+            CustomPageName identifies the name of custom page.  
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.InterviewState.DataEntrySettingsName">
+            <summary>
+            DataEntrySettingsName identifies the current DataEntrySettings.  
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.InterviewState.LayoutSetGroupName">
+            <summary>
+            LayoutSetGroupName identifies the current LayoutSetGroup.  
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.InterviewState.RuleSessionId">
+            <summary>
+            RuleSessionId identifies the Session Data
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.InterviewState.ServerPark">
+            <summary>
+            Name of the ServerPark in which the survey is installed.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.InterviewState.StyleName">
+            <summary>
+            StyleName is the name of the current style.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.InterviewState.InstrumentName">
+            <summary>
+            InstrumentName is the name of the survey.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.InterviewState.FormID">
+            <summary>
+            FormID has a value when the data is stored in the Database.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.LoadBalancer">
+            <summary>
+            A LoadBalancer can be used to obtain a ServerPark at the start of a new interview session.
+            A Serverpark specifies the addresses of the Servers that should be used to host an interview session. 
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntry.LoadBalancer.CreateLogic(StatNeth.Blaise.API.DataEntry.RunMode,StatNeth.Blaise.Security.BlaiseTokens)">
+            <summary>
+            
+            </summary>
+            <param name="mode"></param>
+            <param name="tokens"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntry.LoadBalancer.#ctor(StatNeth.Blaise.API.DataEntry.RunMode,StatNeth.Blaise.Security.BlaiseTokens)">
+            <summary>
+            
+            </summary>
+            <param name="mode"></param>
+            <param name="tokens"></param>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntry.LoadBalancer.RequestServerPark(System.String,System.String)">
+            <summary>
+            Request for ServerPark. Result will be delivered by ServerParkObtained event.
+            </summary>
+            <param name="address">Address of the LoadBalancer Service</param>
+            <param name="parkName">Name of the ServerPark</param>
+        </member>
+        <member name="E:StatNeth.Blaise.API.DataEntry.LoadBalancer.ServerParkObtained">
+            <summary>
+            Event that provides the ServerPark.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.LoadBalancer.RunMode">
+            <summary>
+            RunMode indicates whether the interview session runs as client-server or standalone.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.PageProcessingEventArgs">
+            <summary>
+            Provides information on the Page
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.PageProcessingEventArgs.LocalRules">
+            <summary>
+            Rules that should be execued by the Data Entry Client
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.PageProcessingEventArgs.PropertyDefinitions">
+            <summary>
+            Client-side Properties of Controls 
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.PageProcessingEventArgs2">
+            <summary>
+            Page information including Shortcuts and RouteItemEvents
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.PageProcessingEventArgs2.Shortcuts">
+            <summary>
+            Shortcuts defined for this page
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.PageProcessingEventArgs2.RouteItemEvents">
+            <summary>
+            RouteItemEvents defined for this page
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Rules.IRule">
+            <summary>
+            Client-side computable rule
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Rules.IRule.Kind">
+            <summary>
+            Kind of rule
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Rules.IRule.FieldName">
+            <summary>
+            Name of the Field that should be assigned
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Rules.IRule.PropertyName">
+            <summary>
+            Property of the Field that should be assigned the value
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Rules.IRule.ThenBranch">
+            <summary>
+            Then Branch of a Condition Rules
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Rules.IRule.ElseBranch">
+            <summary>
+            Else Branch of a Conditional Rule
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Rules.IRuleCollection">
+            <summary>
+            IRuleCollection
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Rules.IRuleCollection.Count">
+            <summary>
+            Count
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Rules.Rule">
+            <summary>
+            Rule
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Rules.Rule.Kind">
+            <summary>
+            Kind of Rule
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Rules.Rule.FieldName">
+            <summary>
+            Gets the FieldName
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Rules.Rule.PropertyName">
+            <summary>
+            gets the PropertyName
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Rules.Rule.ThenBranch">
+            <summary>
+            ThenBranch , see <see cref="T:StatNeth.Blaise.API.DataEntry.Rules.IRuleCollection"/>
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Rules.Rule.ElseBranch">
+            <summary>
+            ElseBranch, see <see cref="T:StatNeth.Blaise.API.DataEntry.Rules.IRuleCollection"/>
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Rules.RuleCollection">
+            <summary>
+            Collection of Rules, see <see cref="T:StatNeth.Blaise.API.DataEntry.Rules.Rule"/>, <seealso cref="T:StatNeth.Blaise.API.DataEntry.Rules.IRule"/>
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.Rules.RuleCollection.LayoutRules">
+            <summary>
+            Gets the LayoutRules
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.Rules.RuleKind">
+            <summary>
+            Kind of Client-side rule
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Rules.RuleKind.FieldAssigment">
+            <summary>
+            Assigment to a Field
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.Rules.RuleKind.Condition">
+            <summary>
+            Conditional rule
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.RunMode">
+            <summary>
+            Indicates how the interview session runs 
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.RunMode.ClientServer">
+            <summary>
+            The Data Entry Client session runs on the server, data is stored on the server.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.RunMode.ThickClient">
+            <summary>
+            The Data Entry Client session runs on the client, data is accessed and stored on the server.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.RunMode.ThickClientWithFallback">
+            <summary>
+            The Data Entry Client session runs on the client, data is accessed and stored on the server.
+            Data is stored on the client if no connection with the server is available
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntry.RunMode.Disconnected">
+            <summary>
+            Data entry client operates disconnected. Everything is done on the client.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.ServerPark.IServerDefinition">
+            <summary>
+            Definition of a Server
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.ServerPark.IServerDefinition.Role">
+            <summary>
+            The (Server) Role that is hosted
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.ServerPark.IServerDefinition.ServerName">
+            <summary>
+            The Name that is used to communicate with the server
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.ServerPark.IServerDefinition.Port">
+            <summary>
+            The Port that should be used to commuicate
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.ServerPark.IServerDefinitionCollection">
+            <summary>
+            Collection of Server Definitions
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.ServerPark.IServerDefinitionCollection.Count">
+            <summary>
+            Count
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.ServerPark.IServerDefinitionCollection.Item(System.Int32)">
+            <summary>
+            get item by Index
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.ServerPark.IServerPark">
+            <summary>
+            Used ServerPark for an interview session 
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.ServerPark.IServerPark.Name">
+            <summary>
+            The Name of the serverpark
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.ServerPark.IServerPark.RunMode">
+            <summary>
+            Indicates how the interview runs
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.ServerPark.IServerPark.Servers">
+            <summary>
+            The Servers that are used to host the interview
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.ServerPark.ServerPark">
+            <summary>
+            Server Park definition
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.ServerPark.ServerPark.LogicManager">
+            <summary>
+            Gets the Business Logic Manager
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntry.ServerPark.ServerPark.#ctor(StatNeth.Blaise.Runtime.ClientLogic.ServerParkLogicManager)">
+            <summary>
+            Constructor 
+            </summary>
+            <param name="logicManager"><see cref="T:StatNeth.Blaise.Runtime.ClientLogic.ServerParkLogicManager"/></param>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.ServerPark.ServerPark.Name">
+            <summary>
+            ServerPark Name
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.ServerPark.ServerPark.Servers">
+            <summary>
+            Collection of servers <see cref="T:StatNeth.Blaise.API.DataEntry.ServerPark.IServerDefinition"/>
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.ServerPark.ServerPark.RunMode">
+            <summary>
+            <see cref="P:StatNeth.Blaise.API.DataEntry.ServerPark.ServerPark.RunMode"/>
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.ServerPark.ServerParkObtainedEventArgs">
+            <summary>
+            ServerParkObtainedEventArgs
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.ServerPark.ServerParkObtainedEventArgs.Park">
+            <summary>
+            ServerPark
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntry.SetControlEventsEventArgs">
+            <summary>
+            Class that provides event data for the events of a control.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntry.SetControlEventsEventArgs.#ctor(System.Object,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="control"></param>
+            <param name="add"></param>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.SetControlEventsEventArgs.Add">
+            <summary>
+            Indicates whether you should attach (Add = True) or detach (Add = False) to events of the Control.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntry.SetControlEventsEventArgs.Control">
+            <summary>
+            Gets the control
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,790 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>StatNeth.Blaise.API.AuditTrail</name>
+    </assembly>
+    <members>
+        <member name="T:StatNeth.Blaise.API.AuditTrail.AnswerStatus">
+            <summary>
+            Describes the possible answer statuses of a data value.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.AuditTrail.AnswerStatus.Empty">
+            <summary>
+            Field has not been answered.
+            </summary>        
+        </member>
+        <member name="F:StatNeth.Blaise.API.AuditTrail.AnswerStatus.Response">
+            <summary>
+            Field contains a valid value.
+            </summary>        
+        </member>
+        <member name="F:StatNeth.Blaise.API.AuditTrail.AnswerStatus.SpecialAnswer">
+            <summary>
+            Field contains an attribute such as DontKnow or Refusal.
+            </summary>        
+        </member>
+        <member name="T:StatNeth.Blaise.API.AuditTrail.AuditTrailManager">
+            <summary>
+            The entry point to Blaise 5 audit trail data.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.AuditTrail.AuditTrailManager.GetInstrumentEvents(System.Guid,System.String)">
+            <summary>
+            *** NO LONGER SUPPORTED: use GetRemoteAuditTrailServer() instead ***
+            Returns an IInstrumentEvents interface for accessing audit trail data of a survey installed on the given server park.
+            Note that this applies to the local machine only.
+            </summary>
+            <param name="instrumentID">The identification of an installed survey.</param>
+            <param name="serverPark">The name of the server park. Optional. If omitted then the default 'LocalDevelopment' will be used.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">If instrumentID is empty.</exception>
+            <returns>An IInstrumentEvents.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.AuditTrail.AuditTrailManager.CreateSimpleCondition(StatNeth.Blaise.API.AuditTrail.OperatorKind,System.DateTime)">
+            <summary>
+            Create a simple condition based on a compare operator and a time stamp value.
+            </summary>
+            <param name="compareOperator">A compare operator.</param>
+            <param name="timeStamp">The time stamp value.</param>
+            <returns>An ICondition.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.AuditTrail.AuditTrailManager.CreateAndCondition(StatNeth.Blaise.API.AuditTrail.ICondition,StatNeth.Blaise.API.AuditTrail.ICondition)">
+            <summary>
+            Create an And condition based on two arguments.
+            </summary>
+            <param name="firstArgument">The first argument.</param>
+            <param name="secondArgument">The second argument.</param>
+            <returns>An ICondition.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.AuditTrail.AuditTrailManager.CreateOrCondition(StatNeth.Blaise.API.AuditTrail.ICondition,StatNeth.Blaise.API.AuditTrail.ICondition)">
+            <summary>
+            Create an Or condition based on two arguments.
+            </summary>
+            <param name="firstArgument">The first argument.</param>
+            <param name="secondArgument">The second argument.</param>
+            <returns>An ICondition.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.AuditTrail.AuditTrailManager.CreateNotCondition(StatNeth.Blaise.API.AuditTrail.ICondition)">
+            <summary>
+            Creates a Not Condition based on one argument.
+            </summary>
+            <param name="argument">The argument.</param>
+            <returns>An ICondition.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.AuditTrail.AuditTrailManager.DeleteAll(System.String)">
+            <summary>
+            *** NO LONGER SUPPORTED: use GetRemoteAuditTrailServer().DeleteAll() instead ***
+            Completely erases the audit trail database.
+            </summary>
+            <param name="serverPark">The name of the server park. Optional. If omitted then the default 'LocalDevelopment' will be used.</param>
+        </member>
+        <member name="M:StatNeth.Blaise.API.AuditTrail.AuditTrailManager.GetRemoteAuditTrailServer(System.String,System.Int32,System.String,System.Security.SecureString)">
+            <summary>
+            Connects to an (remote) audit trail server using http. 
+            If you want to use https then there is an overload of this method, which accepts a binding parameter.
+            Note that the user must have access permission Survey Data Access. Otherwise, all methods of the IInstrumentEvents 
+            interfaces will fail with System.ServiceModel.Security.SecurityAccessDeniedException
+            </summary>
+            <param name="serverName">The name of the audit trail server.</param>
+            <param name="serverPort">The external communication port. Default value is 8033.</param>
+            <param name="username">The user name.</param>
+            <param name="password">The password.</param>
+            <returns>An IRemoteAuditTrailServer.</returns>
+            <exception cref="T:System.ArgumentNullException">If serverName or username is null or empty.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.AuditTrail.AuditTrailManager.GetRemoteAuditTrailServer(System.String,System.Int32,System.String,System.String,System.Security.SecureString)">
+            <summary>
+            Connects to an (remote) audit trail server.
+            Note that the user must have access permission Survey Data Access. Otherwise, all methods of the IInstrumentEvents 
+            interfaces will fail with System.ServiceModel.Security.SecurityAccessDeniedException
+            </summary>
+            <param name="serverName">The name of the audit trail server.</param>
+            <param name="serverPort">The external communication port. Default value is 8033.</param>
+            <param name="binding">The binding (protocol) to use. Possible values are http and https.</param>
+            <param name="username">The user name.</param>
+            <param name="password">The password.</param>
+            <returns>An IRemoteAuditTrailServer.</returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.AuditTrail.ICustomEventProperty">
+            <summary>
+            Custom Event Value for Custom AuditTrail Event
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.AuditTrail.ICustomEventProperty.Name">
+            <summary>
+            Name of property of a custom event
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.AuditTrail.ICustomEventProperty.Value">
+            <summary>
+            Value of property of a custom event
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.AuditTrail.EventKind">
+            <summary>
+            The kind of events that are captured.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.AuditTrail.EventKind.StartSession">
+            <summary>
+            StartSession
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.AuditTrail.EventKind.EndQuestionnaire">
+            <summary>
+            EndQuestionnaire
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.AuditTrail.EventKind.InterruptSession">
+            <summary>
+            InterruptSession
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.AuditTrail.EventKind.SwitchSession">
+            <summary>
+            SwitchSession
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.AuditTrail.EventKind.UpdatePage">
+            <summary>
+            UpdatePage
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.AuditTrail.EventKind.Action">
+            <summary>
+            Action
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.AuditTrail.EventKind.EnterField">
+            <summary>
+            EnterField
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.AuditTrail.EventKind.LeaveField">
+            <summary>
+            LeaveField
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.AuditTrail.EventKind.Classify">
+            <summary>
+            Classify
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.AuditTrail.EventKind.Lookup">
+            <summary>
+            Lookup
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.AuditTrail.EventKind.SelectRecord">
+            <summary>
+            SelectRecord
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.AuditTrail.EventKind.Category">
+            <summary>
+            Category
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.AuditTrail.EventKind.SpecialAnswer">
+            <summary>
+            SpecialAnswer
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.AuditTrail.EventKind.GotoUri">
+            <summary>
+            GotoUri
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.AuditTrail.EventKind.ToggleVisiblity">
+            <summary>
+            ToggleVisiblity
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.AuditTrail.EventKind.Keyboard">
+            <summary>
+            Keyboard
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.AuditTrail.EventKind.EnterFieldProperty">
+            <summary>
+            EnterFieldProperty
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.AuditTrail.EventKind.LeaveFieldProperty">
+            <summary>
+            LeaveFieldProperty
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.AuditTrail.EventKind.Custom">
+            <summary>
+            Custom 
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.AuditTrail.ICondition">
+            <summary>
+            Describes a condition.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.AuditTrail.ICondition.OperatorKind">
+            <summary>
+            The operator to use.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.AuditTrail.ICondition.TimeStamp">
+            <summary>
+            A possible time stamp value. If provided then the operator kind must be a compare operator.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.AuditTrail.ICondition.FirstArgument">
+            <summary>
+            The first argument. May be null.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.AuditTrail.ICondition.SecondArgument">
+            <summary>
+            The second argument. May be null.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.AuditTrail.ICondition.ToString">
+            <summary>
+            An textual representation of the condition.
+            </summary>
+            <returns>A string.</returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.AuditTrail.ICustomEventPropertyCollection">
+            <summary>
+            Collection of properties
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.AuditTrail.ICustomEventPropertyCollection.Count">
+            <summary>
+            The number of items in the collection.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.AuditTrail.ICustomEventPropertyCollection.Item(System.Int32)">
+            <summary>
+            Returns an ICustomEventProperty item. Throws an argument out of range exception if invalid index.
+            </summary>
+            <param name="index">Numerical index of an ICustomEventProperty item.</param>
+            <returns>An ICustomEventProperty.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">If index is out of the valid range.</exception>        
+        </member>
+        <member name="T:StatNeth.Blaise.API.AuditTrail.IEventInfo">
+            <summary>
+            Describes an audit trail event.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.AuditTrail.IEventInfo.TimeStamp">
+            <summary>
+            The time the event was recorded.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.AuditTrail.IEventInfo.Kind">
+            <summary>
+            The kind of the event like StartSession, EnterField, etc.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.AuditTrail.IEventInfo.Width">
+            <summary>
+            The width of the client window. Only applicable when kind is StartSession. Returns -1 otherwise.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.AuditTrail.IEventInfo.Height">
+            <summary>
+            The height of the client window. Only applicable when kind is StartSession. Returns -1 otherwise.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.AuditTrail.IEventInfo.Device">
+            <summary>
+            Description of the device like WindowsDesktop, Browser etc. Only applicable when kind is StartSession. Returns string.Empty otherwise.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.AuditTrail.IEventInfo.Browser">
+            <summary>
+            The browser used. Only applicable when kind is StartSession. Returns string.Empty otherwise.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.AuditTrail.IEventInfo.Language">
+            <summary>
+            The name of the datamodel language with which the session was started. Only applicable when kind is StartSession. Returns string.Empty otherwise.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.AuditTrail.IEventInfo.NewSessionID">
+            <summary>
+            The new session id. Only applicable when kind is SwitchSession. Returns string.Empty otherwise.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.AuditTrail.IEventInfo.LayoutSetName">
+            <summary>
+            The name of the layout set used. Only applicable when kind is UpdatePage. Returns string.Empty otherwise.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.AuditTrail.IEventInfo.ParallelName">
+            <summary>
+            The name of the parallel used. Note that string.Empty indicates the main parallel. Only applicable when kind is UpdatePage. Returns string.Empty otherwise.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.AuditTrail.IEventInfo.PageIndex">
+            <summary>
+            The page index. Only applicable when kind is UpdatePage. Returns 0 otherwise.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.AuditTrail.IEventInfo.FieldEventInfo">
+            <summary>
+            Additional information of a field event. Only applicable when kind is EnterField or LeaveField. Returns null otherwise.
+            </summary>         
+        </member>
+        <member name="P:StatNeth.Blaise.API.AuditTrail.IEventInfo.Action">
+            <summary>
+            The action like NewPage, PreviousPage, etc. Only applicable when kind is Action. Returns string.Empty otherwise.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.AuditTrail.IEventInfo.ClassificationCode">
+            <summary>
+            The classification code. Only applicable when kind is Classification. Returns string.Empty otherwise.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.AuditTrail.IEventInfo.ClassificationAction">
+            <summary>
+            The classification action. Only applicable when kind is Classification. Returns string.Empty otherwise.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.AuditTrail.IEventInfo.SearchTerm">
+            <summary>
+            The search term used with a lookup. Only applicable when kind is Lookup. Returns string.Empty otherwise.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.AuditTrail.IEventInfo.ActiveKey">
+            <summary>
+            The active key used with a lookup. Only applicable when kind is Lookup. Returns string.Empty otherwise.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.AuditTrail.IEventInfo.StartIndex">
+            <summary>
+            The start index of a lookup results page. Only applicable when kind is Lookup. Returns -1 otherwise.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.AuditTrail.IEventInfo.CategoryCode">
+            <summary>
+            The enumeration code selected. Only applicable when kind is Category. Returns -1 otherwise.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.AuditTrail.IEventInfo.AnswerOptionIsSelected">
+            <summary>
+            Is the answer option selected? Only applicable when kind is Category or SpecialAnswer. Returns null otherwise.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.AuditTrail.IEventInfo.SpecialAnswerName">
+            <summary>
+            The name of a special answer like Empty, Refusal, DontKnow. Only applicable when kind is SpecialAnswer. Returns string.Empty otherwise.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.AuditTrail.IEventInfo.Uri">
+            <summary>
+            The uri to go to. Only applicable when kind is GotoUri. Returns string.Empty otherwise.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.AuditTrail.IEventInfo.ControlName">
+            <summary>
+            The name of the control of which the visibility was toggled, or the Action Control that was Clicked. Only applicable when kind is ToggleVisibility or Action. Returns string.Empty otherwise.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.AuditTrail.IEventInfo.KeyStrokes">
+            <summary>
+            The key strokes entered. Only applicable when kind is Keyboard. Returns string.Empty otherwise.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.AuditTrail.IEventInfo.SelectedRecord">
+            <summary>
+            The field names and values of a selected external record. Only applicable when kind is SelectRecord. Returns null otherwise.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.AuditTrail.IEventInfo.ToString">
+            <summary>
+            An Xml representation of the event.
+            </summary>
+            <returns>A string.</returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.AuditTrail.IEventInfo2">
+            <summary>
+            Extends IEventInfo.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.AuditTrail.IEventInfo2.KeyValue">
+            <summary>
+            The primary key value. Only applicable when kind is StartSession and the datamodel has a primary key. Returns string.Empty otherwise.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.AuditTrail.IEventInfo3">
+            <summary>
+            Extends IEventInfo2.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.AuditTrail.IEventInfo3.Platform">
+            <summary>
+            The platform (like Windows, Android). Only applicable when kind is StartSession. Returns string.Empty otherwise.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.AuditTrail.IEventInfo3.OS">
+            <summary>
+            The OS. Only applicable when kind is StartSession. Returns string.Empty otherwise.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.AuditTrail.IEventInfo4">
+            <summary>
+            Extends IEventInfo3.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.AuditTrail.IEventInfo4.FieldPropertyEventInfo">
+            <summary>
+            Additional information of a fieldproperty event. Only applicable when kind is EnterFieldProperty or LeaveFieldProperty. Returns null otherwise.
+            </summary>         
+        </member>
+        <member name="T:StatNeth.Blaise.API.AuditTrail.IEventInfo5">
+            <summary>
+            EvemntInfo that can contain CustomProperties (properties of a custom audittrail event)
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.AuditTrail.IEventInfo5.CustomProperties">
+            <summary>
+             Properties of a Custom event. Only applicable when kind is Custom. Returns null otherwise.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.AuditTrail.IEventInfoCollection">
+            <summary>
+            Contains items of type IEventInfo.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.AuditTrail.IEventInfoCollection.Count">
+            <summary>
+            The number of items in the collection.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.AuditTrail.IEventInfoCollection.Item(System.Int32)">
+            <summary>
+            Returns an IEventInfo item. Throws an argument out of range exception if invalid index.
+            </summary>
+            <param name="index">Numerical index of an IEventInfo item.</param>
+            <returns>An IEventInfo.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">If index is out of the valid range.</exception>        
+        </member>
+        <member name="T:StatNeth.Blaise.API.AuditTrail.IExternalFieldData">
+            <summary>
+            Offers access to the properties of an external field.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.AuditTrail.IExternalFieldData.Name">
+            <summary>
+            The field name.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.AuditTrail.IExternalFieldData.Value">
+            <summary>
+            The field value.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.AuditTrail.IFieldEventInfo">
+            <summary>
+            Offers the information of a field event.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.AuditTrail.IFieldEventInfo.FieldName">
+            <summary>
+            The name of the field involved.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.AuditTrail.IFieldEventInfo.Value">
+            <summary>
+            The value of the field as string.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.AuditTrail.IFieldEventInfo.SpecialAnswer">
+            <summary>
+            The name of a special answer like Empty, Refusal, DontKnow.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.AuditTrail.IFieldEventInfo.AnswerStatus">
+            <summary>
+            The answer status of the field.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.AuditTrail.IFieldEventInfo2">
+            <summary>
+            Extends IFieldEventInfo.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.AuditTrail.IFieldEventInfo2.ErrorKind">
+            <summary>
+            Kind of first relevant error of the field.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.AuditTrail.IFieldEventInfo2.ErrorName">
+            <summary>
+            Name of first relevant error of the field.
+            </summary>        
+        </member>
+        <member name="T:StatNeth.Blaise.API.AuditTrail.IFieldPropertyEventInfo">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.AuditTrail.IFieldPropertyEventInfo.Name">
+            <summary>
+            The name of the fieldproperty involved.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.AuditTrail.IFieldPropertyEventInfo.Value">
+            <summary>
+            The value of the fieldproperty as string.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.AuditTrail.IInstrumentEvents">
+            <summary>
+            Gives access to the session events of an instrument.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.AuditTrail.IInstrumentEvents.InstrumentID">
+            <summary>
+            The id of the instrument.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.AuditTrail.IInstrumentEvents.GetSessionEvents(StatNeth.Blaise.API.AuditTrail.ICondition)">
+            <summary>
+            Retrieves a collection of ISessionEvents filtered by the filter condition.
+            </summary>        
+            <param name="filter">The condition to filter on. May be null.</param>
+            <returns>An ISessionEventsCollection.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">If the underlying server park does not exist.</exception>
+            <exception cref="T:System.ServiceModel.Security.SecurityAccessDeniedException">If access permissions of the user are insufficient.</exception>
+        </member>
+        <member name="P:StatNeth.Blaise.API.AuditTrail.IInstrumentEvents.SessionEvents">
+            <summary>
+            Retrieves a collection of all ISessionEvents available for the instrument. Each item offers the events of a particular session.
+            </summary>
+            <returns>An ISessionEventsCollection.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">If the underlying server park does not exist.</exception>
+            <exception cref="T:System.ServiceModel.Security.SecurityAccessDeniedException">If access permissions of the user are insufficient.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.AuditTrail.IInstrumentEvents.GetSessionEvents(System.Guid)">
+            <summary>
+            Retrieves the events for a particular session id.
+            </summary>
+            <param name="sessionID">The session id.</param>
+            <returns>An ISessionEvents.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">If sessionID is empty or the underlying server park does not exist.</exception>
+            <exception cref="T:System.ServiceModel.Security.SecurityAccessDeniedException">If access permissions of the user are insufficient.</exception>
+        </member>
+        <member name="T:StatNeth.Blaise.API.AuditTrail.IInstrumentEvents2">
+            <summary>
+            Extends IInstrumentEvents.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.AuditTrail.IInstrumentEvents2.DeleteSessionEvents(System.Guid)">
+            <summary>
+            Deletes all events of a particular session, based on session id.
+            </summary>
+            <param name="sessionID">The session id.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">If sessionID is empty.</exception>
+            <exception cref="T:System.ServiceModel.Security.SecurityAccessDeniedException">If access permissions of the user are insufficient.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.AuditTrail.IInstrumentEvents2.DeleteSessionEvents(StatNeth.Blaise.API.AuditTrail.ICondition)">
+            <summary>
+            Deletes events based on a filter condition.
+            </summary>
+            <param name="filter">The condition to apply. If null then the events of all sessions for this instrument are deleted.</param>
+            <exception cref="T:System.ServiceModel.Security.SecurityAccessDeniedException">If access permissions of the user are insufficient.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.AuditTrail.IInstrumentEvents2.DeleteAll">
+            <summary>
+            Deletes events of all sessions that exist for this instrument.
+            </summary>
+            <exception cref="T:System.ServiceModel.Security.SecurityAccessDeniedException">If access permissions of the user are insufficient.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.AuditTrail.IInstrumentEvents2.GetSessionIDsByKeyValue(System.String)">
+            <summary>
+            Returns the id's of the sessions that exist for a given primary key value. 
+            
+            The following formatting rules apply to the key value string (depending on the type of the key fields):
+            
+            String values: if the length of the string value is less than its defined length it must be padded with spaces to the right until this length is reached.
+            A date must be formatted as ddMMyyyy.
+            A time must be formatted as HH:mm:ss.
+            Real values must use . as decimal separator and - at the front as minus sign. They should have the same number of decimals as the field definition. If the total length (including minus
+            sign and .) is less than the defined length they must be padded with spaces to the left until defined length. For type 'Real' use 18 as defined length.
+            Integer values: if they take less positions than the defined length (or maximum length of the range limits) they must be padded with spaces to the left until defined length. For type 'Integer'
+            use 18 as defined length.
+            Enumeration values must be passed by their numerical code. If this code takes less positions than the defined length it must be padded with spaces to the left 
+            until maximum defined length of the code values of the enumeration type.
+            
+            Note that you can also use the property API.DataRecord.IKey.KeyValue to obtain a correctly formatted key value string. In that case first assign the 'raw' typed values
+            to the field values of API.DataRecord.IKey.Fields.
+            </summary>           
+            <param name="primaryKeyValue">The primary key value.</param>
+            <returns>An array of Guids.</returns>
+            <exception cref="T:System.ArgumentNullException">If primaryKeyValue is null or string.Empty.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">When no sessions could be found matching the given key value.</exception>
+            <exception cref="T:System.ServiceModel.Security.SecurityAccessDeniedException">If access permissions of the user are insufficient.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.AuditTrail.IInstrumentEvents2.GetKeyValues">
+            <summary>
+            Returns the primary key values that exist for this instrument.
+            </summary>        
+            <returns>An array of strings.</returns>        
+            <exception cref="T:System.ServiceModel.Security.SecurityAccessDeniedException">If access permissions of the user are insufficient.</exception>
+        </member>
+        <member name="T:StatNeth.Blaise.API.AuditTrail.IInstrumentEvents3">
+            <summary>
+            Extends IInstrumentEvents2.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.AuditTrail.IInstrumentEvents3.KeyExists(System.String)">
+            <summary>
+            Does session information exist for the given key value?
+            </summary>
+            <param name="primaryKeyValue">The primary key value to look for. Must be formatted in the same way as with GetSessionIDsByKeyValue().</param>
+            <returns>True if key exists, false otherwise.</returns>
+            <exception cref="T:System.ArgumentNullException">If primaryKeyValue is null.</exception>
+            <exception cref="T:System.ServiceModel.Security.SecurityAccessDeniedException">If access permissions of the user are insufficient.</exception>
+        </member>
+        <member name="T:StatNeth.Blaise.API.AuditTrail.IRemoteAuditTrailServer">
+            <summary>
+            Offers access to audit trail data on a remote server.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.AuditTrail.IRemoteAuditTrailServer.GetInstrumentEvents(System.Guid,System.String)">
+            <summary>
+            Returns an IInstrumentEvents interface for accessing audit trail data of an installed survey on the given server park.
+            </summary>
+            <param name="instrumentID">The identification of an installed survey.</param>
+            <param name="serverPark">The name of the server park. Optional. If omitted then the default 'LocalDevelopment' will be used.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">If instrumentID is empty.</exception>
+            <returns>An IInstrumentEvents.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.AuditTrail.IRemoteAuditTrailServer.DeleteAll(System.String)">
+            <summary>
+            Deletes all information in the audit trail database.
+            </summary>
+            <param name="serverPark">The name of the server park. Optional. If omitted then the default 'LocalDevelopment' will be used.</param>
+        </member>
+        <member name="T:StatNeth.Blaise.API.AuditTrail.ISessionEvents">
+            <summary>
+            Offers access to the events of a session.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.AuditTrail.ISessionEvents.Filter">
+            <summary>
+            Filter condition that is valid for the items of Events. Can be null.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.AuditTrail.ISessionEvents.SessionID">
+            <summary>
+            The id of the session.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.AuditTrail.ISessionEvents.Events">
+            <summary>
+            The collection of events that were recorded for this session, ordered by time stamp, filtered by the property Filter.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.AuditTrail.ISessionEvents.GetEvents(StatNeth.Blaise.API.AuditTrail.ICondition)">
+            <summary>
+            Retrieves the events for this session filtered only by the filter parameter. Notice that the property Filter is not applied in this case.
+            </summary>
+            <param name="filter">The condition to filter on.</param>
+            <returns>An IEventInfoCollection.</returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.AuditTrail.ISessionEventsCollection">
+            <summary>
+            Contains items of type ISessionEvents.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.AuditTrail.ISessionEventsCollection.Count">
+            <summary>
+            The number of items in the collection.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.AuditTrail.ISessionEventsCollection.Item(System.Int32)">
+            <summary>
+            Returns an ISessionEvents item. Throws an argument out of range exception if invalid index.
+            </summary>
+            <param name="index">Numerical index of an ISessionEvents item.</param>
+            <returns>An ISessionEvents.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.AuditTrail.ISessionEventsCollection.GetItem(System.Guid)">
+            <summary>
+            Returns an ISessionEvents item based on session id.
+            Throws an argument out of range exception if item not found.
+            </summary>
+            <param name="sessionID">The session id.</param>
+            <returns>An ISessionEvents.</returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.AuditTrail.OperatorKind">
+            <summary>
+            The kind of operators to use in a condition.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.AuditTrail.OperatorKind.And">
+            <summary>
+            And.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.AuditTrail.OperatorKind.Or">
+            <summary>
+            Or.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.AuditTrail.OperatorKind.Not">
+            <summary>
+            Not.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.AuditTrail.OperatorKind.Less">
+            <summary>
+            Less.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.AuditTrail.OperatorKind.LessEqual">
+            <summary>
+            LessEqual.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.AuditTrail.OperatorKind.Greater">
+            <summary>
+            Greater.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.AuditTrail.OperatorKind.GreaterEqual">
+            <summary>
+            GreaterEqual.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.AuditTrail.OperatorKind.Equal">
+            <summary>
+            Equal.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.AuditTrail.ProxyManager.Implementation">
+            <summary>
+            singleton
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.AuditTrail.ProxyManager.AuditTrailProxies">
+            <summary>
+            Cache for the audit trail service proxies with server name as the key
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.AuditTrail.Main">
+            <summary>
+            Placeholder for module initializer
+            </summary>
+            <remarks>
+            http://einaregilsson.com/module-initializers-in-csharp/
+            </remarks>
+        </member>
+        <member name="M:StatNeth.Blaise.API.AuditTrail.Main.Run">
+            <summary>
+            Run on first construction of this assembly
+            </summary>
+        </member>
+    </members>
+</doc>

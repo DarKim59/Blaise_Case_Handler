@@ -1,0 +1,371 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>StatNeth.Blaise.API.SessionData</name>
+    </assembly>
+    <members>
+        <member name="T:StatNeth.Blaise.API.SessionData.IInstrumentSessionInfo3">
+            <summary>
+            /// Extends IInstrumentSessionInfo2.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.SessionData.IInstrumentSessionInfo3.Read(System.String,System.Int32)">
+            <summary>
+            Obtains sessions ordered by primary key value.
+            If a PrimaryKeyValue is specified, all returned sessions have a key value that is at least that key value.
+            </summary>
+            <param name="primaryKeyValue">KeyValue that determines which sessions are returned. May be left empty.</param>
+            <param name="maxResults">Maximum number of returned sessions. If negative, then all matching sessions are returned </param>
+            <returns>An ISessionInfoCollection.</returns>
+            <exception cref="T:System.ServiceModel.Security.SecurityAccessDeniedException">If access permissions of the user are insufficient.</exception>
+        </member>
+        <member name="T:StatNeth.Blaise.API.SessionData.IDataEntryState">
+            <summary>
+            Describes the data entry state at the moment the session was last modified.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.SessionData.IDataEntryState.LanguageName">
+            <summary>
+            The name of the (datamodel) language. Returns string.Empty for default language.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.SessionData.IDataEntryState.ParallelName">
+            <summary>
+            The name of the parallel. Returns string.Empty for main parallel.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.SessionData.IDataEntryState.ActiveFieldName">
+            <summary>
+            The name of the active field.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.SessionData.IDataEntryState.DataEntrySettingsName">
+            <summary>
+            The name of the data entry settings used.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.SessionData.IRemoteSessionServer">
+            <summary>
+            Offers access to session data on a remote session server.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.SessionData.IRemoteSessionServer.GetInstrumentSessionInfo(System.Guid,System.String)">
+            <summary>
+            Returns an IInstrumentSessionInfo2 interface for accessing session data of an installed survey on the given server park.
+            </summary>
+            <param name="instrumentID">The identification of an installed survey.</param>
+            <param name="serverPark">The name of the server park. Optional. If omitted then the default 'LocalDevelopment' will be used.</param>
+            <returns>An IInstrumentSessionInfo2.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">If instrumentID is empty.</exception>
+            <exception cref="T:StatNeth.Blaise.API.SessionData.SessionDataException">If no configuration for this instrument could be found.</exception>
+        </member>
+        <member name="T:StatNeth.Blaise.API.SessionData.IInstrumentSessionInfo">
+            <summary>
+            Gives access to the session data of an instrument.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.SessionData.IInstrumentSessionInfo.InstrumentID">
+            <summary>
+            The id of the instrument.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.SessionData.IInstrumentSessionInfo.InstrumentName">
+            <summary>
+            The name of the instrument.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.SessionData.IInstrumentSessionInfo.ReadAll">
+            <summary>
+            Retrieves all the sessions that exist for this instrument. 
+            If there are no sessions for this instrument, then an empty collection is returned.
+            </summary>
+            <returns>An ISessionInfoCollection.</returns>
+            <exception cref="T:System.ServiceModel.Security.SecurityAccessDeniedException">If access permissions of the user are insufficient.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.SessionData.IInstrumentSessionInfo.Read(System.Guid)">
+            <summary>
+            Returns an ISessionInfo based on session id. May return null.
+            </summary>
+            <param name="sessionID">The session id to look for.</param>
+            <returns>An ISessionInfo if found, null otherwise.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">If sessionID is empty.</exception>  
+            <exception cref="T:System.ServiceModel.Security.SecurityAccessDeniedException">If access permissions of the user are insufficient.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.SessionData.IInstrumentSessionInfo.Read(StatNeth.Blaise.API.DataRecord.IKey)">
+            <summary>
+            Returns an ISessionInfo based on primary key value.
+            </summary>
+            <param name="primaryKeyValue">The primary key value to look for. 
+            Is not allowed to be null and all its field values must have answer status response. 
+            Use the method DataRecordManager.GetKey() from the DataRecord API to obtain an IKey.</param>
+            <returns>An ISessionInfo if found.</returns>
+            <exception cref="T:System.ArgumentNullException">If primaryKeyValue is null.</exception>
+            <exception cref="T:System.ServiceModel.Security.SecurityAccessDeniedException">If access permissions of the user are insufficient.</exception>
+            <exception cref="T:StatNeth.Blaise.API.SessionData.SessionDataException">When one or more key fields have an answer status 
+            different from response, or no session info could be found.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.SessionData.IInstrumentSessionInfo.Delete(System.Guid)">
+            <summary>
+            Deletes the session info for the specified session id.
+            </summary>
+            <param name="sessionID">The session id to look for.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">If sessionID is empty.</exception>
+            <exception cref="T:System.ServiceModel.Security.SecurityAccessDeniedException">If access permissions of the user are insufficient.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.SessionData.IInstrumentSessionInfo.DeleteAll">
+            <summary>
+            Deletes the information of all sessions for this instrument.
+            </summary>
+            <exception cref="T:System.ServiceModel.Security.SecurityAccessDeniedException">If access permissions of the user are insufficient.</exception>
+        </member>
+        <member name="T:StatNeth.Blaise.API.SessionData.IInstrumentSessionInfo2">
+            <summary>
+            Extends IInstrumentSessionInfo.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.SessionData.IInstrumentSessionInfo2.KeyExists(StatNeth.Blaise.API.DataRecord.IKey)">
+            <summary>
+            Does session information exist for the given key value?
+            </summary>
+            <param name="primaryKeyValue">The primary key value to look for. 
+            Is not allowed to be null and all its field values must have answer status response. 
+            Use the method DataRecordManager.GetKey() from the DataRecord API to obtain an IKey.</param>
+            <returns>True if key exists, false otherwise.</returns>
+            <exception cref="T:System.ArgumentNullException">If primaryKeyValue is null.</exception>
+            <exception cref="T:StatNeth.Blaise.API.SessionData.SessionDataException">When one or more key fields have an answer status different from response.</exception>       
+            <exception cref="T:System.ServiceModel.Security.SecurityAccessDeniedException">If access permissions of the user are insufficient.</exception>
+        </member>
+        <member name="T:StatNeth.Blaise.API.SessionData.ProxyManagerImplementation">
+            <summary>
+            Implementation of the ProxyManager operations
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.SessionData.ProxyManager">
+            <summary>
+            Class for Proxy creation with singleton pattern
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.SessionData.ProxyManager.Implementation">
+            <summary>
+            singleton
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.SessionData.ProxyManager.SessionProxies">
+            <summary>
+            Cache for the session service proxies with serverName as the key
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.SessionData.ProxyManager.#cctor">
+            <summary>
+            Initializes the <see cref="T:StatNeth.Blaise.API.SessionData.ProxyManager"/> class.
+            </summary>
+            <remarks>
+            Static constructor is executed on first call
+            </remarks>
+        </member>
+        <member name="T:StatNeth.Blaise.API.SessionData.SessionDataException">
+            <summary>
+            Exception from <see cref="T:StatNeth.Blaise.API.SessionData.IInstrumentSessionInfo"/>
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.SessionData.SessionDataException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:StatNeth.Blaise.API.SessionData.SessionDataException" /> class.
+            </summary>        
+        </member>
+        <member name="M:StatNeth.Blaise.API.SessionData.SessionDataException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:StatNeth.Blaise.API.SessionData.SessionDataException" /> class.
+            </summary>
+            <param name="message">The message.</param>
+        </member>
+        <member name="M:StatNeth.Blaise.API.SessionData.SessionDataException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:StatNeth.Blaise.API.SessionData.SessionDataException" /> class.
+            </summary>
+            <param name="message">The message.</param>
+            <param name="innerException">The inner exception.</param>
+        </member>
+        <member name="T:StatNeth.Blaise.API.SessionData.SessionDataManager">
+            <summary>
+            The entry point to Blaise 5 session data. Both stored and in-memory session data are accessible.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.SessionData.SessionDataManager.GetInstrumentSessionInfo(System.Guid,System.String)">
+            <summary>
+            *** NO LONGER SUPPORTED: use GetRemoteSessionServer() instead *** 
+            Returns an IInstrumentSessionInfo interface for accessing session data of a survey installed on the given server park.
+            Note that this applies to the local machine only.
+            </summary>
+            <param name="instrumentID">The identification of an installed survey.</param>
+            <param name="serverPark">The name of the server park. Optional. If omitted then the default 'LocalDevelopment' will be used.</param>
+            <returns>An IInstrumentSessionInfo.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">If instrumentID is empty.</exception>
+            <exception cref="T:StatNeth.Blaise.API.SessionData.SessionDataException">If no configuration for this instrument could be found.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.SessionData.SessionDataManager.GetInstrumentSessionInfo(System.String)">
+            <summary>
+            Returns an IInstrumentSessionInfo interface for accessing session data of a standalone survey on this machine.
+            Note that Dep.exe and Dep.exe.config should be contained in the same folder as the executing assembly.
+            </summary>
+            <param name="datamodelFileName">Path and file name of bmix file.</param>
+            <returns>An IInstrumentSessionInfo.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">If datamodelFileName does not exist or is empty.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.SessionData.SessionDataManager.GetInstrumentSessionInfo(System.String,System.String)">
+            <summary>
+            Returns an IInstrumentSessionInfo interface for accessing session data of a standalone survey.
+            </summary>
+            <param name="datamodelFileName">Path and filename of bmix file.</param>
+            <param name="sessionDBFilename">Path and filename of the session database file.</param>
+            <returns>An IInstrumentSessionInfo.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.SessionData.SessionDataManager.GetRemoteSessionServer(System.String,System.Int32,System.String,System.Security.SecureString)">
+            <summary>
+            Connects to a (remote) session server using http. 
+            If you want to use https then there is an overload of this method, which accepts a binding parameter.
+            Note that the user must have access permission Survey Data Access. Otherwise, all methods of the IInstrumentSessionInfo 
+            interfaces will fail with System.ServiceModel.Security.SecurityAccessDeniedException
+            </summary>
+            <param name="serverName">The name of the session server.</param>
+            <param name="serverPort">The external communication port. Default value is 8033.</param>
+            <param name="username">The user name.</param>
+            <param name="password">The password.</param>
+            <returns>An IRemoteSessionServer.</returns>
+            <exception cref="T:System.ArgumentNullException">If serverName or username is null or empty.</exception>        
+        </member>
+        <member name="M:StatNeth.Blaise.API.SessionData.SessionDataManager.GetRemoteSessionServer(System.String,System.Int32,System.String,System.String,System.Security.SecureString)">
+            <summary>
+            Connects to a (remote) session server. 
+            Note that the user must have access permission Survey Data Access. Otherwise, all methods of the IInstrumentSessionInfo 
+            interfaces will fail with System.ServiceModel.Security.SecurityAccessDeniedException
+            </summary>
+            <param name="serverName">The name of the session server.</param>
+            <param name="serverPort">The external communication port. Default value is 8033.</param>
+            <param name="binding">The binding (protocol) to use. Possible values are http and https.</param>
+            <param name="username">The user name.</param>
+            <param name="password">The password.</param>
+            <returns>An IRemoteSessionServer.</returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.SessionData.ISessionInfo">
+            <summary>
+            Describes the information of a session.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.SessionData.ISessionInfo.SessionID">
+            <summary>
+            The id of the session.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.SessionData.ISessionInfo.DataRecord">
+            <summary>
+            The data record of the session.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.SessionData.ISessionInfo.Creation">
+            <summary>
+            The date and time the session was created.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.SessionData.ISessionInfo.LastModification">
+            <summary>
+            The date and time the session was last modified.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.SessionData.ISessionInfo.DataEntryState">
+            <summary>
+            The data entry state.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.SessionData.ISessionInfo2">
+            <summary>
+            Extends interface ISessionInfo.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.SessionData.ISessionInfo2.PrimaryKeyValue">
+            <summary>
+            If applicable, the primary key value for the session.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.SessionData.ISessionInfo3">
+            <summary>
+            Extends ISessionInfo2.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.SessionData.ISessionInfo3.Status">
+            <summary>
+            The session status.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.SessionData.ISessionInfoCollection">
+            <summary>
+            Contains items of type <see cref="T:StatNeth.Blaise.API.SessionData.ISessionInfo"/>.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.SessionData.ISessionInfoCollection.Count">
+            <summary>
+            The number of items in the collection.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.SessionData.ISessionInfoCollection.Item(System.Int32)">
+            <summary>
+            Returns an ISessionInfo item. Throws an argument out of range exception if invalid index.
+            </summary>
+            <param name="index">Numerical index of an ISessionInfo item.</param>
+            <returns>An ISessionInfo.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">If index is out of the valid range.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.SessionData.ISessionInfoCollection.GetItem(System.Guid)">
+            <summary>
+            Returns an ISessionInfo item based on session id.
+            Throws an argument out of range exception if item not found.
+            </summary>
+            <param name="sessionID">The session id.</param>
+            <returns>An ISessionInfo.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">If sessionID is empty, or could not be found.</exception>
+        </member>
+        <member name="T:StatNeth.Blaise.API.SessionData.SessionStatus">
+            <summary>
+            Describes the session status.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.SessionData.SessionStatus.Unknown">
+            <summary>
+            Status is unknown.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.SessionData.SessionStatus.Active">
+            <summary>
+            Session is active.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.SessionData.SessionStatus.Closed">
+            <summary>
+            Session is closed.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.SessionData.SessionStatus.Expired">
+            <summary>
+            Session is expired.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.SessionData.SessionStatus.Evicted">
+            <summary>
+            Session is evicted.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.SessionData.Main">
+            <summary>
+            Placeholder for module initializer
+            </summary>
+            <remarks>
+            http://einaregilsson.com/module-initializers-in-csharp/
+            </remarks>
+        </member>
+        <member name="M:StatNeth.Blaise.API.SessionData.Main.Run">
+            <summary>
+            Run on first construction of this assembly
+            </summary>
+        </member>
+    </members>
+</doc>

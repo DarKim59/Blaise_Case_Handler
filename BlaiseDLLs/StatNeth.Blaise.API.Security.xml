@@ -1,0 +1,305 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>StatNeth.Blaise.API.Security</name>
+    </assembly>
+    <members>
+        <member name="P:StatNeth.Blaise.API.Security.IAdConnectionSettings.Name">
+            <summary>
+            Name of the domain or server (ip) address. 
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Security.IAdConnectionSettings.Container">
+            <summary>
+            An (optional) distinguished name (DN) of a container object. Example: CN=Users,DC=dev,DC=cbs,DC=nl
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Security.IAdConnectionSettings.UserName">
+            <summary>
+            The username used to connect to the store. 
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Security.IAdConnectionSettings.Password">
+            <summary>
+            The password used to connect to the store.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Security.IAdSynchronisationSettings.Connection">
+            <summary>
+            Name of the domain or server (ip) address. 
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Security.IAdSynchronisationSettings.Simulate">
+            <summary>
+            A Boolean that indicates whether or not the synchronization actions should only be counted (true) or not (false). If not, then the changes will be performed in the Blaise credentials database.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Security.IAdSynchronisationSettings.InitialServerParks">
+            <summary>
+            The array of serverpark names were new users will be assigned to.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Security.IAdSynchronisationSettings.IncludedGroups">
+            <summary>
+            The groups to be included for synchronization. If none are specified, all users are synchronized.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Security.ISecurityServer3">
+            <summary>
+            Offers access to security management on a remote server.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Security.ISecurityServer4">
+            <summary>
+            Offers access to security management on a remote server 
+            Includes Acive Directory Synchronisation Settings
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Security.ISecurityServer4.SetAdSyncSettings(StatNeth.Blaise.API.Security.IAdSynchronisationSettings)">
+            <summary>
+            Set Acive Directory Synchronisation Settings
+            </summary>
+            <param name="settings"></param>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Security.ISecurityServer4.GetAdSyncSettings">
+            <summary>
+            Get Acive Directory Synchronisation Settings
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Security.IUser3.AdSyncEnabled">
+            <summary>
+            0 = disabled, 1 = enabled
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Security.IUser3.AdIdentifier">
+            <summary>
+            AD object Guid
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Security.IUserSkill.Id">
+            <summary>
+            The unique skill Id
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Security.IUserSkill.Name">
+            <summary>
+            The name of the skill
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Security.IUserSkill.Level">
+            <summary>
+             Determines the level of the skill for the user
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Security.IUserSkill.Enabled">
+            <summary>
+            Determines whether the skill is enabled for the user
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Security.ISkill.Id">
+            <summary>
+            The unique skill Id
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Security.ISkill.Name">
+            <summary>
+            Name of the skill. Must be unique.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Security.ISkill.Description">
+            <summary>
+            Optional description of the skill.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Security.IRole.Id">
+            <summary>
+            The unique role Id
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Security.IRole.Name">
+            <summary>
+            Name of the role. Must be unique.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Security.IRole.Description">
+            <summary>
+            Optional description of the role.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Security.IRole.Permissions">
+            <summary>
+            The permissions assigned to this role.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Security.ISecurityServer2">
+            <summary>
+            Offers access to security management on a remote server.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Security.ISecurityServer">
+            <summary>
+            Offers access to security management on a remote server.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Security.ISecurityServer.AddUser(System.String,System.Security.SecureString,System.String,System.String[],System.Nullable{System.Int64})">
+            <summary>
+            Add a new user.
+            </summary>
+            <param name="userName">The required username. Only alphanumeric characters, dashes and underscores are allowed. Usernames must be unique.</param>
+            <param name="password">The required password</param>
+            <param name="description">An optional description</param>
+            <param name="serverParks">The list of serverparks that this user is allowed to access.</param>
+            <param name="roleId">The optional id that refers to a certain role.</param>
+            <returns></returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Security.ISecurityServer.AddRole(System.String,System.String)">
+            <summary>
+            Add a new role.
+            </summary>
+            <param name="name">Unique role name.</param>
+            <param name="description">An optional role description.</param>
+            <returns></returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Security.ISecurityServer.GetRoles">
+            <summary>
+            Retrieve all roles.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Security.ISecurityServer.GetUser(System.String)">
+            <summary>
+            Get a single user by name.
+            </summary>
+            <param name="userName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Security.ISecurityServer.GetUsers">
+            <summary>
+            Retrieve all users.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Security.ISecurityServer.RemoveRole(System.Int64)">
+            <summary>
+            Delete a role.
+            </summary>
+            <param name="roleId"></param>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Security.ISecurityServer.RemoveUser(System.String)">
+            <summary>
+            Delete a user by name.
+            </summary>
+            <param name="userName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Security.ISecurityServer.SaveUser(StatNeth.Blaise.API.Security.IUser)">
+            <summary>
+            Update the user properties in the database.
+            </summary>
+            <param name="user"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Security.ISecurityServer.UpdateRolePermissions(System.Int64,System.Collections.Generic.IEnumerable{StatNeth.Blaise.API.Security.IActionPermission})">
+            <summary>
+            Overwrite all permissions for the specified role.
+            </summary>
+            <param name="roleId"></param>
+            <param name="permissions"></param>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Security.ISecurityServer.UpdateUserPermissions(System.String,System.Collections.Generic.IEnumerable{StatNeth.Blaise.API.Security.IActionPermission})">
+            <summary>
+            Overwrite all permissions for the specified user. 
+            User permissions override role permissions.
+            </summary>
+            <param name="userName"></param>
+            <param name="permissions"></param>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Security.Main">
+            <summary>
+            Placeholder for module initializer
+            </summary>
+            <remarks>
+            http://einaregilsson.com/module-initializers-in-csharp/
+            </remarks>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Security.Main.Run">
+            <summary>
+            Run on first construction of this assembly
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Security.AdSynchronisationSettings.IncludedGroups">
+            <inheritdoc/>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Security.AdSynchronisationResult.Inserted">
+            <summary>
+            The inserted users.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Security.AdSynchronisationResult.Updated">
+            <summary>
+            The updated users.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Security.AdSynchronisationResult.Deleted">
+            <summary>
+            The deleted users.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Security.AdSynchronisationResult.Message">
+            <summary>
+            Warning or error message about the synchronisation process.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Security.SecurityServer.SynchroniseActiveDirectory">
+            <summary>
+            Execute AD synchronisation with stored settings.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Security.SecurityServer.SynchroniseActiveDirectory(StatNeth.Blaise.API.Security.IAdSynchronisationSettings)">
+            <summary>
+            Execute AD synchronization using the provided (custom) settings.
+            </summary>
+            <param name="settings"></param>
+            <returns></returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Security.SecurityManager">
+            <summary>
+            The entry point to Blaise 5 security management. 
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Security.SecurityManager.Connect(System.String,System.Int32,System.String,System.Security.SecureString)">
+            <summary>
+            Returns an ISecurityServer interface for accessing the security management service of a server.
+            </summary>
+            <param name="serverName">The server to connect to</param>
+            <param name="port">The port to connect to</param>
+            <param name="userName">The username to use</param>
+            <param name="password">The password to use</param>
+            <returns>An ISecurityServer.</returns>
+            <exception cref="T:System.UnauthorizedAccessException">If the username/password doesn't have the correct authentication.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Security.SecurityManager.Connect(System.String,System.Int32,System.String,System.Security.SecureString,StatNeth.Blaise.Shared.API.ClientPreferredBinding)">
+            <summary>
+            Returns an ISecurityServer interface for accessing the security management service of a server.
+            </summary>
+            <param name="serverName">The server to connect to</param>
+            <param name="port">The port to connect to</param>
+            <param name="userName">The username to use</param>
+            <param name="password">The password to use</param>
+            <returns>An ISecurityServer.</returns>
+            <exception cref="T:System.UnauthorizedAccessException">If the username/password doesn't have the correct authentication.</exception>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Security.ProxyManager.Implementation">
+            <summary>
+            singleton
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Security.ProxyManager.ServerParkSecurityManagementProxies">
+            <summary>
+            Cache for the security management proxies per server park with serverName as the key
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,1277 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>StatNeth.Blaise.API.Layout</name>
+    </assembly>
+    <members>
+        <member name="T:StatNeth.Blaise.API.Layout.AssignmentLocator">
+            <summary>
+            The locations where new layout instructions are assigned.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Layout.AssignmentLocator.Before">
+            <summary>
+            Before the route item.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Layout.AssignmentLocator.At">
+            <summary>
+            At the route item.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Layout.AssignmentLocator.After">
+            <summary>
+            After the route item.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Layout.IBlockInstructions">
+            <summary>
+            Offers access to the layout instructions attached to a block.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.IBlockInstructions.BlockName">
+            <summary>
+            The block (type) name.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.IBlockInstructions.RouteItemInstructions">
+            <summary>
+            The layout instructions attached to route items within this block.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Layout.IBlockInstructionsCollection">
+            <summary>
+            Contains items of type IBlockInstructions.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.IBlockInstructionsCollection.Count">
+            <summary>
+            Number of items in the collection.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.IBlockInstructionsCollection.Item(System.Int32)">
+            <summary>
+            Returns an IBlockInstructions item. Throws an argument out of range exception if invalid index.
+            </summary>
+            <param name="index">Numerical index of an IBlockInstructions item.</param>
+            <returns>An IBlockInstructions.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Layout.IBlockInstructionsCollection.GetInstructions(System.String)">
+            <summary>
+            Returns an interface to access the instructions attached to the given block (type) name. 
+            Will always be assigned, even if no instructions available yet.
+            </summary>
+            <param name="blockName">The name of the block (type).</param>
+            <returns>An IBlockInstructions.</returns>
+            <exception cref="T:System.ArgumentNullException">If blockName is null or string.Empty</exception>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Layout.IDataSource">
+            <summary>
+            Describes a datasource for an external from the datamodel.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.IDataSource.ID">
+            <summary>
+            Identification of the data source.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.IDataSource.DataName">
+            <summary>
+            Name of external from the datamodel.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.IDataSource.ReturnField">
+            <summary>
+            Name of the field that contains the value that will be returned by the data source when a record is selected.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.IDataSource.KeyNames">
+            <summary>
+            The names of the keys that can be used. Must be a subset of the keys defined in the datamodel of the external.
+            The default value contains all the defined key names.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.IDataSource.FieldFilter">
+            <summary>
+            The names of the fields that are shown as columns in the grid. 
+            Setting this to null means that all fields will be shown. Default value is null. 
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Layout.IDataSourceCollection">
+            <summary>
+            Contains items of type IDataSource.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.IDataSourceCollection.Count">
+            <summary>
+            Number of items in the collection.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.IDataSourceCollection.Item(System.Int32)">
+            <summary>
+            Returns an IDataSource item. Throws an argument out of range exception if invalid index.
+            </summary>
+            <param name="index">Numerical index of an IDataSource item.</param>
+            <returns>An IDataSource.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">If invalid index.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Layout.IDataSourceCollection.Add(System.String)">
+            <summary>
+            Creates and adds an IDataSource to the collection.
+            </summary>
+            <param name="id">The identification of the datasource to add.</param>
+            <returns>An IDataSource.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Layout.IDataSourceCollection.Remove(System.String)">
+            <summary>
+            Removes a datasource from the collection.
+            </summary>
+            <param name="id">The identification of the datasource to remove.</param>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Layout.IDataSourceCollection.RemoveAt(System.Int32)">
+            <summary>
+            Removes the IDataSource item at the specified index. Throws an argument out of range exception if invalid index.
+            </summary>
+            <param name="index">Index of item to remove.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">If invalid index.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Layout.IDataSourceCollection.GetItem(System.String)">
+            <summary>
+            Returns an IDataSource item based on its id.
+            Throws an argument out of range exception if item not found.
+            </summary>
+            <param name="id">The identification of the data source.</param>
+            <returns>An IDataSource.</returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Layout.ILayoutInstruction">
+            <summary>
+            Describes a layout instruction.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.ILayoutInstruction.LayoutInstructionType">
+            <summary>
+            Type of the layout instruction.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.ILayoutInstruction.Locator">
+            <summary>
+            The assignment locator used to define the instruction.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.ILayoutInstruction.RouteItemsPerPage">
+            <summary>
+            The (maximum) number of route items per page. Only applicable when LayoutInstructionType is Grid. Returns 0 otherwise.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.ILayoutInstruction.ObjectName">
+            <summary>
+            The object name. Only applicable when LayoutInstructionType is Template. Returns null otherwise.
+            Is for example a category name in case of TemplateTarget = Category and TemplateName = Enumeration.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.ILayoutInstruction.TemplateName">
+            <summary>
+            The template name. Only applicable when LayoutInstructionType is Template. Returns null otherwise.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.ILayoutInstruction.TemplateTarget">
+            <summary>
+            The template target. Only applicable when LayoutInstructionType is Template. Returns null otherwise.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.ILayoutInstruction.Parameters">
+            <summary>
+            The parameters of a template instruction. Only applicable when LayoutInstructionType is Template. Returns null otherwise.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.ILayoutInstruction.Allow">
+            <summary>
+            Allow a client side rule?  Only applicable when LayoutInstructionType is AllowClientRule. Returns null otherwise.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Layout.ILayoutInstruction2">
+            <summary>
+            Extends ILayoutInstruction.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.ILayoutInstruction2.RowsPerTable">
+            <summary>
+            The number of rows per table. Only applicable when LayoutInstructionType is TableRows. Returns 0 otherwise.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Layout.ILayoutInstructionCollection">
+            <summary>
+            Contains items of type ILayoutInstruction.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.ILayoutInstructionCollection.Count">
+            <summary>
+            Number of items in the collection.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.ILayoutInstructionCollection.Item(System.Int32)">
+            <summary>
+            Returns an ILayoutInstruction item. Throws an argument out of range exception if invalid index.
+            </summary>
+            <param name="index">Numerical index of an ILayoutInstruction item.</param>
+            <returns>An ILayoutInstruction.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Layout.ILayoutInstructionCollection.Clear">
+            <summary>
+            Removes all items from the collection.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Layout.ILayoutInstructionCollection.Remove(StatNeth.Blaise.API.Layout.ILayoutInstruction)">
+            <summary>
+            Removes an instruction from the collection.
+            </summary>
+            <param name="instruction">The instruction to remove.</param>
+            <returns>True if item was removed, False otherwise.</returns>
+            <exception cref="T:System.ArgumentNullException">If instruction is null.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Layout.ILayoutInstructionCollection.RemoveAt(System.Int32)">
+            <summary>
+            Removes the ILayoutInstruction item at the specified index. Throws an argument out of range exception if invalid index.
+            </summary>
+            <param name="index">Index of item to remove.</param>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Layout.ILayoutInstructionCollection.AddNewPageInstruction(StatNeth.Blaise.API.Layout.AssignmentLocator)">
+            <summary>
+            Adds a new page instruction with the specified locator (Before, After).
+            </summary>
+            <param name="locator">The locator to use.</param>
+            <returns>An ILayoutInstruction.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">If locator has the value At.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Layout.ILayoutInstructionCollection.AddGridInstruction(StatNeth.Blaise.API.Layout.AssignmentLocator,System.Int32)">
+            <summary>
+            Adds a grid instruction with the specified locator (Before, After) and number of items per page.
+            </summary>
+            <param name="locator">The locator to use.</param>
+            <param name="routeItemsPerPage">The number of route items per page.</param>
+            <returns>An ILayoutInstruction.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">If locator has the value At.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">If routeItemsPerPage is not strictly positive.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Layout.ILayoutInstructionCollection.AddCriticalFieldInstruction">
+            <summary>
+            Adds a critical field instruction.
+            </summary>
+            <returns>An ILayoutInstruction.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Layout.ILayoutInstructionCollection.AddTemplateInstruction(StatNeth.Blaise.API.Layout.TemplateTarget,System.String,System.String)">
+            <summary>
+            Adds a template instruction.
+            </summary>
+            <param name="templateTarget">The template target like FieldPane or ResponseValue.</param>
+            <param name="templateName">The template name to use. Must be an existing template in the resource database.</param>
+            <param name="objectName">For example the name of a category in case templateTarget = Category.
+            If not specified then the template instruction is applied to all categories.</param>
+            <returns>An ILayoutInstruction.</returns>
+            <exception cref="T:System.ArgumentNullException">If templateName is null.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">If templateName does not exist.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Layout.ILayoutInstructionCollection.AddAllowClientRuleInstruction(System.Boolean)">
+            <summary>
+            Adds an allow client rule instruction.
+            </summary>
+            <param name="allow">Allow client rule?</param>
+            <returns>An ILayoutInstruction.</returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Layout.ILayoutObject">
+            <summary>
+            Offers access to the layout instructions of a specification, layout set or parallel.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.ILayoutObject.Name">
+            <summary>
+            The name.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.ILayoutObject.RouteItemInstructions">
+            <summary>
+            The route item instructions.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.ILayoutObject.BlockInstructions">
+            <summary>
+            The block instructions.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.ILayoutObject.TypeInstructions">
+            <summary>
+            The type instructions.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Layout.ILayoutObject.ClearAllInstructions">
+            <summary>
+            Removes the route item, block and type instructions.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Layout.ILayoutSet">
+            <summary>
+            Offers access to the properties and layout instructions of a layout set.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.ILayoutSet.ResourceSetName">
+            <summary>
+            Name of the resource set used.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.ILayoutSet.StyleName">
+            <summary>
+            Name of the style used.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.ILayoutSet.NrOfPageItems">
+            <summary>
+            Determines the maximum number of question containers on a page.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.ILayoutSet.Condition">
+            <summary>
+            The condition under which the layout set should be applied. You can impose conditions on the operating system, 
+            browser, device and the screen size of the client.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.ILayoutSet.DesignWidth">
+            <summary>
+            The initial width of the client window in pixels.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.ILayoutSet.DesignHeight">
+            <summary>
+            The initial height of the client window in pixels.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.ILayoutSet.ResizeMode">
+            <summary>
+            Describes the way the client area within an interview page resizes.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.ILayoutSet.IntroPageName">
+            <summary>
+            Name of the intro page to show. Use string.Empty if no intro page desired, and "Default" if the default intro page is desired.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.ILayoutSet.AbortPageName">
+            <summary>
+            Name of the abort page. Use string.Empty if no abort page desired, and "Default" if the default abort page is desired.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.ILayoutSet.ReceiptPageName">
+            <summary>
+            Name of the receipt page. Use string.Empty if no receipt page desired, and "Default" if the default receipt page is desired.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.ILayoutSet.Parallels">
+            <summary>
+            The parallels within this layout set. The main parallel has the name string.Empty.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Layout.ILayoutSet2">
+            <summary>
+            Extends ILayoutSet.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.ILayoutSet2.RequiredStyle">
+            <summary>
+            Should the style with name StyleName be used?
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Layout.ILayoutSet3">
+            <summary>
+            Extends ILayoutSet.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.ILayoutSet3.NrOfRowsPerTable">
+            <summary>
+            Determines the maximum number of rows in a table.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Layout.ILayoutSetCollection">
+            <summary>
+            Contains items of type ILayoutSet.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.ILayoutSetCollection.Count">
+            <summary>
+            Number of items in the collection.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.ILayoutSetCollection.Item(System.Int32)">
+            <summary>
+            Returns an ILayoutSet item. Throws an argument out of range exception if invalid index.
+            </summary>
+            <param name="index">Numerical index of an ILayoutSet item.</param>
+            <returns>An ILayoutSet</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">If invalid index.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Layout.ILayoutSetCollection.Add(System.String,System.String)">
+            <summary>
+            Creates and adds an ILayoutSet to the collection. The properties of the layout set are copied from
+            the resource database, using the given resource set name.
+            Throws an argument out of range exception if name already exists.
+            </summary>
+            <param name="name">The name of the new layout set.</param>
+            <param name="resourceSetName">The name of the resource set to use.</param>
+            <returns>An ILayoutSet.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">If duplicate layout set name.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">If resource set does not exist.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Layout.ILayoutSetCollection.Add(System.String)">
+            <summary>
+            Creates and adds an ILayoutSet to the collection. The properties of the layout set are copied from
+            the first resource set of the resource database.
+            Throws an argument out of range exception if name already exists.
+            </summary>
+            <param name="name">The name of the new layout set.</param>
+            <returns>An ILayoutSet.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">If duplicate layout set name.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Layout.ILayoutSetCollection.Remove(System.String)">
+            <summary>
+            Removes a layout set from the collection.
+            </summary>
+            <param name="name">The name of the layout set to remove.</param>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Layout.ILayoutSetCollection.RemoveAt(System.Int32)">
+            <summary>
+            Removes the ILayoutSet item at the specified index. Throws an argument out of range exception if invalid index.
+            </summary>
+            <param name="index">Index of item to remove.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">If invalid index.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Layout.ILayoutSetCollection.Contains(System.String)">
+            <summary>
+            Does the collection contain an item with the specified layout set name?
+            </summary>
+            <param name="name">The name of the layout set.</param>
+            <returns>True if layout set is contained. False otherwise.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Layout.ILayoutSetCollection.GetItem(System.String)">
+            <summary>
+            Returns an ILayoutSet item based on its name.
+            Throws an argument out of range exception if item not found.
+            </summary>
+            <param name="name">The name of the layout set.</param>
+            <returns>An ILayoutSet.</returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Layout.ILayoutSetGroup">
+            <summary>
+            Describes a layout set group.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.ILayoutSetGroup.Name">
+            <summary>
+            The name of the group.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.ILayoutSetGroup.LayoutSetNames">
+            <summary>
+            Names of the layout sets within this group.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Layout.ILayoutSetGroup.AddLayoutSet(System.String)">
+            <summary>
+            Adds an existing layout set to the group. A duplicate name will not be added.
+            </summary>
+            <param name="name">Name of the layout set to add.</param>
+            <exception cref="T:System.ArgumentNullException">If name is null or string.Empty.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">If no layout set with this name could be found.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Layout.ILayoutSetGroup.RemoveLayoutSet(System.String)">
+            <summary>
+            Removes a layout set from the group.
+            </summary>
+            <param name="name">Name of the layout set to remove.</param>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Layout.ILayoutSetGroup.SwapLayoutSets(System.String,System.String)">
+            <summary>
+            Swap two layout set names.
+            </summary>
+            <param name="name1">Name of first layout set.</param>
+            <param name="name2">Name of second layout set.</param>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Layout.ILayoutSetGroup.SwapLayoutSets(System.Int32,System.Int32)">
+            <summary>
+            Swap two layout set names based on their indices.
+            </summary>
+            <param name="index1">Index of first layout set.</param>
+            <param name="index2">Index of second layout set.</param>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Layout.ILayoutSetGroup2">
+            <summary>
+            Extends ILayoutSetGroup.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.ILayoutSetGroup2.DataEntrySettingsName">
+            <summary>
+            Initial DataEntrySettings to use with this group.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Layout.ILayoutSetGroupCollection">
+            <summary>
+            Contains items of type ILayoutSetGroup.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.ILayoutSetGroupCollection.Count">
+            <summary>
+            Number of items in the collection.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.ILayoutSetGroupCollection.Item(System.Int32)">
+            <summary>
+            Returns an ILayoutSetGroup item. Throws an argument out of range exception if invalid index.
+            </summary>
+            <param name="index">Numerical index of an ILayoutSetGroup item.</param>
+            <returns>An ILayoutSetGroup.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Layout.ILayoutSetGroupCollection.Add(System.String)">
+            <summary>
+            Creates and adds an ILayoutSetGroup to the collection.
+            Throws an argument out of range exception if name already exists.
+            </summary>
+            <param name="name">The name of the new layout set group.</param>
+            <returns>An ILayoutSetGroup.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Layout.ILayoutSetGroupCollection.Remove(System.String)">
+            <summary>
+            Removes a layout set group from the collection.
+            </summary>
+            <param name="name">The name of the layout set group to remove.</param>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Layout.ILayoutSetGroupCollection.RemoveAt(System.Int32)">
+            <summary>
+            Removes the ILayoutSetGroup item at the specified index. Throws an argument out of range exception if invalid index.
+            </summary>
+            <param name="index">Index of item to remove.</param>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Layout.ILayoutSetGroupCollection.Contains(System.String)">
+            <summary>
+            Does the collection contain an item with the specified layout set group name?
+            </summary>
+            <param name="name">The name of the layout set group.</param>
+            <returns>True if layout set group is contained. False otherwise.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Layout.ILayoutSetGroupCollection.GetItem(System.String)">
+            <summary>
+            Returns an ILayoutSetGroup item based on its name.
+            Throws an argument out of range exception if item not found.
+            </summary>
+            <param name="name">The name of the layout set group.</param>
+            <returns>An ILayoutSetGroup.</returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Layout.ILayoutSpecification">
+            <summary>
+            Describes a layout specification.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.ILayoutSpecification.GenerateClientRules">
+            <summary>
+            Must client rules be generated? Note that this is done when the pages are generated; not by the layout API.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.ILayoutSpecification.GenerateAllSections">
+            <summary>
+            Must all sections be generated? Note that this is done when the pages are generated; not by the layout API.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.ILayoutSpecification.LayoutSetGroups">
+            <summary>
+            The layout set groups.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.ILayoutSpecification.LayoutSets">
+            <summary>
+            The layout sets.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.ILayoutSpecification.Mappings">
+            <summary>
+            Offers access to mappings for e.g. languages, text roles, type references and field references.
+            Mappings are made from items of the resource database to items of the datamodel.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Layout.ILayoutSpecification.Validate">
+            <summary>
+            Validates the layout specification.
+            </summary>
+            <returns>A boolean indicating the result.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Layout.ILayoutSpecification.Save">
+            <summary>
+            Saves the layout specification to the layout file. File name and path are the same as the prepared datamodel file, but the
+            extension is .blax.layout
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Layout.ILayoutSpecification2">
+            <summary>
+            Extends ILayoutSpecification.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.ILayoutSpecification2.DataSources">
+            <summary>
+            The data sources for externals in the datamodel.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Layout.IParallel">
+            <summary>
+            Offers access to the layout instructions of a parallel.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Layout.IParallelCollection">
+            <summary>
+            Contains items of type IParallel.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.IParallelCollection.Count">
+            <summary>
+            Number of items in the collection.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.IParallelCollection.Item(System.Int32)">
+            <summary>
+            Returns an IParallel item by index. Throws an argument out of range exception if invalid index.
+            </summary>
+            <param name="index">Numerical index of an IParallel item.</param>
+            <returns>An IParallel.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Layout.IParallelCollection.GetItem(System.String)">
+            <summary>
+            Returns an IParallel item based on its name. Use string.Empty for the main parallel.
+            Throws an argument out of range exception if item not found.
+            </summary>
+            <param name="name">The name of the parallel.</param>
+            <returns>An IParallel.</returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Layout.IParameterValue">
+            <summary>
+            Describes name and value of a template parameter.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.IParameterValue.Name">
+            <summary>
+            The name of the parameter.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.IParameterValue.Value">
+            <summary>
+            The value of the parameter.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Layout.IParameterValueCollection">
+            <summary>
+            Contains name value pairs, each of which describes name and value of a template parameter.
+            </summary>    
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.IParameterValueCollection.Count">
+            <summary>
+            Number of items in the collection.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.IParameterValueCollection.Item(System.Int32)">
+            <summary>
+            Returns an IParameterValue item. Throws an argument out of range exception if invalid index.
+            </summary>
+            <param name="index">Numerical index of an IParameterValue item.</param>
+            <returns>An IParameterValue.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Layout.IParameterValueCollection.GetItem(System.String)">
+            <summary>
+            Returns an IParameterValue item based on its parameter name.
+            Throws an argument out of range exception if item not found.
+            </summary>
+            <param name="name">The parameter name.</param>
+            <returns>An IParameterValue.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Layout.IParameterValueCollection.Contains(System.String)">
+            <summary>
+            Does the collection contain an item for the specified parameter name?
+            </summary>
+            <param name="name">The name of the parameter to look for.</param>
+            <returns>True if the parameter is contained. False otherwise.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Layout.IParameterValueCollection.Add(System.String,System.String)">
+            <summary>
+            Creates and adds an IParameterValue to the collection.
+            </summary>
+            <param name="name">The name of the new parameter.</param>
+            <param name="value">The value of the new parameter.</param>
+            <returns>An IParameterValue.</returns>
+            <exception cref="T:System.ArgumentNullException">If name is null or string.Empty</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">If name is already in the collection or not valid for the template.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Layout.IParameterValueCollection.Remove(System.String)">
+            <summary>
+            Removes the IParameterValue item with the specified name from the collection.
+            </summary>
+            <param name="name">Name of parameter to be removed.</param>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Layout.IParameterValueCollection.RemoveAt(System.Int32)">
+            <summary>
+            Removes the IParameterValue item at the specified index. Throws an argument out of range exception if invalid index.
+            </summary>
+            <param name="index">Index of item to remove.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">If invalid index.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Layout.IParameterValueCollection.Clear">
+            <summary>
+            Removes all items from the collection.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Layout.IRouteItemInstructions">
+            <summary>
+            Offers access to the layout instructions for some route item (field or group).
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.IRouteItemInstructions.RouteItemName">
+            <summary>
+            The name of the route item. This is either a field or group name.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.IRouteItemInstructions.Instructions">
+            <summary>
+            The layout instructions attached to this route item.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Layout.IRouteItemInstructionsCollection">
+            <summary>
+            Contains items of type IRouteItemInstructions.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.IRouteItemInstructionsCollection.Count">
+            <summary>
+            Number of items in the collection.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.IRouteItemInstructionsCollection.Item(System.Int32)">
+            <summary>
+            Returns an IRouteItemInstructions item. Throws an argument out of range exception if invalid index.
+            </summary>
+            <param name="index">Numerical index of an IRouteItemInstructions item.</param>
+            <returns>An ILayoutInstruction.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Layout.IRouteItemInstructionsCollection.GetInstructions(System.String)">
+            <summary>
+            Returns an interface to access the instructions attached to the given route item name.
+            Will always be assigned, even if no instructions are available yet.
+            </summary>
+            <param name="routeItemName">The name of the route item. Must be the name of an existing field or group. Use a local field name 
+            if you are within a block, use fully qualified field name otherwise.</param>
+            <returns>An IRouteItemInstructions.</returns>
+            <exception cref="T:System.ArgumentNullException">If routeItemName is null or string.Empty</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">If routeItemName is invalid.</exception>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Layout.ITypeInstructions">
+            <summary>
+            Offers access to the layout instructions attached to a type.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.ITypeInstructions.TypeName">
+            <summary>
+            The name of the type.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.ITypeInstructions.TypeStructure">
+            <summary>
+            The structure of the type.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.ITypeInstructions.LibraryName">
+            <summary>
+            The name of the library if the type is defined in a library.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.ITypeInstructions.Instructions">
+            <summary>
+            The layout instructions attached to this type.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Layout.ITypeInstructionsCollection">
+            <summary>
+            Contains items of type ITypeInstructions.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.ITypeInstructionsCollection.Count">
+            <summary>
+            Number of items in the collection.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.ITypeInstructionsCollection.Item(System.Int32)">
+            <summary>
+            Returns an ITypeInstructions item. Throws an argument out of range exception if invalid index.
+            </summary>
+            <param name="index">Numerical index of an ITypeInstructions item.</param>
+            <returns>An ITypeInstructions.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Layout.ITypeInstructionsCollection.GetInstructions(System.String,StatNeth.Blaise.API.Layout.TypeStructure,System.String)">
+            <summary>
+            Returns an interface to access the instructions attached to the given combination of type name and structure.
+            Will always be assigned, even if no instructions available yet.
+            </summary>
+            <param name="typeName">The name of the type. Must be an existing type name.</param>
+            <param name="typeStructure">The structure of the type.</param>
+            <param name="libraryName">The name of the library, if the type is defined inside a library.</param>
+            <returns>An ITypeInstructions.</returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Layout.LayoutInstructionType">
+            <summary>
+            The type of a layout instruction.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Layout.LayoutInstructionType.Template">
+            <summary>
+            Template.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Layout.LayoutInstructionType.Grid">
+            <summary>
+            Grid.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Layout.LayoutInstructionType.NewPage">
+            <summary>
+            New page.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Layout.LayoutInstructionType.CriticalField">
+            <summary>
+            Critical field.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Layout.LayoutInstructionType.AllowClientRule">
+            <summary>
+            Allow client rule.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Layout.LayoutInstructionType.TableRows">
+            <summary>
+            Table rows.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Layout.LayoutManager">
+            <summary>
+            The entry point to the Blaise 5 layout system.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Layout.LayoutManager.GetLayoutSpecification(System.String,System.String)">
+            <summary>
+            Returns an ILayoutSpecification based on prepared meta file name and resource database file name. If there exists
+            a layout file (same path and file name as prepared meta file but with extension .blax.layout), then the contents of
+            this layout file will be loaded.
+            </summary>
+            <param name="preparedMetaFileName">File name of bmix file.</param>
+            <param name="resourceDatabaseFileName">File name of blrd file.</param>
+            <returns>An ILayoutSpecification.</returns>
+            <exception cref="T:System.ArgumentNullException">If preparedMetaFileName and/or resourceDatabaseFileName is empty.</exception>
+            <exception cref="T:System.ArgumentException">If preparedMetaFileName and/or resourceDatabaseFileName can not be found.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Layout.LayoutManager.GetLayoutSpecification(StatNeth.Blaise.API.Meta.IDatamodel,System.String)">
+            <summary>
+            Returns an ILayoutSpecification based on datamodel (from API.Meta) and resource database file name. If there exists
+            a layout file (same path and file name as dataModel.FileName but with extension .blax.layout), then the contents of
+            this layout file will be loaded.
+            </summary>
+            <param name="dataModel">The datamodel.</param>
+            <param name="resourceDatabaseFileName">File name of blrd file.</param>
+            <returns>An ILayoutSpecification.</returns>
+            <exception cref="T:System.ArgumentNullException">If dataModel and/or resourceDatabaseFileName is null or empty.</exception>
+            <exception cref="T:System.ArgumentException">If resourceDatabaseFileName can not be found.</exception>        
+        </member>
+        <member name="T:StatNeth.Blaise.API.Layout.IMapping">
+            <summary>
+            Describes a mapping between an item in the resource database and an item in the datamodel.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.IMapping.Structure">
+            <summary>
+            The kind of mapping like Language, TextRole etc.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.IMapping.ResourceDatabaseItem">
+            <summary>
+            The item name in the resource database. This is either a language name, text role name, type name, field name or function name.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.IMapping.DatamodelItem">
+            <summary>
+            The item name in the datamodel. This is either a language name, text role name, type name, field name or alien function name. 
+            Will return null if not mapped.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.IMapping.ReferenceTypeStructure">
+            <summary>
+            The type structure of a type reference or field reference. Only applicable if type structure is TypeReference or FieldReference.
+            Returns null otherwise.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.IMapping.LibraryName">
+            <summary>
+            Name of a library as used in the libraries section of the datamodel. Only applicable if type structure is TypeReference. Returns null otherwise.
+            </summary>
+            <exception cref="T:System.ArgumentOutOfRangeException">If invalid library name.</exception>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.IMapping.IsMapped">
+            <summary>
+            Is the resource database item mapped to the datamodel item?
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Layout.IMapping.Map(System.String)">
+            <summary>
+            Map the resource database item to an item in the datamodel.
+            </summary>        
+            <param name="datamodelItem">Name of datamodel item.</param>
+            <exception cref="T:System.ArgumentNullException">If datamodelItem is null or string.Empty</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">If datamodelItem is not a valid language name, text role, type name, field name or (alien) function name.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Layout.IMapping.Unmap">
+            <summary>
+            Unmap. Sets datamodelItem back to null.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Layout.IMappingCollection">
+            <summary>
+            Contains items of type IMapping.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.IMappingCollection.Count">
+            <summary>
+            Number of items in the collection.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.IMappingCollection.Item(System.Int32)">
+            <summary>
+            Returns an IMapping item. Throws an argument out of range exception if invalid index.
+            </summary>
+            <param name="index">Numerical index of an IMapping item.</param>
+            <returns>An IMapping.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Layout.IMappingCollection.GetItem(System.String)">
+            <summary>
+            Returns an item by its resource database item property name.
+            Throws an argument out of range exception if item not found.
+            </summary>
+            <param name="name">The resource database item name.</param>
+            <returns>An IMapping.</returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Layout.IMappings">
+            <summary>
+            Functionality for management of mappings.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.IMappings.LanguageMappings">
+            <summary>
+            The language mappings.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.IMappings.TextRoleMappings">
+            <summary>
+            The text role mappings.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.IMappings.TypeReferenceMappings">
+            <summary>
+            The type reference mappings.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.IMappings.FieldReferenceMappings">
+            <summary>
+            The field reference mappings.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Layout.IMappings2">
+            <summary>
+            Extends IMappings.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Layout.IMappings2.FunctionDeclarationMappings">
+            <summary>
+            The function declaration mappings.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Layout.MappingStructure">
+            <summary>
+            The type of an IMapping.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Layout.MappingStructure.Language">
+            <summary>
+            Language mapping.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Layout.MappingStructure.TextRole">
+            <summary>
+            Text role mapping.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Layout.MappingStructure.TypeReference">
+            <summary>
+            Type reference mapping.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Layout.MappingStructure.FieldReference">
+            <summary>
+            Field reference mapping.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Layout.MappingStructure.FunctionDeclaration">
+            <summary>
+            Function declaration mapping.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Layout.ResizeMode">
+            <summary>
+            Describes the way the client area within an interview page resizes.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Layout.ResizeMode.Auto">
+            <summary>
+            The size of the client area changes according to window resizing.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Layout.ResizeMode.Fixed">
+            <summary>
+            The client area keeps width and height as defined in the layout set.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Layout.TemplateTarget">
+            <summary>
+            The possible targets of a template instruction.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Layout.TemplateTarget.MasterPage">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Layout.TemplateTarget.IntroPage">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Layout.TemplateTarget.ReceiptPage">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Layout.TemplateTarget.ErrorPage">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Layout.TemplateTarget.FieldPane">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Layout.TemplateTarget.DataValue">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Layout.TemplateTarget.Category">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Layout.TemplateTarget.SpecialAnswer">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Layout.TemplateTarget.ResponseValue">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Layout.TemplateTarget.Table">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Layout.TemplateTarget.Row">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Layout.TemplateTarget.RowHeader">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Layout.TemplateTarget.FieldRowHeader">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Layout.TemplateTarget.OtherSpecifyRowHeader">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Layout.TemplateTarget.ColumnHeader">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Layout.TemplateTarget.OtherSpecifyColumnHeader">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Layout.TemplateTarget.CategoryColumnHeader">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Layout.TemplateTarget.SpecialAnswerColumnHeader">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Layout.TemplateTarget.OtherCategoryColumnHeader">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Layout.TemplateTarget.OtherSpecify">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Layout.TemplateTarget.OtherCategory">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Layout.TemplateTarget.Section">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Layout.TemplateTarget.AbortPage">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Layout.TemplateTarget.CustomPage">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Layout.TemplateTarget.Language">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Layout.TemplateTarget.Parallel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Layout.TemplateTarget.IndexItem">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Layout.TemplateTarget.FieldProperty">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Layout.TemplateTarget.FieldPropertyCategory">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Layout.TemplateTarget.RowGroupColumnHeader">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Layout.TypeStructure">
+            <summary>
+            The Blaise types that can occur.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Layout.TypeStructure.String">
+            <summary>
+            String.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Layout.TypeStructure.Real">
+            <summary>
+            Real.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Layout.TypeStructure.Date">
+            <summary>
+            Date.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Layout.TypeStructure.Time">
+            <summary>
+            Time.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Layout.TypeStructure.Enumeration">
+            <summary>
+            Enumeration.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Layout.TypeStructure.Classification">
+            <summary>
+            Classification.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Layout.TypeStructure.Array">
+            <summary>
+            Array.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Layout.TypeStructure.Set">
+            <summary>
+            Set.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Layout.TypeStructure.Integer">
+            <summary>
+            Integer.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Layout.TypeStructure.Boolean">
+            <summary>
+            Boolean.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Layout.TypeStructure.DeltaDate">
+            <summary>
+            DeltaDate.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Layout.TypeStructure.DeltaTime">
+            <summary>
+            DeltaTime.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Layout.TypeStructure.BlockName">
+            <summary>
+            Block.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Layout.Main">
+            <summary>
+            Placeholder for module initializer
+            </summary>
+            <remarks>
+            http://einaregilsson.com/module-initializers-in-csharp/
+            </remarks>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Layout.Main.Run">
+            <summary>
+            Run on first construction of this assembly
+            </summary>
+        </member>
+    </members>
+</doc>

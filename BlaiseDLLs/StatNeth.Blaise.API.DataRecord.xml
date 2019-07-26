@@ -1,0 +1,1988 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>StatNeth.Blaise.API.DataRecord</name>
+    </assembly>
+    <members>
+        <member name="T:StatNeth.Blaise.API.DataRecord.CheckKind">
+            <summary>
+            Indicates the severity of a check.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataRecord.CheckKind.Check">
+            <summary>
+            Hard check that must be passed.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataRecord.CheckKind.Signal">
+            <summary>
+            Soft check that can be suppressed.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.CheckStatus">
+            <summary>
+            Indicates the status of a check determined by executing the ExecuteRules() method.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataRecord.CheckStatus.Relevant">
+            <summary>
+            The check is on route and can be computed.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataRecord.CheckStatus.Incomputable">
+            <summary>
+            The check is on route but cannot be computed.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataRecord.CheckStatus.Irrelevant">
+            <summary>
+            The check is not on route.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataRecord.CheckStatus.Unspecified">
+            <summary>
+            The ExecuteRules() method has not been invoked.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.CheckStructure">
+            <summary>
+            Describes the structure of a check.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataRecord.CheckStructure.Simple">
+            <summary>
+            A simple check like 'Age > 16'.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataRecord.CheckStructure.Array">
+            <summary>
+            A check that is defined within a loop like 'Persons[i].Age > 16'.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.ICheck2">
+            <summary>
+            Extends ICheck.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.ICheck3">
+            <summary>
+            Extends ICheck2.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.ICheck3.Checks">
+            <summary>
+            The checks in case of an array check: structure is Array.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.ICheckCollection">
+            <summary>
+            Contains items of type ICheck.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.ICheckCollection.Count">
+            <summary>
+            The number of items.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.ICheckCollection.Item(System.Int32)">
+            <summary>
+            Returns an ICheck item. Throws an argument out of range exception if invalid index.        
+            </summary>
+            <param name="index">Numerical index of an ICheck item.</param>
+            <returns>An ICheck.</returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.ICheckValue">
+            <summary>
+            Describes the value of a check.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.ICheckValue.Value">
+            <summary>
+            The boolean value of the condition associated with the check.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.ICheckValue.Kind">
+            <summary>
+            Check or Signal?
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.ICheckValue.IsSuppressed">
+            <summary>
+            Is the (soft) check suppressed or not. Can only be set to True in case of a soft check (Signal).
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.IDataConverter">
+            <summary>
+            Provides functionality for converting data records.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataRecord.IDataConverter.Convert(StatNeth.Blaise.API.DataRecord.IDataRecord)">
+            <summary>
+            Converts a source record to a record for the target datamodel, applying the field linking mechanism of Manipula.
+            </summary>
+            <param name="source">The source data record.</param>
+            <returns>An IDataRecord.</returns>
+            <exception cref="T:System.ArgumentNullException">If source is null.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">If the source datamodel is not (data) compatible with the source model of the IDataConverter.</exception>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.DataRecordManager">
+            <summary>
+            The entry point to a Blaise 5 data record.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataRecord.DataRecordManager.GetDataRecord(StatNeth.Blaise.API.Meta.IDatamodel)">
+            <summary>
+            Returns an IDataRecord.
+            </summary>
+            <param name="dataModel">The datamodel where the data record is based on.</param>
+            <returns>An IDataRecord.</returns>
+            <exception cref="T:System.ArgumentNullException">If dataModel is null.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataRecord.DataRecordManager.GetKey(StatNeth.Blaise.API.Meta.IDatamodel,System.String)">
+            <summary>
+            Returns an IKey that can be used to specify a key value for positioning purposes in the DataLink API.
+            </summary>
+            <param name="dataModel">The datamodel to use.</param>
+            <param name="keyName">The name of the key ("PRIMARY", "SECONDARY" etc.) to retrieve.</param>
+            <returns>An IKey.</returns>
+            <exception cref="T:System.ArgumentNullException">If dataModel is null or keyName is null or string.Empty.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">If the key name does not exist.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataRecord.DataRecordManager.GetDataConverter(StatNeth.Blaise.API.Meta.IDatamodel,StatNeth.Blaise.API.Meta.IDatamodel)">
+            <summary>
+            Returns an IDataConverter.
+            </summary>
+            <param name="sourceModel">The source data model.</param>
+            <param name="targetModel">The target data model.</param>
+            <returns>An IDataConverter.</returns>
+            <exception cref="T:System.ArgumentNullException">If sourceModel or targetModel is null.</exception>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.AnswerStatus">
+            <summary>
+            Describes the possible answer statuses of a data value.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataRecord.AnswerStatus.Empty">
+            <summary>
+            Field has not been answered.
+            </summary>        
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataRecord.AnswerStatus.Response">
+            <summary>
+            Field contains a valid value.
+            </summary>        
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataRecord.AnswerStatus.SpecialAnswer">
+            <summary>
+            Field contains an attribute such as DontKnow or Refusal.
+            </summary>        
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.DataEntryStatus">
+            <summary>
+            Determines how a data or block field is presented in the data entry program.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataRecord.DataEntryStatus.Editable">
+            <summary>
+            This field can be edited.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataRecord.DataEntryStatus.Readonly">
+            <summary>
+            The field is read-only.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataRecord.DataEntryStatus.Hidden">
+            <summary>
+            The field is not visible.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.DataType">
+            <summary>
+            Describes the possible types of a data value.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataRecord.DataType.String">
+            <summary>
+            String.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataRecord.DataType.Real">
+            <summary>
+            Real.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataRecord.DataType.Date">
+            <summary>
+            Date.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataRecord.DataType.Time">
+            <summary>
+            Time.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataRecord.DataType.Enumeration">
+            <summary>
+            Enumeration.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataRecord.DataType.Classification">
+            <summary>
+            Classification.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataRecord.DataType.Set">
+            <summary>
+            Set.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataRecord.DataType.Integer">
+            <summary>
+            Integer.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataRecord.DataType.Blob">
+            <summary>
+            Blob.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.EditMode">
+            <summary>
+            Describes the possible edit modes of a data field.
+            </summary>    
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataRecord.EditMode.Default">
+            <summary>
+            Ask field.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataRecord.EditMode.Lookup">
+            <summary>
+            Field has LOOKUP instruction.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataRecord.EditMode.Classify">
+            <summary>
+            Field has CLASSIFY instruction.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.Field.DataEntryStatus">
+            <summary>
+            Gets the DataEntryStatus
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.Field.HasErrors">
+            <summary>
+            Has Errors?
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataRecord.Field.ComputedFills(System.String)">
+            <summary>
+            ComputedFills
+            </summary>
+            <param name="role"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataRecord.Field.ComputedFills(System.Int32)">
+            <summary>
+            ComputedFills
+            </summary>
+            <param name="enumCode"></param>
+            <returns></returns>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.Field.LookupInformation">
+            <summary>
+            Gets the LookupInformation
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.Field.OutOfRangeValue">
+            <summary>
+            Gets the OutOfRange DataValue
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.Field.Checks">
+            <summary>
+            Gets the Checks
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.Field.Groups">
+            <summary>
+            Gets the Groups
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.Field.FieldProperties">
+            <summary>
+            Collection of Fields <see cref="T:StatNeth.Blaise.API.DataRecord.IFieldProperty"/>
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.Field.Key">
+            <summary>
+            Key of Object
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataRecord.Field.SetKey(System.String)">
+            <summary>
+            Not Implemented
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataRecord.FieldCollection.#ctor(StatNeth.Blaise.Data.DataStructure.IFieldCollection,StatNeth.Blaise.API.Meta.IFieldDefinitionCollection,StatNeth.Blaise.API.Meta.IDatamodel)">
+            <summary>
+            Is used for the fields of the main block or a block field.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataRecord.FieldCollection.#ctor(StatNeth.Blaise.Data.DataStructure.IDataFieldCollection,StatNeth.Blaise.API.Meta.IDatamodel)">
+            <summary>
+            Is used for the fields of a key.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataRecord.FieldCollection.#ctor(StatNeth.Blaise.Data.DataStructure.IInvolvedFieldCollection,StatNeth.Blaise.API.Meta.IDatamodel)">
+            <summary>
+            Is used for the (involved) fields of a check.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataRecord.FieldCollection.#ctor(StatNeth.Blaise.Runtime.Routing.IRouteArrayField,StatNeth.Blaise.API.Meta.IFieldInformation,StatNeth.Blaise.API.Meta.IDatamodel)">
+            <summary>
+            Is used for the fields of an array
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.IBlobValue">
+            <summary>
+            Offers access to the values of a Blob field.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IBlobValue.MimeType">
+            <summary>
+            The MIME type.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IBlobValue.FileName">
+            <summary>
+            The filename used.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IBlobValue.Data">
+            <summary>
+            The data value. Returns null if associated answer status is different from Response.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.IDataValue">
+            <summary>
+            Offers the possibility to retrieve and/or assign field data.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IDataValue.DataType">
+            <summary>
+            The type of the data value like Integer, String etc.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IDataValue.AnswerStatus">
+            <summary>
+            The answer status like Response, Empty or SpecialAnswer.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IDataValue.SpecialAnswer">
+            <summary>
+            The special answer value like "DontKnow" or "Refusal". Can also be empty.
+            Make use of the enumeration SpecialAnswerNames, which can be found in API.Meta.Constants.
+            Throws an argument out of range exception if setting the special answer is not allowed.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IDataValue.StringValue">
+            <summary>
+            The value in case the data type is string and answer status is Response. Returns string.Empty otherwise.
+            When setting a value that exceeds the maximum length, this value will be truncated.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataRecord.IDataValue.Assign(System.String)">
+            <summary>
+            Copies value from untyped value as string. The following formatting rules apply:
+            A string value may contain special characters (' and \) which are escaped by preceding them by a \. In this case the string must start and end with '.
+            A string value that does not start and end with ' is assumed not to use character escaping.
+            Date must be formatted as dd-MM-yyyy.
+            Time must be formatted as HH:mm:ss.
+            Real values should use a . as decimal separator.
+            Enumeration values should be passed by their numerical code.
+            Set values should be formatted as code1-code2-code3.
+            Blob values should be formatted as MimeType|FileName|ToBase64String(Data)
+            Special answers must be passed by their name (DontKnow, Refusal). Make use of the enumeration SpecialAnswerNames, which can be found in API.Meta.Constants.
+            </summary>
+            <param name="untypedValue">The untyped value as string.</param>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IDataValue.ValueAsText">
+            <summary>
+            Returns the value as text. The following formatting rules apply:
+            A string value will be returned as property StringValue.
+            A date will be formatted as dd-MM-yyyy.
+            A time will be formatted as HH:mm:ss.
+            Real values will use a . as decimal separator.
+            Enumeration values will be returned by their numerical code.
+            Set values are formatted as code1-code2-code3.
+            Blob values are formatted as MimeType|FileName|ToBase64String(Data)
+            Special answers are returned by their long name (DontKnow, Refusal).
+            Result will be string.Empty if answer status is empty.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IDataValue.IntegerValue">
+            <summary>
+            The value in case the data type is integer and answer status is response. Returns 0 otherwise.
+            Throws an argument out of range exception if setting a value that exceeds the defined range.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IDataValue.RealValue">
+            <summary>
+            The value in case the data type is real and answer status is response. Returns 0 otherwise.
+            Throws an argument out of range exception if setting a value that exceeds the defined range.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IDataValue.SetValue">
+            <summary>
+            A separate interface in case the data type is set. Returns null otherwise.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IDataValue.EnumerationValue">
+            <summary>
+            The code value in case the data type is enumeration and answer status is response. Returns -1 otherwise.
+            Throws an argument out of range exception if setting an undefined code value.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IDataValue.DateValue">
+            <summary>
+            The value in case the data type is date and answer status is response. Returns null otherwise.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IDataValue.TimeValue">
+            <summary>
+            The value in case the data type is time and answer status is response. Returns null otherwise.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IDataValue.ClassificationValue">
+            <summary>
+            The value in case the data type is classification and answer status is response. Returns empty otherwise.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataRecord.IDataValue.Assign(StatNeth.Blaise.API.DataRecord.IDataValue)">
+            <summary>
+            Copies the data content from value.
+            </summary>
+            <param name="value">The source value.</param>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataRecord.IDataValue.Clear">
+            <summary>
+            Clears the data value. Afterwards the answer status will be Empty.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataRecord.IDataValue.Equals(StatNeth.Blaise.API.DataRecord.IDataValue)">
+            <summary>
+            Is a given value equal to this value?
+            </summary>
+            <param name="value">Value to compare with.</param>
+            <returns>True if equal, False otherwise.</returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.IDataValue2">
+            <summary>
+            Extends IDataValue.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IDataValue2.SpecialAnswerTextFileValue">
+            <summary>
+            Returns the special answer as a value that can be used in a text file. Only applicable when
+            answer status is SpecialAnswer. Returns string.Empty otherwise.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.IDataValue3">
+            <summary>
+            Extends IDataValue2.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IDataValue3.BlobValue">
+            <summary>
+            A separate interface in case the data type is Blob. Returns null otherwise.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.IField">
+            <summary>
+            Describes a field of a data record.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IField.Structure">
+            <summary>
+            Is it a data field, block field or array field.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IField.Definition">
+            <summary>
+            The definition of the field.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IField.LocalName">
+            <summary>
+            The local name as defined in the datamodel or block.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IField.FullName">
+            <summary>
+            The fully qualified field name like Household.Person[1].Sex.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IField.HierarchicalName">
+            <summary>
+            The hierarchical name contains only block names like BPerson.Sex.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IField.IsRequired">
+            <summary>
+            Must the data field get an answer? Only relevant for structure Data. Returns false otherwise.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IField.IsPrimaryKeyField">
+            <summary>
+            Is this field (part of) the primary key? Only relevant for structure Data. Returns false otherwise.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IField.Fields">
+            <summary>
+            Fields of a block or array. Only relevant for structure Block or Array. Is null otherwise.
+            In case of an array field the items of this collection must be indexed in the range 
+            [Definition.Type.IndexType.MinIndex .. Definition.Type.IndexType.MaxIndex].
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IField.DataValue">
+            <summary>
+            Offers access to the actual field value. Only relevant for structure Data. Is null otherwise.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IField.OutOfRangeValue">
+            <summary>
+            May contain an incorrect value that was tried to be assigned to DataValue. Can be null.        
+            Only relevant for structure Data. Returns null otherwise.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IField.RouteStatus">
+            <summary>
+            The route status of the field.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IField.Errors">
+            <summary>
+            The errors of the field. Only relevant for structure Data. Is null otherwise.
+            </summary>
+            <remarks>You must call IDataRecord.ExecuteRules() before using this method.</remarks>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IField.Checks">
+            <summary>
+            The checks of a block field. Only relevant for structure Block. Is null otherwise.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IField.Groups">
+            <summary>
+            The groups of a block field. Only relevant for structure Block. Is null otherwise.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IField.HasErrors">
+            <summary>
+            Does the (data) field have errors? This is more efficient than testing Errors.Count > 0, 
+            which would populate the Errors collection first.
+            Only relevant for structure Data. Is false otherwise.        
+            </summary>
+            <remarks>You must call IDataRecord.ExecuteRules() before using this method.</remarks>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IField.FailedChecks">
+            <summary>
+            The failed checks where this field is involved in. Only relevant for structure Data. Is null otherwise.
+            </summary>
+            <remarks>You must call IDataRecord.ExecuteRules() before using this method.</remarks>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IField.EditMode">
+            <summary>
+            The possible edit modes of a data field. Only relevant for structure Data.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IField.LookupInformation">
+            <summary>
+            The lookup information in case the edit mode contains Lookup. Returns null otherwise.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IField.DataEntryStatus">
+            <summary>
+            Determines how the field is presented in the data entry program. Only relevant for structure Data and Block.
+            Does not distinguish between OffRoute and Keep. Use IField2.DataEntryRouteStatus instead.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IField.FieldProperties">
+            <summary>
+            The properties of a data field. Only relevant for structure Data. Returns null otherwise.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataRecord.IField.ComputedFills(System.String)">
+            <summary>
+            Returns the computed fills of the texts for a specific role.
+            You can make use of the enumeration TextRoles, which can be found in API.Meta.Constants.        
+            </summary>
+            <param name="role">The name of the role.</param>
+            <returns>An IComputedFillCollection.</returns>
+            <exception cref="T:System.ArgumentNullException">If role is null or string.Empty.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">If role is different from Question, Description or not part of the datamodel roles.</exception>
+            <remarks>You must call IDataRecord.ExecuteRules() before using this method.</remarks>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataRecord.IField.ComputedFills(System.Int32)">
+            <summary>
+            Returns the computed fills of the category texts for a specific enumeration code. Only relevant for enumeration fields. Returns null otherwise.        
+            </summary>
+            <param name="enumCode">The enumeration code.</param>
+            <returns>An IComputedFillCollection.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">If enumCode is not a valid enumeration code.</exception>
+            <remarks>You must call IDataRecord.ExecuteRules() before using this method.</remarks>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.FieldStructure">
+            <summary>
+            Describes the structure of an IField.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataRecord.FieldStructure.Data">
+            <summary>
+            An elementary data field in a data record, block or array.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataRecord.FieldStructure.Block">
+            <summary>
+            A block field in data record, block or array.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataRecord.FieldStructure.Array">
+            <summary>
+            An array field in a data record or block.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.IField2">
+            <summary>
+            Extends IField.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IField2.DataEntryRouteStatus">
+            <summary>
+            Determines how the route item is presented in the data entry program. Only relevant for structure Data and Block.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.IField3">
+            <summary>
+            Extends IField2.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IField3.ID">
+            <summary>
+            Returns a unique identification string of the field. Each field is identified by using its local index (>=0) in the surrounding block,
+            or its array element index between brackets if an array element. Examples: 0.0, 1[1].0, 2[2].2[2].1
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IField3.IsEmpty">
+            <summary>
+            Returns True if the AnswerStatus is Empty for a data field, or if all data fields inside a block or array have AnswerStatus = Empty.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.IField4">
+            <summary>
+            Extends IField3.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataRecord.IField4.GetCategoryText(System.Int32,System.String,System.String)">
+            <summary>
+            Returns a category role text for the given language where fills are substituted by their computed values.
+            Will return string.Empty if there is no text defined for this role/language combination.
+            Only relevant for enumeration and/or set fields. Returns null otherwise.
+            </summary>
+            <param name="code">The numerical code value of the category.</param>
+            <param name="role">The text role.</param>
+            <param name="language">The language name. Use string.Empty if there are no languages defined.</param>
+            <returns>A string.</returns>
+            <exception cref="T:System.ArgumentNullException">If role is null or string.Empty.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">If role or language is invalid.</exception>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IField4.ShouldBeRecorded">
+            <summary>
+            Should the field be recorded? 
+            Only relevant for structure Data. Returns false otherwise.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IField4.IsRecorderEnabled">
+            <summary>
+            Is the recorder enabled?
+            Only relevant for structure Data. Returns false otherwise.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataRecord.IField4.IsAheadOnRoute(StatNeth.Blaise.API.DataRecord.IField)">
+            <summary>
+            Is the given (data) field ahead on route compared to this field?
+            </summary>
+            <param name="field">The given data field.</param>
+            <returns>True if ahead on route. False otherwise.</returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.IField5">
+            <summary>
+            Extends IField4.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IField5.DerivedFieldKind">
+            <summary>
+            Returns AuxField if one of the field's parents is an aux field. Returns DataField otherwise.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.IFieldCollection">
+            <summary>
+            Contains items of type IField.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IFieldCollection.Count">
+            <summary>
+            The number of items.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IFieldCollection.Item(System.Int32)">
+            <summary>
+            Returns an IField item. Throws an argument out of range exception if invalid index.
+            Note that the fields of an array must be indexed in the range [MinIndex .. MaxIndex].
+            </summary>
+            <param name="index">Numerical index of an IField item.</param>
+            <returns>An IField.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataRecord.IFieldCollection.GetItem(System.String)">
+            <summary>
+            Returns an IField item based on field name. Use the full field name if the collection corresponds with the fields of an ICheck or IKey.
+            Use the local field name in other situations.
+            Throws an argument out of range exception if item not found.
+            </summary>
+            <param name="fieldName">The field name. Can be either local or full field name</param>
+            <returns>An IField.</returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.IFieldData">
+            <summary>
+            Exposes the data value for some data field.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IFieldData.Name">
+            <summary>
+            The name of the field.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IFieldData.Value">
+            <summary>
+            The data value of the field.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.IFieldProperty">
+            <summary>
+            Describes a property of a data field.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IFieldProperty.Definition">
+            <summary>
+             The definition of the property.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IFieldProperty.Value">
+            <summary>
+            The value of the property.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.IFieldPropertyCollection">
+            <summary>
+            Contains items of type IFieldProperty.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IFieldPropertyCollection.Count">
+            <summary>
+            The number of items.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IFieldPropertyCollection.Item(System.Int32)">
+            <summary>
+            Returns an IFieldProperty item by index. Throws an argument out of range exception if invalid index.        
+            </summary>
+            <param name="index">Numerical index of an IFieldProperty item.</param>
+            <returns>An IFieldProperty.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataRecord.IFieldPropertyCollection.GetItem(System.String)">
+            <summary>
+            Returns IFieldProperty if the name is a valid property name defined in the datamodel. Returns null, if invalid name.
+            </summary>
+            <param name="name">The name of the property.</param>
+            <returns>An IFieldProperty.</returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.IKeyAssignment">
+            <summary>
+            Describes the key assignment part of the lookup information.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IKeyAssignment.KeyName">
+            <summary>
+            The name of the key.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IKeyAssignment.StartFieldValues">
+            <summary>
+            The computed start field names and values.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.ILookupInformation">
+            <summary>
+            Exposes the information for a data field with edit mode lookup.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.ILookupInformation.ReturnField">
+            <summary>
+            The name of the field returned by the lookup.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.ILookupInformation.UsedDatamodelFileName">
+            <summary>
+            The datamodel file name of the used datamodel for the lookup.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.ILookupInformation.ExternalDataFileName">
+            <summary>
+            The data file name of the external database.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.ILookupInformation.KeyAssignments">
+            <summary>
+            The keys and their start values that can be used for the lookup.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.ILookupInformation2">
+            <summary>
+            Extends ILookupInformation.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.ILookupInformation2.FieldFilter">
+            <summary>
+            The fields that are shown in the lookup dialog.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.ILookupInformation2.RecordFilter">
+            <summary>
+            A condition that determines which records will be included in the lookup: Age > 15
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.ILookupInformation2.AllowClearRecord">
+            <summary>
+            Is it allowed to unselect the lookup record?
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.ISetValue2">
+            <summary>
+            Offers access to the value of a set field.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.ISetValue2.ValueAsList">
+            <summary>
+            The value as array. May return null if associated answer status is different from Response.
+            Note that it is not possible to change single set elements using statements
+            like: DataValue.SetValue.Value[x] = y. You can manipulate the values of set fields either by assigning an entire 
+            array in one time, or by adding or removing a single code.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.ISetValue">
+            <summary>
+            Offers access to the value of a set field.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.ISetValue.Value">
+            <summary>
+            The value as array. May return null if associated answer status is different from Response.
+            Note that it is not possible to change single set elements using statements
+            like: DataValue.SetValue.Value[x] = y. You can manipulate the values of set fields either by assigning an entire 
+            array in one time, or by adding or removing a single code.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataRecord.ISetValue.Remove(System.Int32)">
+            <summary>
+            Removes a code from the set.
+            </summary>
+            <param name="code">The code to remove.</param>
+            <returns>True, if code was in old value.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataRecord.ISetValue.Contains(System.Int32)">
+            <summary>
+            Does the set contain a given code?
+            </summary>
+            <param name="code">The code to look for.</param>
+            <returns>True, if value contains code.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataRecord.ISetValue.Add(System.Int32)">
+            <summary>
+            Adds a code if not present yet (and is allowed code).
+            </summary>
+            <param name="code">The code to add.</param>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.RouteStatus">
+            <summary>
+            Describes the possible route statuses of a field.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataRecord.RouteStatus.Ask">
+            <summary>
+            Ask field.
+            </summary>        
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataRecord.RouteStatus.Show">
+            <summary>
+            Show field.
+            </summary>        
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataRecord.RouteStatus.Keep">
+            <summary>
+            Hidden field on route.
+            </summary>        
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataRecord.RouteStatus.OffRoute">
+            <summary>
+            Field not on route.
+            </summary>        
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataRecord.RouteStatus.Unspecified">
+            <summary>
+            RouteStatus is not determined.
+            </summary>        
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.ErrorKind">
+            <summary>
+            Describes the possible field error kinds.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataRecord.ErrorKind.Route">
+            <summary>
+            Indicates that a required field has not been answered, or an off route field has been answered.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataRecord.ErrorKind.FailedCheck">
+            <summary>
+            Indicates a failed check.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataRecord.ErrorKind.OutOfRange">
+            <summary>
+            Indicates a failed range check.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.IFieldError">
+            <summary>
+            Describes an error a field is involved in.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IFieldError.ErrorKind">
+            <summary>
+            The kind of the error like Route or FailedCheck.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IFieldError.RouteErrorCause">
+            <summary>
+            The cause of the error in case of a route error. Returns null otherwise.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IFieldError.FailedCheck">
+            <summary>
+            The check that failed in case of a failed check error. Is null otherwise.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IFieldError.OutOfRangeValue">
+            <summary>
+            The data value in case of an out of range error. Is null otherwise.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.IFieldErrorCollection">
+            <summary>
+            Contains items of type IFieldError.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IFieldErrorCollection.Count">
+            <summary>
+            The number of items.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IFieldErrorCollection.Item(System.Int32)">
+            <summary>
+            Returns an IFieldError item. Throws an argument out of range exception if invalid index.        
+            </summary>
+            <param name="index">Numerical index of an IFieldError item.</param>
+            <returns>An IFieldError.</returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.RouteErrorCause">
+            <summary>
+            Describes the reason for a route error.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataRecord.RouteErrorCause.EmptyButRequired">
+            <summary>
+            Required Ask field that is empty.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataRecord.RouteErrorCause.AnsweredButOffRoute">
+            <summary>
+            Off route field that is answered.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.ICheck">
+            <summary>
+            Describes a check.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.ICheck.Structure">
+            <summary>
+            Describes whether it is a Simple check or an Array check (means that the check is defined within a for loop).
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.ICheck.FullName">
+            <summary>
+            The full name of the check like 'blockfieldname.check_1_'.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.ICheck.ErrorIdent">
+            <summary>
+            The identification of an error associated with this check. Returns string.Empty for structure Array.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.ICheck.Definition">
+            <summary>
+            The definition of this check.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.ICheck.Status">
+            <summary>
+            The status of this check.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.ICheck.InvolvedFields">
+            <summary>
+            The fields that are involved in this check. In order to contain items the structure must be Simple and the status must be Relevant.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.ICheck.ComputedFills">
+            <summary>
+            The fills that are used in the texts of the check definition (API.Meta.ICheckDefinition) with the Message role, for all languages. 
+            Returns null for structure Array.
+            </summary>
+            <remarks>You must call IDataRecord.ExecuteRules() before using this method.</remarks>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataRecord.ICheck.GetComputedFills(System.String)">
+            <summary>
+            Returns the computed fills for the texts of the check definition (API.Meta.ICheckDefinition) for a specific role.
+            You can make use of the enumeration TextRoles, which can be found in API.Meta.Constants. Returns null for structure Array.
+            </summary>
+            <param name="role">The name of the role.</param>
+            <returns>An IComputedFillCollection.</returns>
+            <exception cref="T:System.ArgumentNullException">If role is null or string.Empty.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">If role is different from Message, or not part of the datamodel roles.</exception>
+            <remarks>You must call IDataRecord.ExecuteRules() before using this method.</remarks>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.ICheck.CustomEditFieldName">
+            <summary>
+            Name of custom edit field to which the value of this check is passed by a pipe statement. Is string.Empty for structure Array.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.ICheck.MinIndex">
+            <summary>
+            The minimum index of the check in case structure is Array. Is null for structure Simple.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.ICheck.MaxIndex">
+            <summary>
+            The maximum index of the check in case structure is Array. Is null for structure Simple.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.ICheck.Value">
+            <summary>
+            The value of the check. Can be null if the status is unspecified or incomputable. Is null for structure Array.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.ICheck.Count">
+            <summary>
+            The number of items in case the structure is Array. Returns 0 for structure Simple.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.ICheck.Item(System.Int32)">
+            <summary>
+            Returns an ICheck item in case the structure is Array. Returns null otherwise.
+            Throws an argument out of range exception if invalid index.        
+            </summary>
+            <param name="index">Numerical index of an ICheck item.</param>
+            <returns>An ICheck.</returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.FillType">
+            <summary>
+            The types of fill that can be represented by an IComputedFill.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataRecord.FillType.Variable">
+            <summary>
+            The fill is a variable of non enumerated type.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataRecord.FillType.Enumeration">
+            <summary>
+            The fill is an enumerated variable.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.IComputedFill">
+            <summary>
+            Represents a computed fill of a text.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IComputedFill.FillType">
+            <summary>
+            The type is Variable or Enumeration.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IComputedFill.VariableName">
+            <summary>
+            The defined name of the fill in the text.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IComputedFill.Value">
+            <summary>        
+            The computed value of the fill. Note that Value only returns a value (answer status different from Empty) if ExecuteRules() has been called on the owning data record.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IComputedFill.TypeName">
+            <summary>
+            Specifies the enumeration type name. Only relevant for fill type Enumeration. Returns string.Empty otherwise.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IComputedFill.FileName">
+            <summary>
+            Specifies the file name, in case the type is not defined in the datamodel itself, but in a library or used datamodel.
+            Only relevant for fill type Enumeration. Returns string.Empty otherwise.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IComputedFill.TextFills">
+            <summary>
+            The fills of the texts (for all languages) for the enumeration category of which the value equals Value.EnumerationValue. Could contain 0 elements. 
+            Note that this property is only relevant for fill type Enumeration. Returns null otherwise.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.IComputedFillCollection">
+            <summary>
+            Contains items of type IComputedFill.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IComputedFillCollection.Count">
+            <summary>
+            The number of items.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IComputedFillCollection.Item(System.Int32)">
+            <summary>
+            Returns an IComputedFill item. Throws an argument out of range exception if invalid index.
+            </summary>
+            <param name="index">Numerical index of an IComputedFill item.</param>
+            <returns>An IComputedFill.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataRecord.IComputedFillCollection.GetItem(System.String)">
+            <summary>
+            Returns an IComputedFill item based on its variable name.
+            Throws an argument out of range exception if item not found.
+            </summary>
+            <param name="variableName">The variable name.</param>
+            <returns>An IComputedFill.</returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.IText">
+            <summary>
+            Offers access to 'runtime texts', where fills are substituted by their computed values.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataRecord.IText.GetText(System.String,System.String)">
+            <summary>
+            Returns a role text for the given language where fills are substituted by their computed values.
+            Will return string.Empty if there is no text defined for this role/language combination.
+            </summary>
+            <param name="role">The text role.</param>
+            <param name="language">The language name. Use string.Empty if there are no languages defined.</param>
+            <returns>A string.</returns>
+            <exception cref="T:System.ArgumentNullException">If role is null or string.Empty.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">If role or language is invalid.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataRecord.TextFillReplacer.GetText(StatNeth.Blaise.API.Meta.IRoleTexts,System.String,StatNeth.Blaise.API.DataRecord.IComputedFillCollection)">
+            <summary>
+            Replaces the (defined) fills in the role text with the given langauge by their computed values.
+            </summary>       
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.FormStatus">
+            <summary>
+            Describes the status of a record as a form.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataRecord.FormStatus.New">
+            <summary>
+            The form is edited for the first time.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataRecord.FormStatus.Old">
+            <summary>
+            The form has been edited before.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataRecord.FormStatus.Changed">
+            <summary>
+            An old form has been changed in the current session.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataRecord.FormStatus.GetKey">
+            <summary>
+            The interview session is on the key page.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.IGroup">
+            <summary>
+            Describes a group.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IGroup.FullName">
+            <summary>
+            The full name of the group.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IGroup.Definition">
+            <summary>
+            The definition of this group.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IGroup.RouteStatus">
+            <summary>
+            The route status of the group.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IGroup.DataEntryStatus">
+            <summary>
+            Determines how the group is presented in the data entry program.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataRecord.IGroup.GetComputedFills(System.String)">
+            <summary>
+            The fills that are used in the texts of the group definition (API.Meta.IGroupDefinition) for the specified role.
+            You can make use of the enumeration TextRoles, which can be found in API.Meta.Constants.        
+            </summary>
+            <param name="role">The name of the role.</param>
+            <returns>An IComputedFillCollection.</returns>
+            <exception cref="T:System.ArgumentNullException">If role is null or string.Empty.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">If role is different from Question, Description or not part of the datamodel roles.</exception>
+            <remarks>You must call IDataRecord.ExecuteRules() before using this method.</remarks>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.IGroup2">
+            <summary>
+            Extends IGroup.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.IGroup3">
+            <summary>
+            Extends IGroup2.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IGroup3.DataEntryRouteStatus">
+            <summary>
+            Determines how the route item is presented in the data entry program.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.IGroupCollection">
+            <summary>
+            Contains items of type IGroup.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IGroupCollection.Count">
+            <summary>
+            The number of items.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IGroupCollection.Item(System.Int32)">
+            <summary>
+            Returns an IGroup item. Throws an argument out of range exception if invalid index.        
+            </summary>
+            <param name="index">Numerical index of an IGroup item.</param>
+            <returns>An IGroup.</returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.IDataRecord">
+            <summary>
+            Represents a data record. Offers functionality for checking and routing.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IDataRecord.Fields">
+            <summary>
+            The fields of the record. Organized in a hierarchical way. Does contain fields within groups.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IDataRecord.Keys">
+            <summary>
+            The keys of the record.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IDataRecord.Parallels">
+            <summary>
+            The parallels of the record.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataRecord.IDataRecord.GetField(System.String)">
+            <summary>
+            Returns an IField by full name.
+            Throws an argument out of range exception if field not found.
+            </summary>
+            <param name="fullName">The fully qualified field name like 'Household.Person[1].Sex'.
+            Note that the use of a nested name like 'blockfieldname.groupname.fieldname' is not allowed. Leave the groupname out in this case (i.e. 'blockfieldname.fieldname').</param>
+            <returns>An IField.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">If field could not be found.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataRecord.IDataRecord.GetCheck(System.String)">
+            <summary>
+            Returns an ICheck by error identification or full name.
+            Throws an argument out of range exception if check not found.
+            </summary>
+            <param name="fullName">A fully qualified error identification or name.</param>
+            <returns>An ICheck.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">If check could not be found.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataRecord.IDataRecord.GetGroup(System.String)">
+            <summary>
+            Returns an IGroup by full name.
+            Throws an argument out of range exception if group not found.
+            </summary>
+            <param name="fullName">A fully qualified group name.
+            Note that the use of a nested name like 'groupname1.groupname2' is not allowed. Take the name of the most nested group (i.e. 'groupname2') in this case.
+            Likewise use 'blockfieldname.groupname2' instead of 'blockfieldname.groupname1.groupname2'.
+            </param>
+            <returns>An IGroup.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">If group could not be found.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataRecord.IDataRecord.Assign(StatNeth.Blaise.API.DataRecord.IDataRecord)">
+            <summary>
+            Copies the field data of the incoming IDataRecord to this data record.
+            The record itself (this) will not be cleared before the copy.
+            Only field data of fields that can be found will be copied.
+            </summary>
+            <param name="dataRecord">The record from which to copy the values.</param>
+            <exception cref="T:System.ArgumentNullException">If dataRecord is null.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataRecord.IDataRecord.Assign(System.Collections.Generic.IEnumerable{StatNeth.Blaise.API.DataRecord.IFieldData})">
+            <summary>
+            Copies the list of field data to this data record.
+            The record itself (this) will not be cleared before the copy.
+            Only field data of fields that can be found will be copied.
+            </summary>
+            <param name="data">The data from which to copy the values.</param>
+            <exception cref="T:System.ArgumentNullException">If data is null.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataRecord.IDataRecord.ClearData">
+            <summary>
+            Clears the values of the fields with data structure. After having called this method the key value(s) will be empty and in case
+            the datamodel does not have a primary key the property IDataRecord2.FormID will become 0.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IDataRecord.Settings">
+            <summary>
+            The settings that influence data entry, checking and routing.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IDataRecord.Groups">
+            <summary>
+            The groups of the record.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IDataRecord.IsExecuteRulesNeeded">
+            <summary>
+            Indicates whether the data record is changed since the last execution of the rules.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataRecord.IDataRecord.ExecuteRules">
+            <summary>
+            Executes the rules of the main parallel.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IDataRecord.Checks">
+            <summary>
+            The checks of the data record.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IDataRecord.ValidationStatus">
+            <summary>
+            The validation status of the data record.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IDataRecord.FormStatus">
+            <summary>
+            The history status of the data record seen as a form.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataRecord.IDataRecord.IsAllowed(StatNeth.Blaise.API.DataRecord.IField)">
+            <summary>
+            Determines whether it is allowed to go to the specified data field. Note that it is never allowed to go to a Keep field.
+            Throws an argument out of range exception if the field has structure block or array.
+            </summary>
+            <param name="field">The data field of interest. Must be an Ask or Show field.</param>
+            <returns>True if the field may be visited, False otherwise.</returns>
+            <exception cref="T:System.ArgumentNullException">If field is null.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataRecord.IDataRecord.FirstFieldOnRoute">
+            <summary>
+            The first data field on route. Can only be an Ask or Show field.
+            Note that the value of Settings.ActiveParallelName determines the parallel this property applies to.
+            </summary>
+            <remarks>Depending on how the rules are designed, you must call ExecuteRules() before using this method.</remarks>
+            <returns>An IField.</returns>        
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataRecord.IDataRecord.LastFieldOnRoute">
+            <summary>
+            The last data field on route. Can only be an Ask or Show field.
+            Note that the value of Settings.ActiveParallelName determines the parallel this property applies to.
+            </summary>
+            <returns>An IField.</returns>
+            <remarks>Depending on how the rules are designed, you must call ExecuteRules() before using this method.</remarks>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataRecord.IDataRecord.NextFieldOnRoute(StatNeth.Blaise.API.DataRecord.IField)">
+            <summary>
+            Determines the next data field on route relative to current field. Only Ask and Show fields are taken into account.
+            Note that the value of Settings.ActiveParallelName determines the parallel this property applies to. Also note that the value of Settings.DataEntrySettingsName influences
+            the behavior of this method. If the value of Meta.IDataEntrySettings.ErrorsReachabilityInfluence is MustBeSolvedImmediately,
+            then current field will be returned in case it is involved in an (route) error. 
+            If current is the last field on route and not involved in any errors, then null will be returned.        
+            </summary>
+            <param name="current">The current field.</param>
+            <returns>The next allowed data field relative to current field.</returns>
+            <exception cref="T:System.ArgumentNullException">If current is null.</exception>
+            <exception cref="T:System.ArgumentException">If current belongs to a different parallel than Settings.ActiveParallelName describes.</exception>
+            <remarks>Depending on how the rules are designed, you must call ExecuteRules() before using this method.</remarks>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataRecord.IDataRecord.PreviousFieldOnRoute(StatNeth.Blaise.API.DataRecord.IField)">
+            <summary>
+            Determines the previous data field on route relative to current field. Only Ask and Show fields are taken into account. If current field is the first field on route, then this field will be returned.
+            Note that the value of Settings.ActiveParallelName determines the parallel this property applies to.
+            </summary>
+            <param name="current">The current field.</param>
+            <returns>The previous allowed data field relative to current field.</returns>
+            <exception cref="T:System.ArgumentNullException">If current is null.</exception>
+            <exception cref="T:System.ArgumentException">If current belongs to a different parallel than Settings.ActiveParallelName describes.</exception>
+            <remarks>Depending on how the rules are designed, you must call ExecuteRules() before using this method.</remarks>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IDataRecord.ComputedFills">
+            <summary>
+            The computed fills for the texts of the datamodel (Datamodel.Texts) with the Title role in all languages.
+            </summary>
+            <remarks>You must call ExecuteRules() before using this method.</remarks>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataRecord.IDataRecord.GetComputedFills(System.String)">
+            <summary>
+            Returns the computed fills for the texts of the datamodel (Datamodel.Texts) for a specific role.
+            You can make use of the enumeration TextRoles, which can be found in API.Meta.Constants.        
+            </summary>
+            <param name="role">The name of the role.</param>
+            <returns>An IComputedFillCollection.</returns>
+            <exception cref="T:System.ArgumentNullException">If role is null or string.Empty.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">If role is different from Title or not part of the datamodel roles.</exception>
+            <remarks>You must call ExecuteRules() before using this method.</remarks>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IDataRecord.Datamodel">
+            <summary>
+            The datamodel that belongs to this record.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataRecord.IDataRecord.ReadCompressedData(System.IO.Stream)">
+            <summary>
+            Fills the record using the compressed serialized data of the given source stream.
+            </summary>
+            <param name="sourceStream">The stream that contains data.</param>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataRecord.IDataRecord.WriteCompressedData(System.IO.Stream)">
+            <summary>
+            Writes compressed serialized data of the record to the target stream.
+            </summary>
+            <param name="targetStream">The stream to which the data is written.</param>
+            <exception cref="T:System.ArgumentNullException">If targetStream is null.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataRecord.IDataRecord.GetFieldByID(System.String)">
+            <summary>
+            Retrieves an IField by its data storage ID. This is the value from API.Meta.IFieldInformation.ID
+            </summary>
+            <param name="ID">The data storage ID of a field.</param>
+            <returns>An IField.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">If field not found.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataRecord.IDataRecord.GetCheckByID(System.String)">
+            <summary>
+            Retrieves an ICheck by its data storage ID. This is the value from API.Meta.ICheckInformation.ID
+            </summary>
+            <param name="ID">The data storage ID of a check.</param>
+            <returns>An ICheck</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">If check not found.</exception>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.IDataRecord2">
+            <summary>
+            Extends IDataRecord.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IDataRecord2.FormID">
+            <summary>
+            The form id of the record. Only different from null if the datamodel has no primary key. 
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataRecord.IDataRecord2.GetDataFields">
+            <summary>
+            Retrieves all the fields with field structure Data.
+            This method hides the recursive operations imposed by the hierarchical record structure. Note that only those fields that were created as 
+            result of ExecuteRules() are taken into account.
+            </summary>
+            <returns>An IEnumerable of IField items. Every item has field structure Data.</returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.IDataRecord3">
+            <summary>
+            DataRecord for multimode datamodel. Extends IDataRecord2.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IDataRecord3.ActiveMode">
+            <summary>
+            The mode of the DatamodelInstance. If Datamodel is a multimode datamodel this property indicates which mode-specific instance is used.
+            See also DatamodelInstance.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IDataRecord3.DatamodelInstance">
+            <summary>
+            The Datamodel instance that defines this DataRecord.
+            See also ActiveMode.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.IDataRecord4">
+            <summary>
+            Extends IDataRecord3.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataRecord.IDataRecord4.GetFields(System.String)">
+            <summary>
+            Returns the fields of a block or array field. Returns null for a data field (Structure = Data).
+            </summary>
+            <param name="fieldName">The name of the block or array field. If string.Empty then the fields of the main block are returned.</param>
+            <returns>An IFieldCollection.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">If the field could not be found.</exception>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.IDataRecord5">
+            <summary>
+            Extends IDataRecord4.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataRecord.IDataRecord5.FirstRouteFieldName">
+            <summary>
+            The name of the first data field on route. Can only be an Ask or Show field.
+            Note that the value of Settings.ActiveParallelName determines the parallel this property applies to.
+            </summary>
+            <remarks>Depending on how the rules are designed, you must call ExecuteRules() before using this method.</remarks>
+            <returns>A full field name.</returns>        
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataRecord.IDataRecord5.LastRouteFieldName">
+            <summary>
+            The name of the last data field on route. Can only be an Ask or Show field.
+            Note that the value of Settings.ActiveParallelName determines the parallel this property applies to.
+            </summary>
+            <returns>A full field name.</returns>
+            <remarks>Depending on how the rules are designed, you must call ExecuteRules() before using this method.</remarks>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataRecord.IDataRecord5.IsAllowedRouteFieldName(System.String)">
+            <summary>
+            Determines whether it is allowed to go to the specified data field. Note that it is never allowed to go to a Keep field.
+            Throws an argument out of range exception if the field has structure block or array.
+            </summary>
+            <param name="fieldName">The (full) field name of interest. Must be an Ask or Show field.</param>
+            <returns>True if the field may be visited, False otherwise.</returns>
+            <exception cref="T:System.ArgumentNullException">If fieldName is null or string.Empty.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataRecord.IDataRecord5.NextRouteFieldName(System.String)">
+            <summary>
+            Determines the next data field on route relative to current field. Only Ask and Show fields are taken into account.
+            Note that the value of Settings.ActiveParallelName determines the parallel this property applies to. Also note that the value of Settings.DataEntrySettingsName influences
+            the behavior of this method. If the value of Meta.IDataEntrySettings.ErrorsReachabilityInfluence is MustBeSolvedImmediately,
+            then current field will be returned in case it is involved in an (route) error. 
+            If current is the last field on route and not involved in any errors, then null will be returned.        
+            </summary>
+            <param name="currentFieldName">The (full) name of the current field.</param>
+            <returns>The full name of the next allowed data field relative to current field.</returns>
+            <exception cref="T:System.ArgumentNullException">If currentFieldName is null or string.Empty.</exception>
+            <exception cref="T:System.ArgumentException">If current field belongs to a different parallel than Settings.ActiveParallelName describes.</exception>
+            <remarks>Depending on how the rules are designed, you must call ExecuteRules() before using this method.</remarks>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataRecord.IDataRecord5.PreviousRouteFieldName(System.String)">
+            <summary>
+            Determines the previous data field on route relative to current field. Only Ask and Show fields are taken into account. If current field is the first field on route, then this field will be returned.
+            Note that the value of Settings.ActiveParallelName determines the parallel this property applies to.
+            </summary>
+            <param name="currentFieldName">The (full) name of the current field.</param>
+            <returns>The full name of the previous allowed data field relative to current field.</returns>
+            <exception cref="T:System.ArgumentNullException">If currentFieldName is null or string.Empty.</exception>
+            <exception cref="T:System.ArgumentException">If current field belongs to a different parallel than Settings.ActiveParallelName describes.</exception>
+            <remarks>Depending on how the rules are designed, you must call ExecuteRules() before using this method.</remarks>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataRecord.IDataRecord5.GetChecks(System.String)">
+            <summary>
+            Returns the checks of a block field. Returns null for a data field (Structure = Data).
+            </summary>
+            <param name="fieldName">The name of the block field. If string.Empty then the checks of the main block are returned.</param>
+            <returns>An ICheckCollection.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">If the block field could not be found.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataRecord.IDataRecord5.GetGroups(System.String)">
+            <summary>
+            Returns the groups of a block field. Returns null for a data field (Structure = Data).
+            </summary>
+            <param name="fieldName">The name of the block field. If string.Empty then the groups of the main block are returned.</param>
+            <returns>An IGroupCollection.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">If the block field could not be found.</exception>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.IDataRecord7">
+            <summary>
+            Extends IDataRecord6.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataRecord.IDataRecord7.ReadCompressedData(System.IO.Stream,System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IEnumerable{System.String}@)">
+            <summary>
+            Fills the record using the compressed serialized data of the given source stream.
+            </summary>
+            <param name="sourceStream">The stream that contains data.</param>
+            <param name="allowedDataChecksums">Checksums that are allowed when reading the data.</param>
+            <param name="readErrors">Collection with readErrors</param>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.IDataRecord6">
+            <summary>
+            Extends IDataRecord5.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IDataRecord6.ActiveCariSettingsName">
+            <summary>
+            Name of the active Cari settings.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IDataRecord6.ActiveCariSettings">
+            <summary>
+            The active Cari settings definition.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IDataRecord6.ShouldBeRecorded">
+            <summary>
+            Should this record be recorded using Cari?
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataRecord.IDataRecord6.IsConsentLent(StatNeth.Blaise.API.DataRecord.IField)">
+            <summary>
+            Is consent lent for the given data field?
+            </summary>
+            <param name="dataField">The data field.</param>
+            <returns>True if consent lent, False otherwise.</returns>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IDataRecord6.IsRecorderEnabled">
+            <summary>
+            Should recorder be enabled for fields without an Enabled condition?
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.IDataRecord9">
+            <summary>
+            Extends IDataRecord8.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IDataRecord9.SaveStatus">
+            <summary>
+            Gets the save status of the record.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.IDataRecord8">
+            <summary>
+            Extends IDataRecord7.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IDataRecord8.Errors">
+            <summary>
+            All the errors of the data record.
+            </summary>
+            <remarks>You must call IDataRecord.ExecuteRules() before using this method.</remarks>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.IKey2">
+            <summary>
+            Represents a key object.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IKey2.SortKeyValue">
+            <summary>
+            The sort key value as string.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.IKey">
+            <summary>
+            Represents a key object.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IKey.Name">
+            <summary>
+            The name of the key.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IKey.Definition">
+            <summary>
+            The definition of the key.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IKey.Fields">
+            <summary>
+            The (data) fields that make up the key, ordered by their definition order.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IKey.KeyValue">
+            <summary>
+            The key value as string.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.IKeyCollection">
+            <summary>
+            Represents the key objects of a data record. Contains items of type IKey.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IKeyCollection.Count">
+            <summary>
+            The number of items.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IKeyCollection.Item(System.Int32)">
+            <summary>
+            Returns an IKey item. Throws an argument out of range exception if invalid index.
+            </summary>
+            <param name="index">Numerical index of an IKey item.</param>
+            <returns>An IKey.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataRecord.IKeyCollection.Contains(System.String)">
+            <summary>
+            Does the collection contain an item for the specified key name?
+            </summary>
+            <param name="keyName">The key name to look for.</param>
+            <returns>True if the key name is contained. False otherwise.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataRecord.IKeyCollection.GetItem(System.String)">
+            <summary>
+            Returns an IKey item based on key name.
+            Throws an argument out of range exception if item not found.
+            </summary>
+            <param name="keyName">The key name.</param>
+            <returns>An IKey.</returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.ParallelKind">
+            <summary>
+            Specifies the kind of parallel that is used for checking.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataRecord.ParallelKind.Main">
+            <summary>
+            Main parallel.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataRecord.ParallelKind.PrimaryKey">
+            <summary>
+            Primary key parallel.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataRecord.ParallelKind.Block">
+            <summary>
+            Block field that is defined as parallel in the datamodel.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataRecord.BlockParallelCollection.GetBaseIndexer(System.Int32)">
+            <summary>
+            Gets the base indexer.
+            </summary>
+            <param name="index">The index.</param>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.IBlockParallel">
+            <summary>
+            Describes either a defined block parallel or an item of a defined array parallel.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IBlockParallel.Field">
+            <summary>
+            The (block) field of the parallel.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IBlockParallel.CanBeActive">
+            <summary>
+            Indicates whether the parallel can be visited.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IBlockParallel.IsActive">
+            <summary>
+            Indicates whether this parallel is the active parallel.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.IBlockParallelCollection">
+            <summary>
+            Contains items of type IBlockParallel.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IBlockParallelCollection.Count">
+            <summary>
+            The number of items.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IBlockParallelCollection.Item(System.Int32)">
+            <summary>
+            Returns an IBlockParallel item. Throws an argument out of range exception if invalid index.
+            Note that this collection must be indexed in the range [MinIndex .. MaxIndex].
+            </summary>
+            <param name="index">Numerical index of an IBlockParallel item.</param>
+            <returns>An IBlockParallel.</returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.IDefinedParallel">
+            <summary>
+            Describes the information of a defined parallel.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IDefinedParallel.Structure">
+            <summary>
+            The structure of the parallel.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IDefinedParallel.Definition">
+            <summary>
+            The definition of the parallel.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IDefinedParallel.Parallel">
+            <summary>
+            The block parallel. Only relevant for structure Block. Is null for an array parallel.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IDefinedParallel.MinIndex">
+            <summary>
+            The minimum index in case of structure Array. Is null for a block parallel.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IDefinedParallel.MaxIndex">
+            <summary>
+            The maximum index (can be null) in case of structure Array. Is null for a block parallel.
+            </summary> 
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IDefinedParallel.Count">
+            <summary>
+            The number of items in case of structure Array. Returns 0 otherwise.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IDefinedParallel.Item(System.Int32)">
+            <summary>
+            Returns an IBlockParallel item in case of structure Array. Returns null otherwise.
+            Throws an argument out of range exception if invalid index.
+            Note that this property must be indexed in the range [MinIndex .. MaxIndex].
+            </summary>
+            <param name="index">Numerical index.</param>
+            <returns>An IBlockParallel.</returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.IDefinedParallelCollection">
+            <summary>
+            Contains items of type IDefinedParallel.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IDefinedParallelCollection.Count">
+            <summary>
+            The number of items.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.IDefinedParallelCollection.Item(System.Int32)">
+            <summary>
+            Returns an IDefinedParallel item. Throws an argument out of range exception if invalid index.       
+            </summary>
+            <param name="index">Numerical index of an IDefinedParallel item.</param>
+            <returns>An IDefinedParallel.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataRecord.IDefinedParallelCollection.GetBlockParallel(System.String)">
+            <summary>
+            Returns an IBlockParallel by name.
+            </summary>
+            <param name="name">The block name to search for.</param>
+            <returns>An IBlockParallel.</returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.ParallelStructure">
+            <summary>
+            Describes the structure of a defined parallel.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataRecord.ParallelStructure.Block">
+            <summary>
+            A block.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataRecord.ParallelStructure.Array">
+            <summary>
+            An array of blocks.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.ISettings">
+            <summary>
+            Describes the settings used for data entry, checking and routing.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.ISettings.DataEntrySettingsName">
+            <summary>
+            Refers to a data entry settings item of API.Meta.IDatamodel.DataEntrySettings.
+            Throws an argument out of range exception if assigning a name that does not exist.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.ISettings.ActiveParallelName">
+            <summary>
+            The active parallel that will be checked. The main parallel is identified by string.Empty and the key parallel should be specified by "Primary".
+            Note that this is actually the name of the field that is given in the parallel and not the name of the parallel definition itself!
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.ISettings.ActiveParallelKind">
+            <summary>
+            The kind of parallel (Primary, Main or Block) that is used for checking.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.ISettings.ActiveLanguageIndex">
+            <summary>
+            Index of language in Languages collection of the data model.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.ISettings.IsCawi">
+            <summary>
+            Indicates whether the interview is run in a web browser.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataRecord.ISettings.IsCati">
+            <summary>
+            Indicates whether the interview is a telephone interview.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.ValidationStatus">
+            <summary>
+            Describes the validation status of a data record.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataRecord.ValidationStatus.NotChecked">
+            <summary>
+            The record is not checked. This means that the record has not been checked after the last change. 
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataRecord.ValidationStatus.Clean">
+            <summary>
+            The occurring values in the record are according to the rules (routing and checks) and field domain specifications and any errors that were in the form have been corrected or suppressed.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataRecord.ValidationStatus.Suspect">
+            <summary>
+            The record contains soft errors (Signals), that have not been suppressed, but no hard errors (Checks).
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataRecord.ValidationStatus.Dirty">
+            <summary>
+            The record contains hard errors (Checks) and/or routing errors, that have not been solved.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataRecord.Main">
+            <summary>
+            Placeholder for module initializer
+            </summary>
+            <remarks>
+            http://einaregilsson.com/module-initializers-in-csharp/
+            </remarks>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataRecord.Main.Run">
+            <summary>
+            Run on first construction of this assembly
+            </summary>
+        </member>
+    </members>
+</doc>

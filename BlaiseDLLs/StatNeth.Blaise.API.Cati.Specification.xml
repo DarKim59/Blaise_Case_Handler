@@ -1,0 +1,1886 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>StatNeth.Blaise.API.Cati.Specification</name>
+    </assembly>
+    <members>
+        <member name="T:StatNeth.Blaise.API.Cati.Specification.IHasLauncherProperties">
+            <summary>
+            interface ICatiSpecification
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.IHasLauncherProperties.SelectFields">
+            <summary>
+            Get or set the select fields.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.IHasLauncherProperties.FieldSelectionItems">
+            <summary>
+            Get or set the fields of the main datamodel that have special CATI functions.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.IHasLauncherProperties.Treatments">
+            <summary>
+            Get or set the treatment of different dial results.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.IHasLauncherProperties.TimeSliceSets">
+            <summary>
+            Get or set the time slice sets.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.IHasLauncherProperties.TimeZones">
+            <summary>
+            Get or set the time zone information.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Cati.Specification.IHasTopicProperties">
+            <summary>
+            interface IHasTopicProperties
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.IHasTopicProperties.SurveyDays">
+            <summary>
+            Get or set the survey days.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.IHasTopicProperties.AppointmentParameters">
+            <summary>
+            Get or set the appointment parameters.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.IHasTopicProperties.DaybatchParameters">
+            <summary>
+            Get or set the daybatch parameters.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.IHasTopicProperties.SchedulerParameters">
+            <summary>
+            Get or set the scheduler paramaters.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.IHasTopicProperties.SelectFields">
+            <summary>
+            Get or set the select fields.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.IHasTopicProperties.SortFields">
+            <summary>
+            Get or set the sort fields.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.IHasTopicProperties.FieldSelectionItems">
+            <summary>
+            Get or set the fields of the datamodel that have special CATI functions.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.IHasTopicProperties.Treatments">
+            <summary>
+            Get or set the treatment of different dial results.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.IHasTopicProperties.TimeZones">
+            <summary>
+            Get or set the time zone information.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Cati.Specification.ICatiTopicSpecification">
+            <summary>
+            interface ICatiSpecification
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ICatiTopicSpecification.Description">
+            <summary>
+            Get or set the description.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ICatiTopicSpecification.LauncherSettings">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ICatiTopicSpecification.LauncherInstrumentId">
+            <summary>
+            Gets or sets the launcher instrument id
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Cati.Specification.ILauncherSettings">
+            <summary>
+            interface ILauncherSettings
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ILauncherSettings.MultiSchedulerKind">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Cati.Specification.MultiSchedulerKind">
+            <summary>
+            API.Cati.Specification MultiSchedulerKind
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Cati.Specification.MultiSchedulerKind.AppointmentOrRandom">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Cati.Specification.MultiSchedulerKind.WeightedWorkload">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Cati.Specification.DatePreference">
+            <summary>
+            Enumeration to define the preferred date setting for a new appointment. Not used yet.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Cati.Specification.DatePreference.NoDate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Cati.Specification.DatePreference.ExactDate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Cati.Specification.DatePreference.Period">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Cati.Specification.DatePreference.Weekday">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Cati.Specification.CatiSpecificationKind">
+            <summary>
+            API.Cati.Specification CatiSpecificationKind
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Cati.Specification.CatiSpecificationKind.Traditional">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Cati.Specification.CatiSpecificationKind.Launcher">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Cati.Specification.CatiSpecificationKind.Topic">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Cati.Specification.ICatiLauncherSpecification">
+            <summary>
+            interface ICatiSpecification
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ICatiLauncherSpecification.Description">
+            <summary>
+            Get or set the description.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ICatiLauncherSpecification.Kind">
+            <summary>
+            Gets the CatiSpecification kind
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ICatiLauncherSpecification.LauncherSettings">
+            <summary>
+            Get the Launcher settings
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ICatiLauncherSpecification.SelectFields">
+            <summary>
+            Get or set the select fields.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ICatiLauncherSpecification.FieldSelectionItems">
+            <summary>
+            Get or set the fields of the main datamodel that have special CATI functions.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ICatiLauncherSpecification.Treatments">
+            <summary>
+            Get or set the treatment of different dial results.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ICatiLauncherSpecification.TimeSliceSets">
+            <summary>
+            Get or set the time slice sets.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ICatiLauncherSpecification.TimeZones">
+            <summary>
+            Get or set the time zone information.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.ICatiLauncherSpecification.Save">
+            <summary>
+            Save the current specification to the file it was loaded from.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.ICatiLauncherSpecification.SaveAs(System.String)">
+            <summary>
+            Save the current specification to a specific file.
+            </summary>
+            <param name="fileName"></param>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Cati.Specification.ITopicLauncherSettings">
+            <summary>
+            interface ILauncherSettings
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ITopicLauncherSettings.WorkloadForOneResponse">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ITopicLauncherSettings.TargetResponseRate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Cati.Specification.IDialMenu">
+            <summary>
+            interface IDialMenu
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.IDialMenu.SkipDialMenu">
+            <summary>
+            Get or set the toggle to skip the dial menu.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Cati.Specification.IDaybatchParameters">
+            <summary>
+            interface IDaybatchParameters
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.IDaybatchParameters.DaybatchSize">
+            <summary>
+            Get or set the daybatch size.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.IDaybatchParameters.MaxNumberOfCalls">
+            <summary>
+            Get or set the maximum number of calls that are allowed before a case is not delivered anymore.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.IDaybatchParameters.DaysBetweenNoAnswer">
+            <summary>
+            Get or set the number of days to wait until a case is delivered again when the last dial result was No Answer. Ignored for hard appointments.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.IDaybatchParameters.DaysBetweenAnsweringMachine">
+            <summary>
+            Get or set the number of days to wait until a case is delivered again when the last dial result was Answering Machine. Ignored for hard appointments.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Cati.Specification.ISchedulerParameters">
+            <summary>
+            interface ISchedulerParameters
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ISchedulerParameters.Default">
+            <summary>
+            Get the default scheduler parameters.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ISchedulerParameters.Soft">
+            <summary>
+            Get the soft scheduler parameters.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ISchedulerParameters.Medium">
+            <summary>
+            Get the medium scheduler parameters.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ISchedulerParameters.Hard">
+            <summary>
+            Get the hard scheduler parameters.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Cati.Specification.IMediumHardSchedulerParameters">
+            <summary>
+            interface IMediumHardSchedulerParameters: IBaseSchedulerParameters
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.IMediumHardSchedulerParameters.GroupDeactivationDelay">
+            <summary>
+            Get the group deactivation delay. Not used yet.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.IMediumHardSchedulerParameters.InterviewerDeactivationDelay">
+            <summary>
+            Get the interviewer deactivation delay. Not used yet.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.IMediumHardSchedulerParameters.OnlyExpireOnDeactivationDelays">
+            <summary>
+            Get the toggle if an appointment expires if the required interviewer or group is not available.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Cati.Specification.IDefaultSoftSchedulerParameters">
+            <summary>
+            interface IDefaultSoftSchedulerParameters: <see cref="T:StatNeth.Blaise.API.Cati.Specification.IBaseSchedulerParameters"/> 
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Cati.Specification.IBaseSchedulerParameters">
+            <summary>
+            interface IBaseSchedulerParameters
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.IBaseSchedulerParameters.Name">
+            <summary>
+            Gets the name of the scheduler parameters set (Default, Soft, Medium or Hard)
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.IBaseSchedulerParameters.MaxNumberOfBusyDials">
+            <summary>
+            Get or set the maximum number of busy dials allowed before a case is left alone. 
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.IBaseSchedulerParameters.MaxNumberOfDials">
+            <summary>
+            Get or set the maximum number of dials allowed before a case is left alone for the rest of the day.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.IBaseSchedulerParameters.MinimumTimeBetweenNoAnswer">
+            <summary>
+            Get or set the minimum time (in minutes) after which a new attempt is allowed when there was no answer on the previous attempt.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.IBaseSchedulerParameters.MinutesBetweenBusyDials">
+            <summary>
+            Get or set the minutes between attempts when the previous attempt was busy. Up to 8 numbers are allowed.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.IBaseSchedulerParameters.NoSameDayAnsweringMachingeCalls">
+            <summary>
+            Get or set the toggle whether or not to an answering machine dial result being treated as a no answer result.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Cati.Specification.ISortField2">
+            <summary>
+             Specification for sorting on a field
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ISortField2.FromLauncher">
+            <summary>
+            Get if the sort field is defined in the launcher
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Cati.Specification.ISurveyTreatment2">
+            <summary>
+            Treatment of Survey
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.ISurveyTreatment2.SetInstrumentId(System.String)">
+            <summary>
+            Set the instrument id for the treatment
+            </summary>
+            <param name="value">The value (a guid)</param>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Cati.Specification.ITimeSlice">
+            <summary>
+            Time Slice for CATI specification
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ITimeSlice.Days">
+            <summary>
+            Get or set the days to which the time slice applies. String of length 7 consisting of 0s and 1s where the first character represents Sundays, and a 1 means applicable for that day.
+            E.g. 0111110 means applicable for Mondays, Tuesdays, Wednesdays, Thursdays and Fridays.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ITimeSlice.StartTime">
+            <summary>
+            Get or set the start time of the time slice.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ITimeSlice.EndTime">
+            <summary>
+            Get or set the end time of the time slice.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ITimeSlice.MaxTry">
+            <summary>
+            Get or set the maximum number of tries allowed for this time slice.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ITimeSlice.Sunday">
+            <summary>
+            Get or set if the time slice applies to Sundays
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ITimeSlice.Monday">
+            <summary>
+            Get or set if the time slice applies to Mondays
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ITimeSlice.Tuesday">
+            <summary>
+            Get or set if the time slice applies to Tuesdays
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ITimeSlice.Wednesday">
+            <summary>
+            Get or set if the time slice applies to Wednesdays
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ITimeSlice.Thursday">
+            <summary>
+            Get or set if the time slice applies to Thursdays
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ITimeSlice.Friday">
+            <summary>
+            Get or set if the time slice applies to Fridays
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ITimeSlice.Saturday">
+            <summary>
+            Get or set if the time slice applies to Saturdays
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Cati.Specification.ITimeSliceSet">
+            <summary>
+            Contains items of type ITimeSlice
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ITimeSliceSet.Code">
+            <summary>
+            Get or set the code of the time slice set.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ITimeSliceSet.Name">
+            <summary>
+            Get or set the name of the time slice set.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ITimeSliceSet.ForFirstCall">
+            <summary>
+            Get or set if the time slice set is for the first call.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ITimeSliceSet.SameDay">
+            <summary>
+            Get or set if calling on the same day is allowed.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ITimeSliceSet.Count">
+            <summary>
+            Number of items in the collection.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ITimeSliceSet.Slices">
+            <summary>
+            Get the time slices defined in this time slice set.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.ITimeSliceSet.Clear">
+            <summary>
+            Removes all items from the collection.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.ITimeSliceSet.AddTimeSlice(System.String,System.DateTime,System.DateTime,System.Int32)">
+            <summary>
+            Adds a new time slice with the specified code, name, start time, end time and maximum number of tries.
+            </summary>
+            <param name="days">The days the time slice applies to.</param>
+            <param name="startTime">The start time of the time slice.</param>
+            <param name="endTime">The end time of the time slice.</param>
+            <param name="maxTry">The maximum number of calls to be made in this time slice.</param>
+            <returns>An ITimeZone.</returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Cati.Specification.ITimeZone">
+            <summary>
+            Time zone in CATI
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ITimeZone.Name">
+            <summary>
+            Get the time zone name (.NET TimeZoneInfo name)
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ITimeZone.Code">
+            <summary>
+            Get or set the code for this time zone.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Cati.Specification.ITimeSliceSetCollection">
+            <summary>
+            Contains items of type ITimeSliceSet
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ITimeSliceSetCollection.Count">
+            <summary>
+            Number of items in the collection.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ITimeSliceSetCollection.Item(System.Int32)">
+            <summary>
+            Returns an ITimeSliceSet by index. Throws an argument out of range exception if invalid index.
+            </summary>
+            <param name="index">Numerical index of an ITimeSliceSet item.</param>
+            <returns>An ITimeSliceSet.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.ITimeSliceSetCollection.GetItem(System.String)">
+            <summary>
+            Returns an ITimeSliceSet item based on its code.
+            Throws an argument out of range exception if item not found.
+            </summary>
+            <param name="timeSliceSetCode">The time slice set code.</param>
+            <returns>An ITimeSliceSet.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.ITimeSliceSetCollection.Clear">
+            <summary>
+            Removes all items from the collection.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.ITimeSliceSetCollection.Remove(System.String)">
+            <summary>
+            Removes a ITimeSliceSet from the collection.
+            </summary>
+            <param name="timeSliceSetCode">The code of the ITimeSliceSet to remove.</param>
+            <returns>True if item was removed, False otherwise.</returns>
+            <exception cref="T:System.ArgumentNullException">If timeSliceSetCode is null.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.ITimeSliceSetCollection.RemoveAt(System.Int32)">
+            <summary>
+            Removes the ITimeSliceSet item at the specified index. Throws an argument out of range exception if invalid index.
+            </summary>
+            <param name="index">Index of item to remove.</param>
+            <returns>True if item was removed, False otherwise.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.ITimeSliceSetCollection.AddTimeSliceSet(System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Adds a new time slice set with the specified code, name, forFirstCall and sameDay settings.
+            </summary>
+            <param name="code">The time slice set code.</param>
+            <param name="name">The time slice set name.</param>
+            <param name="forFirstCall">If the time slice set should be for the first call.</param>
+            <param name="sameDay">If the time slice set should allow calls on the same day.</param>
+            /// <returns>An ITimeSliceSet.</returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Cati.Specification.ITimeZoneCollection">
+            <summary>
+            Contains items of type IsortField
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Cati.Specification.ILauncherTimeZoneCollection">
+            <summary>
+            Launcher specific properties of timezone collection
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ILauncherTimeZoneCollection.ServerTimeZoneId">
+            <summary>
+            Get or set the time zone name of the CATI server.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ILauncherTimeZoneCollection.Count">
+            <summary>
+            Number of items in the collection.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ILauncherTimeZoneCollection.Item(System.Int32)">
+            <summary>
+            Returns an ITimeZone by index. Throws an argument out of range exception if invalid index.
+            </summary>
+            <param name="index">Numerical index of an ITimeZone item.</param>
+            <returns>An ITimeZone.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.ILauncherTimeZoneCollection.GetItem(System.String)">
+            <summary>
+            Returns an ITimeZone item based on its code.
+            Throws an argument out of range exception if item not found.
+            </summary>
+            <param name="timeZoneCode">The time zone name.</param>
+            <returns>An ITimeZone.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.ILauncherTimeZoneCollection.Clear">
+            <summary>
+            Removes all items from the collection.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.ILauncherTimeZoneCollection.Remove(System.String)">
+            <summary>
+            Removes a ITimeZone from the collection.
+            </summary>
+            <param name="timeZoneCode">The code of the ITimeZone to remove.</param>
+            <returns>True if item was removed, False otherwise.</returns>
+            <exception cref="T:System.ArgumentNullException">If timeZoneCode is null.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.ILauncherTimeZoneCollection.RemoveAt(System.Int32)">
+            <summary>
+            Removes the ITimeZone item at the specified index. Throws an argument out of range exception if invalid index.
+            </summary>
+            <param name="index">Index of item to remove.</param>
+            <returns>True if item was removed, False otherwise.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.ILauncherTimeZoneCollection.AddTimeZone(System.String,System.String)">
+            <summary>
+            Adds a new time zone with the specified code and name.
+            </summary>
+            <param name="code">The time zone code. This should be a 3-letter code.</param>
+            <param name="name">The time zone name. This is the name of the .NET based TimeZoneInfo.</param>
+            <returns>An ITimeZone.</returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Cati.Specification.ITopicTimeZoneCollection">
+            <summary>
+            Topic specific properties of timezone collection
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ITopicTimeZoneCollection.AppointmentGrace">
+            <summary>
+            Get or set the appointment grace period.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ITopicTimeZoneCollection.DoNotCallBefore">
+            <summary>
+            Get or set the time before which no cases can be delivered. This takes the TimeZone of the respondent into account.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ITopicTimeZoneCollection.DoNotCallAfter">
+            <summary>
+            Get or set the time after which no cases can be delivered. This takes the TimeZone of the respondent into account.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.ITopicTimeZoneCollection.SetDoNotCallBefore(System.Int32)">
+            <summary>
+            Set the time before which no cases can be delivered. This takes the TimeZone of the respondent into account.
+            </summary>
+            <param name="minutesSinceMidnight">The number of minutes since midnight.</param>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.ITopicTimeZoneCollection.SetDoNotCallBefore(System.TimeSpan)">
+            <summary>
+            Set the time before which no cases can be delivered. This takes the TimeZone of the respondent into account.
+            </summary>
+            <param name="timeSpan">The time specified as a TimeSpan.</param>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.ITopicTimeZoneCollection.SetDoNotCallAfter(System.Int32)">
+            <summary>
+            Set the time after which no cases can be delivered. This takes the TimeZone of the respondent into account.
+            </summary>
+            <param name="minutesSinceMidnight">The number of minutes since midnight.</param>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.ITopicTimeZoneCollection.SetDoNotCallAfter(System.TimeSpan)">
+            <summary>
+            Set the time after which no cases can be delivered. This takes the TimeZone of the respondent into account.
+            </summary>
+            <param name="timeSpan">The time specified as a TimeSpan.</param>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Cati.Specification.Main">
+            <summary>
+            Placeholder for module initializer
+            </summary>
+            <remarks>
+            http://einaregilsson.com/module-initializers-in-csharp/
+            </remarks>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.Main.Run">
+            <summary>
+            Run on first construction of this assembly
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Cati.Specification.CatiLauncherSpecification">
+            <summary>
+            CATI Specification implementation
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.CatiLauncherSpecification.InternalSpecification">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.CatiLauncherSpecification.Save">
+            <summary>
+            Save to disk
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.CatiLauncherSpecification.SaveAs(System.String)">
+            <summary>
+            Save specification on another location
+            </summary>
+            <param name="fileName"></param>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.CatiLauncherSpecification.Description">
+            <summary>
+            Description 
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.CatiLauncherSpecification.SurveyColor">
+            <summary>
+            Survey color
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.CatiLauncherSpecification.FieldSelectionItems">
+            <summary>
+            Items of type <see cref="T:StatNeth.Blaise.API.Cati.Specification.IFieldSelectionItem"/>
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.CatiLauncherSpecification.Kind">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.CatiLauncherSpecification.LauncherSettings">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.CatiLauncherSpecification.SelectFields">
+            <summary>
+            Collection of fields of type <see cref="T:StatNeth.Blaise.API.Cati.Specification.ISelectField"/>
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.CatiLauncherSpecification.Treatments">
+            <summary>
+            Gets the Treatments
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.CatiLauncherSpecification.TimeSliceSets">
+            <summary>
+            Gets the TimeSliceSets
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.CatiLauncherSpecification.TimeZones">
+            <summary>
+            Gets the TimeZones
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Cati.Specification.CatiTopicSpecification">
+            <summary>
+            CATI Specification implementation
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.CatiTopicSpecification.InternalSpecification">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.CatiTopicSpecification.Save">
+            <summary>
+            Save to disk
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.CatiTopicSpecification.SaveAs(System.String)">
+            <summary>
+            Save specification on another location
+            </summary>
+            <param name="fileName"></param>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.CatiTopicSpecification.Description">
+            <summary>
+            Description 
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.CatiTopicSpecification.SurveyDays">
+            <summary>
+            Active survey days of this specification
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.CatiTopicSpecification.AppointmentParameters">
+            <summary>
+            Appointment Parameters
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.CatiTopicSpecification.DaybatchParameters">
+            <summary>
+            Daybatch Parameters
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.CatiTopicSpecification.SchedulerParameters">
+            <summary>
+            Gets the SchedulerParameters
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.CatiTopicSpecification.FieldSelectionItems">
+            <summary>
+            Items of type <see cref="T:StatNeth.Blaise.API.Cati.Specification.IFieldSelectionItem"/>
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.CatiTopicSpecification.Kind">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.CatiTopicSpecification.LauncherInstrumentId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.CatiTopicSpecification.LauncherSettings">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.CatiTopicSpecification.SelectFields">
+            <summary>
+            Collection of fields of type <see cref="T:StatNeth.Blaise.API.Cati.Specification.ISelectField"/>
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.CatiTopicSpecification.SortFields">
+            <summary>
+            Collection of <see cref="T:StatNeth.Blaise.API.Cati.Specification.ISortField"/> used for sorting
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.CatiTopicSpecification.Treatments">
+            <summary>
+            Gets the Treatments
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.CatiTopicSpecification.DialMenu">
+            <summary>
+            Gets the DialMenu
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Cati.Specification.TimePreference">
+            <summary>
+            Enumeration to define the preferred time setting for a new appointment. Not used yet.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Cati.Specification.TimePreference.ExactTime">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Cati.Specification.TimePreference.DayPart">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Cati.Specification.RouteBack">
+            <summary>
+            Options for routing back cases to the interviewer that made an appointment, the group or noone in particular.
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Cati.Specification.RouteBack.RouteBackToInterviewer">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Cati.Specification.RouteBack.RouteBackToGroup">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Cati.Specification.RouteBack.DoNotChangeRouteBack">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Cati.Specification.FieldType">
+            <summary>
+            Cati.Specification FieldType
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Cati.Specification.FieldType.Integer">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Cati.Specification.FieldType.Real">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Cati.Specification.FieldType.Enumeration">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Cati.Specification.FieldType.String">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Cati.Specification.ICatiSpecification">
+            <summary>
+            interface ICatiSpecification
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ICatiSpecification.Description">
+            <summary>
+            Get or set the description.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ICatiSpecification.SurveyDays">
+            <summary>
+            Get or set the survey days.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ICatiSpecification.AppointmentParameters">
+            <summary>
+            Get or set the appointment parameters.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ICatiSpecification.DaybatchParameters">
+            <summary>
+            Get or set the daybatch parameters.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ICatiSpecification.SchedulerParameters">
+            <summary>
+            Get or set the scheduler paramaters.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ICatiSpecification.SelectFields">
+            <summary>
+            Get or set the select fields.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ICatiSpecification.SortFields">
+            <summary>
+            Get or set the sort fields.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ICatiSpecification.FieldSelectionItems">
+            <summary>
+            Get or set the fields of the main datamodel that have special CATI functions.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ICatiSpecification.Treatments">
+            <summary>
+            Get or set the treatment of different dial results.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ICatiSpecification.TimeSliceSets">
+            <summary>
+            Get or set the time slice sets.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ICatiSpecification.TimeZones">
+            <summary>
+            Get or set the time zone information.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ICatiSpecification.DialMenu">
+            <summary>
+            Get or set the dial survey options.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.ICatiSpecification.Save">
+            <summary>
+            Save the current specification to the file it was loaded from.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.ICatiSpecification.SaveAs(System.String)">
+            <summary>
+            Save the current specification to a specific file.
+            </summary>
+            <param name="fileName"></param>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Cati.Specification.IBaseCatiSpecification">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.IBaseCatiSpecification.Kind">
+            <summary>
+            Gets the CatiSpecification kind
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.IBaseCatiSpecification.Description">
+            <summary>
+            Get or set the description.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.IBaseCatiSpecification.SurveyColor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.IBaseCatiSpecification.Save">
+            <summary>
+            Save the current specification to the file it was loaded from.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.IBaseCatiSpecification.SaveAs(System.String)">
+            <summary>
+            Save the current specification to a specific file.
+            </summary>
+            <param name="fileName"></param>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Cati.Specification.ICatiSpecification2">
+            <summary>
+            interface ICatiSpecification2 (Traditional Cati Specification)
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Cati.Specification.IAppointmentParameters">
+            <summary>
+            Cati.Specification interface IAppointmentParameters
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.IAppointmentParameters.AppointmentBuffer">
+            <summary>
+            Get or set the Appointment Buffer (time interval (in minutes) until the end of the working day up to when appointments can be made). Not used yet.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.IAppointmentParameters.AppointmentInterval">
+            <summary>
+            Get the Appointment Interval. Not used yet.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.IAppointmentParameters.DatePreference">
+            <summary>
+            Get the preferred date setting for a new appointment. Not used yet.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.IAppointmentParameters.TimePreference">
+            <summary>
+            Get the preferred time setting for a new appointment. Not used yet.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.IAppointmentParameters.RouteBack">
+            <summary>
+            Get or set the routeback setting for an appointment. Not used yet.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.IAppointmentParameters.KeepTimeOfExpiredAppointment">
+            <summary>
+            Get or set the toggle to keep the time for an appointment that has expired. Not used yet.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.IAppointmentParameters.ShowAppointmentsSummary">
+            <summary>
+            Get the toggle to show appointments in the summary. Not used yet.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.IAppointmentParameters.TreatExpiredAsMedium">
+            <summary>
+            Get or set the toggle to treat expired appointments as a medium appointment. Not used yet.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Cati.Specification.IAppointmentParameters2">
+            <summary>
+            Interface IAppointmentParameters2
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.IAppointmentParameters2.SetAppointmentBuffer(System.Int32)">
+            <summary>
+            Set appointment buffer
+            </summary>
+            <param name="buffer"></param>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Cati.Specification.ISortFieldsCollection">
+            <summary>
+            Contains items of type IsortField
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ISortFieldsCollection.Active">
+            <summary>
+            Defines if sort fields are used or not.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ISortFieldsCollection.Count">
+            <summary>
+            Number of items in the collection.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ISortFieldsCollection.Item(System.Int32)">
+            <summary>
+            Returns an ISortField by index. Throws an argument out of range exception if invalid index.
+            </summary>
+            <param name="index">Numerical index of an ISortField item.</param>
+            <returns>An ISortField.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.ISortFieldsCollection.GetItem(System.String)">
+            <summary>
+            Returns an ISortField item based on its main datamodel field name.
+            Throws an argument out of range exception if item not found.
+            </summary>
+            <param name="fieldName">The field name.</param>
+            <returns>An ISortField.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.ISortFieldsCollection.Clear">
+            <summary>
+            Removes all items from the collection.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.ISortFieldsCollection.Remove(System.String)">
+            <summary>
+            Removes a ISortField from the collection.
+            </summary>
+            <param name="fieldName">The field name of the ISortField to remove.</param>
+            <returns>True if item was removed, False otherwise.</returns>
+            <exception cref="T:System.ArgumentNullException">If fieldName is null.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.ISortFieldsCollection.RemoveAt(System.Int32)">
+            <summary>
+            Removes the ISortField item at the specified index. Throws an argument out of range exception if invalid index.
+            </summary>
+            <param name="index">Index of item to remove.</param>
+            <returns>True if item was removed, False otherwise.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.ISortFieldsCollection.AddSortField(System.String,System.Boolean)">
+            <summary>
+            Adds a new field sort field with the specified fieldname and sort order.
+            </summary>
+            <param name="fieldName">The field name.</param>
+            <param name="ascending">If true, the sorting will be ascending, if false, the sorting will be descending. Default is ascending.</param>\
+            <returns>An ISortField.</returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Cati.Specification.ISelectFieldsCollection">
+            <summary>
+            Contains items of type ISelectField
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ISelectFieldsCollection.Active">
+            <summary>
+            Defines whether select fields are used or not.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ISelectFieldsCollection.Count">
+            <summary>
+            Number of items in the collection.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ISelectFieldsCollection.Item(System.Int32)">
+            <summary>
+            Returns an ISelectField by index. Throws an argument out of range exception if invalid index.
+            </summary>
+            <param name="index">Numerical index of an ISelectField item.</param>
+            <returns>An ISelectField.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.ISelectFieldsCollection.GetItem(System.String)">
+            <summary>
+            Returns an ISelectField item based on its main datamodel field name.
+            Throws an argument out of range exception if item not found.
+            </summary>
+            <param name="fieldName">The field name.</param>
+            <returns>An ISelectField.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.ISelectFieldsCollection.Clear">
+            <summary>
+            Removes all items from the collection.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.ISelectFieldsCollection.Remove(System.String)">
+            <summary>
+            Removes a ISelectField from the collection.
+            </summary>
+            <param name="fieldName">The field name of the ISelectField to remove.</param>
+            <returns>True if item was removed, False otherwise.</returns>
+            <exception cref="T:System.ArgumentNullException">If fieldName is null.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.ISelectFieldsCollection.RemoveAt(System.Int32)">
+            <summary>
+            Removes the ISelectField item at the specified index. Throws an argument out of range exception if invalid index.
+            </summary>
+            <param name="index">Index of item to remove.</param>
+            <returns>True if item was removed, False otherwise.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.ISelectFieldsCollection.AddSelectField(System.String,StatNeth.Blaise.API.Cati.Specification.FieldType,System.Boolean,System.String,System.Boolean)">
+            <summary>
+            Adds a new field select field with the specified field name, type and values.
+            </summary>
+            <param name="fieldName">The field name.</param>
+            <param name="fieldType">The field type. Valid values are Integer, Real, Enumeration, String.</param>
+            <param name="include">Whether to include or exclude the values specified.</param>
+            <param name="values">The values to be included or excluded</param>
+            <param name="func">is function</param>
+            <returns>An IFieldSelectionItem.</returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Cati.Specification.ISelectFieldsCollection2">
+            <summary>
+            Interface ISelectFieldsCollection2. Supports SelectExpression, ApplyDuringGet, ApplyDuringAutoGet, ApplyAfterDial 
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ISelectFieldsCollection2.SelectExpression">
+            <summary>
+            The select expression to be used
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ISelectFieldsCollection2.ApplyDuringGet">
+            <summary>
+            Gets or sets the apply during get (with explicit key) setting
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ISelectFieldsCollection2.ApplyDuringAutoGet">
+            <summary>
+            Gets or sets the apply during autoget (when delivered by the scheduler) setting
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ISelectFieldsCollection2.ApplyAfterDial">
+            <summary>
+            Gets or sets the apply after dial (when finishing a case) setting
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Cati.Specification.ISortField">
+            <summary>
+             Specification for sorting on a field
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ISortField.Name">
+            <summary>
+            Get the field name of the sort field.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ISortField.Ascending">
+            <summary>
+            Get if the sorting should be ascending (true) or descending (false).
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Cati.Specification.ISelectField">
+            <summary>
+            interface ISelectField
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ISelectField.Func">
+            <summary>
+            Get the 
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ISelectField.Include">
+            <summary>
+            Get if the specified value are included or excluded.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ISelectField.Name">
+            <summary>
+            Get the field name of the select field.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ISelectField.Type">
+            <summary>
+            Get the datatype of the select field.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ISelectField.Values">
+            <summary>
+            Get the values to be included or excluded. Comma-separated list.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Cati.Specification.IFieldSelectionItemCollection">
+            <summary>
+            Contains items of type IFieldMapping
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.IFieldSelectionItemCollection.Count">
+            <summary>
+            Number of items in the collection.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.IFieldSelectionItemCollection.Item(System.Int32)">
+            <summary>
+            Returns an IFieldSelectItem by index. Throws an argument out of range exception if invalid index.
+            </summary>
+            <param name="index">Numerical index of an IFieldSelectItem item.</param>
+            <returns>An IFieldSelectItem.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.IFieldSelectionItemCollection.GetItem(System.String)">
+            <summary>
+            Returns an IFieldSelectItem item based on its main datamodel field name.
+            Throws an argument out of range exception if item not found.
+            </summary>
+            <param name="mainDatamodelFieldName">The main datamodel field name.</param>
+            <returns>An IFieldSelectItem.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.IFieldSelectionItemCollection.Clear">
+            <summary>
+            Removes all items from the collection.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.IFieldSelectionItemCollection.Remove(System.String)">
+            <summary>
+            Removes a IFieldSelectItem from the collection.
+            </summary>
+            <param name="fieldName">The field name of the IFieldSelectItem to remove.</param>
+            <returns>True if item was removed, False otherwise.</returns>
+            <exception cref="T:System.ArgumentNullException">If fieldName is null.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.IFieldSelectionItemCollection.RemoveAt(System.Int32)">
+            <summary>
+            Removes the IFieldSelectItem item at the specified index. Throws an argument out of range exception if invalid index.
+            </summary>
+            <param name="index">Index of item to remove.</param>
+            <returns>True if item was removed, False otherwise.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.IFieldSelectionItemCollection.AddFieldSelectionItem(System.String,StatNeth.Blaise.API.Cati.Specification.FieldSelectionFunction,System.Boolean)">
+            <summary>
+            Adds a new field select item with the specified fieldName, function and passValueToDial values.
+            </summary>
+            <param name="fieldName">The field name.</param>
+            <param name="function">The function of the field.</param>
+            <param name="passValueToDial">Whether the value of the field should be available in the dial survey</param>
+            <returns>An IFieldSelectionItem.</returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Cati.Specification.IFieldSelectionItemCollection2">
+            <summary>
+            Interface IFieldSelectionItemCollection2. Supports EditAllowed, ShowInViewer and WriteToHistory
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.IFieldSelectionItemCollection2.AddFieldSelectionItem(System.String,StatNeth.Blaise.API.Cati.Specification.FieldSelectionFunction,System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Try to add a field selection item
+            </summary>
+            <param name="fieldName">The fully qualified fieldname to add</param>
+            <param name="function">The CATI function of the field to add</param>
+            <param name="passValueToDial"></param>
+            <param name="editAllowed"></param>
+            <param name="showInViewer"></param>
+            <param name="writeToHistory"></param>
+            <returns></returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Cati.Specification.IFieldSelectionItem">
+            <summary>
+            interface IFieldSelectionItem
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.IFieldSelectionItem.Name">
+            <summary>
+            Get the field name of the field selection item.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.IFieldSelectionItem.Function">
+            <summary>
+            Get the function of the field selection item.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.IFieldSelectionItem.PassValueToDial">
+            <summary>
+            Get or set the toggle if the value of the field is automatically available in the dial survey.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.IFieldSelectionItem.FieldType">
+            <summary>
+            FieldType
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Cati.Specification.IFieldMapping">
+            <summary>
+            interface IFieldMapping
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.IFieldMapping.MainDatamodelFieldName">
+            <summary>
+            The fully qualified fieldname of the field in the main datamodel
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.IFieldMapping.TreatmentDatamodelFieldName">
+            <summary>
+            The fully qualified fieldname of the field in the treatment datamodel
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Cati.Specification.IFieldMappingCollection">
+            <summary>
+            Contains items of type IFieldMapping
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.IFieldMappingCollection.Count">
+            <summary>
+            Number of items in the collection.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.IFieldMappingCollection.Item(System.Int32)">
+            <summary>
+            Returns an IFieldMapping item by index. Throws an argument out of range exception if invalid index.
+            </summary>
+            <param name="index">Numerical index of an IFieldMapping item.</param>
+            <returns>An IFieldMapping.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.IFieldMappingCollection.GetItem(System.String)">
+            <summary>
+            Returns an IFieldMapping item based on its main datamodel field name.
+            Throws an argument out of range exception if item not found.
+            </summary>
+            <param name="mainDatamodelFieldName">The main datamodel field name.</param>
+            <returns>An IFieldMapping.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.IFieldMappingCollection.GetMappedItem(System.String)">
+            <summary>
+            Returns an IFieldMapping item based on its treatment datamodel field name.
+            Throws an argument out of range exception if item not found.
+            </summary>
+            <param name="treatmentFieldName">The treatment datamodel field name.</param>
+            <returns>An IFieldMapping.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.IFieldMappingCollection.Clear">
+            <summary>
+            Removes all items from the collection.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.IFieldMappingCollection.Remove(System.String)">
+            <summary>
+            Removes a field mapping from the collection.
+            </summary>
+            <param name="mainDatamodelFieldName">The main datamodel field name of the FieldMapping to remove.</param>
+            <exception cref="T:System.ArgumentNullException">If fieldMapping is null.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.IFieldMappingCollection.RemoveAt(System.Int32)">
+            <summary>
+            Removes the IFieldMapping item at the specified index. Throws an argument out of range exception if invalid index.
+            </summary>
+            <param name="index">Index of item to remove.</param>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.IFieldMappingCollection.AddFieldMapping(System.String,System.String,System.Boolean)">
+            <summary>
+            Adds a new field mapping with the specified main and treatment datamodel field names.
+            </summary>
+            <param name="mainDatamodelFieldName">The main datamodel field name.</param>
+            <param name="treatmentDatamodelFieldName">The treatment datamodel field name.</param>\
+            <param name="allowOverwrite">Allow an existing field mapping with the specified main datamodel field name to be overwritten (default = false)</param>
+            <returns>An IFieldMapping.</returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Cati.Specification.ISurveyDay">
+            <summary>
+            Day in Survey periode of time
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ISurveyDay.Active">
+            <summary>
+            Get or set if the survey day is active.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ISurveyDay.IsGlobal">
+            <summary>
+            Get if the survey day is the global survey day.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ISurveyDay.Date">
+            <summary>
+            Get the date of the survey day.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Cati.Specification.ISurveyDayCollection">
+            <summary>
+            Collection of <see cref="T:StatNeth.Blaise.API.Cati.Specification.ISurveyDay"/>
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ISurveyDayCollection.Count">
+            <summary>
+            Number of items in the collection.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ISurveyDayCollection.GlobalSurveyDay">
+            <summary>
+            Returns the Global SurveyDay. This surveyday can not be removed or set to inactive.
+            </summary>
+            <returns>The global survey day.</returns>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ISurveyDayCollection.Item(System.Int32)">
+            <summary>
+            Returns an ISurveyDay item by index. Throws an argument out of range exception if invalid index.
+            </summary>
+            <param name="index">Numerical index of an ISurveyDay item.</param>
+            <returns>An ISurveyDay.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.ISurveyDayCollection.GetItem(System.Int32)">
+            <summary>
+            Returns an ISurveyDay item based on its Julian day number.
+            Throws an argument out of range exception if item not found.
+            </summary>
+            <param name="julianDayNumber">The Julian day number</param>
+            <returns>An ISurveyDay.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.ISurveyDayCollection.GetItem(System.DateTime)">
+            <summary>
+            Returns an ISurveyDay item based on its date.
+            Throws an argument out of range exception if item not found.
+            </summary>
+            <param name="date">The date.</param>
+            <returns>An ISurveyDay.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.ISurveyDayCollection.AddSurveyDay(System.DateTime)">
+            <summary>
+            Adds a survey day for the specified date. If a SurveyDay with the specified date is already present, an exception is thrown
+            </summary>
+            <param name="date">The date to be added.</param>
+            <returns>An ISurveyDay.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">If date is not a valid date</exception>
+            <exception cref="T:System.ArgumentException">If the survey day is already present.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.ISurveyDayCollection.AddSurveyDays(System.Collections.Generic.IEnumerable{System.DateTime})">
+            <summary>
+            Adds a list of survey days for the specified dates. Returns the number of survey days actually added.
+            </summary>
+            <param name="dates">The list of dates to be added.</param>
+            <returns>The number of added survey days.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">If dates is not a valid list of date</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.ISurveyDayCollection.RemoveSurveyDay(System.DateTime)">
+            <summary>
+            Remove a survey day for the specified date. If a SurveyDay with the specified date is not present, nothing happens.
+            </summary>
+            <param name="date">The date to be removed.</param>
+            <returns>True if the SurveyDay was present and successfully removed, False otherwise.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">If date is not a valid date</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.ISurveyDayCollection.RemoveSurveyDay(StatNeth.Blaise.API.Cati.Specification.ISurveyDay)">
+            <summary>
+            Removes a survey day. If the SurveyDay is not present, nothing happens.
+            </summary>
+            <param name="surveyDay">The SurveyDay to be removed.</param>
+            <returns>True if the SurveyDay was present and successfully removed, False otherwise.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">If surveyDay is not a valid surveyday object</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.ISurveyDayCollection.RemoveSurveyDays(System.Collections.Generic.IEnumerable{System.DateTime})">
+            <summary>
+            Removes a list of survey days for the specified dates. Returns the number of survey days that have actually been removed. Non-existing survey days are ignored.
+            </summary>
+            <param name="dates">The list of date to be removed.</param>
+            <returns>The number of removed survey days.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">If datse is not a valid list of dates</exception>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Cati.Specification.ISurveyTreatment">
+            <summary>
+            Treatment of Survey
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ISurveyTreatment.Treatment">
+            <summary>
+            Get the dial result for which the 
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ISurveyTreatment.InstrumentId">
+            <summary>
+            Get the instrument id of the survey to be started for this treatment.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ISurveyTreatment.ParallelName">
+            <summary>
+            Get or set the parallel name to be started.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ISurveyTreatment.FieldMappings">
+            <summary>
+            Get the field mappings for this treatment.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Cati.Specification.ISurveyTreatmentCollection">
+            <summary>
+            Contains items of type ISurveyTreatment
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ISurveyTreatmentCollection.Count">
+            <summary>
+            Number of items in the collection.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.ISurveyTreatmentCollection.Item(System.Int32)">
+            <summary>
+            Returns an ISurveyTreatment item by index. Throws an argument out of range exception if invalid index.
+            </summary>
+            <param name="index">Numerical index of an ISurveyTreatment item.</param>
+            <returns>An ISurveyTreatment.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.ISurveyTreatmentCollection.GetItem(StatNeth.Blaise.API.Cati.Specification.Treatment)">
+            <summary>
+            Returns an ISurveyTreatment item based on its Treatment.
+            Throws an argument out of range exception if item not found.
+            </summary>
+            <param name="treatment">The Treatment</param>
+            <returns>An ISurveyTreatment.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.ISurveyTreatmentCollection.GetItem(System.String)">
+            <summary>
+            Returns an ISurveyTreatment item based on its treatment name.
+            Throws an argument out of range exception if item not found.
+            </summary>
+            <param name="treatmentName">The treatment name.</param>
+            <returns>An ISurveyTreatment.</returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.ISurveyTreatmentCollection.AddSurveyTreatment(StatNeth.Blaise.API.Cati.Specification.Treatment,System.String,System.String)">
+            <summary>
+            Adds a surveytreament with the specified treatment, instrument id and parallel. If a SurveyTreatment with the specified treatment is already present, an exception is thrown
+            </summary>
+            <param name="treatment">The treament to be added.</param>
+            <param name="instrumentId">The guid of the instrument to be used.</param>
+            <param name="parallelName">The name of the parallel in the instrument to be used.</param>
+            <returns>An ISurveyTreatment.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">If treatment is not a valid treatment</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">If instrumentId is not a valid string representation of a Guid.</exception>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Cati.Specification.ISurveyTreatmentCollection2">
+            <summary>
+            Interface ISurveyTreatmentCollection2. Supports removing a survey treatment
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.ISurveyTreatmentCollection2.RemoveSurveyTreatment(StatNeth.Blaise.API.Cati.Specification.Treatment)">
+            <summary>
+            Remove the specified treatment
+            </summary>
+            <param name="treatment"></param>
+            <returns></returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Cati.Specification.CatiSpecification">
+            <summary>
+            CATI Specification implementation
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.CatiSpecification.InternalSpecification">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.CatiSpecification.Save">
+            <summary>
+            Save to disk
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.CatiSpecification.SaveAs(System.String)">
+            <summary>
+            Save specification on another location
+            </summary>
+            <param name="fileName"></param>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.CatiSpecification.Description">
+            <summary>
+            Description 
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.CatiSpecification.SurveyDays">
+            <summary>
+            Active survey days of this specification
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.CatiSpecification.AppointmentParameters">
+            <summary>
+            Appointment Parameters
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.CatiSpecification.DaybatchParameters">
+            <summary>
+            Daybatch Parameters
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.CatiSpecification.SchedulerParameters">
+            <summary>
+            Gets the SchedulerParameters
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.CatiSpecification.FieldSelectionItems">
+            <summary>
+            Items of type <see cref="T:StatNeth.Blaise.API.Cati.Specification.IFieldSelectionItem"/>
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.CatiSpecification.Kind">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.CatiSpecification.SelectFields">
+            <summary>
+            Collection of fields of type <see cref="T:StatNeth.Blaise.API.Cati.Specification.ISelectField"/>
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.CatiSpecification.SortFields">
+            <summary>
+            Collection of <see cref="T:StatNeth.Blaise.API.Cati.Specification.ISortField"/> used for sorting
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.CatiSpecification.Treatments">
+            <summary>
+            Gets the Treatments
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.CatiSpecification.TimeSliceSets">
+            <summary>
+            Gets the TimeSliceSets
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.CatiSpecification.TimeZones">
+            <summary>
+            Gets the TimeZones
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.Cati.Specification.CatiSpecification.DialMenu">
+            <summary>
+            Gets the DialMenu
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Cati.Specification.SpecificationManager">
+            <summary>
+            The entry point to Blaise 5 CATI specification files.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.SpecificationManager.Load(System.String)">
+            <summary>
+            Returns an ICatiSpecification based on the Cati specification (.btrx) file name
+            </summary>
+            <param name="fileName">File name of btrx file.</param>
+            <returns>An ICatiSpecification.</returns>
+            <exception cref="T:System.ArgumentNullException">If fileName is null or empty.</exception>
+            <exception cref="T:System.ArgumentException">If fileName can not be found.</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.SpecificationManager.Load(StatNeth.Blaise.Runtime.Cati.BusinessLogic.Specification.CatiSpecification)">
+            <summary>
+            Load existing specification into new 
+            </summary>
+            <param name="specification"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.SpecificationManager.LoadLauncher(System.String)">
+            <summary>
+            Load existing specification into new 
+            </summary>
+            <param name="fileName">File name of btrx file.</param>
+            <returns>An ICatiLauncherSpecification.</returns>
+            <exception cref="T:System.ArgumentNullException">If fileName is null or empty.</exception>
+            <exception cref="T:System.ArgumentException">If fileName can not be found.</exception>
+            <exception cref="T:System.ArgumentException">If file is not a launcher specification</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.SpecificationManager.LoadLauncher(StatNeth.Blaise.Runtime.Cati.BusinessLogic.Specification.CatiSpecification)">
+            <summary>
+            Load existing specification into new 
+            </summary>
+            <param name="specification"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.SpecificationManager.LoadTopic(System.String)">
+            <summary>
+            Load existing specification into new 
+            </summary>
+            <param name="fileName">File name of btrx file.</param>
+            <returns>An ICatiLauncherSpecification.</returns>
+            <exception cref="T:System.ArgumentNullException">If fileName is null or empty.</exception>
+            <exception cref="T:System.ArgumentException">If fileName can not be found.</exception>
+            <exception cref="T:System.ArgumentException">If file is not a launcher specification</exception>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.SpecificationManager.LoadTopic(StatNeth.Blaise.Runtime.Cati.BusinessLogic.Specification.CatiSpecification)">
+            <summary>
+            Load existing specification into new 
+            </summary>
+            <param name="specification"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.SpecificationManager.Create">
+            <summary>
+            Create new <see cref="T:StatNeth.Blaise.API.Cati.Specification.CatiSpecification"/>
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.SpecificationManager.Save(StatNeth.Blaise.API.Cati.Specification.ICatiSpecification)">
+            <summary>
+            The Save method writes modified specification values to its (.btrx) source file.
+            </summary>
+            <param name="catiSpecification">An ICatiSpecification.</param>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.SpecificationManager.SaveAs(StatNeth.Blaise.API.Cati.Specification.ICatiSpecification,System.String)">
+            <summary>
+            The SaveAs method saves the specification to a file with a specified name.
+            </summary>
+            <param name="catiSpecification">An ICatiSpecification.</param>
+            <param name="fileName">File name of the new btrx file.</param>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Cati.Specification.FieldSelectionFunction">
+            <summary>
+            API.Cati.Specification FieldSelectionFunction
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Cati.Specification.FieldSelectionFunction.None">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Cati.Specification.FieldSelectionFunction.Telephone">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Cati.Specification.FieldSelectionFunction.ToWhom">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Cati.Specification.FieldSelectionFunction.TimeZone">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Cati.Specification.FieldSelectionFunction.Quota">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Cati.Specification.FieldSelectionFunction.TimeSlice">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Cati.Specification.FieldSelectionFunction.CaseStartDate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Cati.Specification.FieldSelectionFunction.CaseEndDate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Cati.Specification.FieldSelectionFunction.SubPriority">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.Cati.Specification.FieldSelectionFunctionHelper.AllowAdd(StatNeth.Blaise.API.Cati.Specification.FieldSelectionItemCollection,StatNeth.Blaise.API.Cati.Specification.FieldSelectionFunction,StatNeth.Blaise.API.Cati.Specification.CatiSpecificationKind)">
+            <summary>
+            Returns whether a field with the specified function is allowed to be added to the specified FieldSelectionItemCollection. The Quota function is not supported yet.
+            </summary>
+            <param name="fieldSelectionItems"></param>
+            <param name="function"></param>
+            <param name="kind"></param>
+            <returns></returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.Cati.Specification.Treatment">
+            <summary>
+            Options for the dial result
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Cati.Specification.Treatment.Dial">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Cati.Specification.Treatment.Questionnaire">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Cati.Specification.Treatment.NoAnswer">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Cati.Specification.Treatment.Busy">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Cati.Specification.Treatment.Appointment">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Cati.Specification.Treatment.NonResponse">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Cati.Specification.Treatment.AnsweringService">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Cati.Specification.Treatment.Disconnected">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Cati.Specification.Treatment.Others">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.Cati.Specification.Treatment.Portal">
+            <summary>
+            
+            </summary>
+        </member>
+    </members>
+</doc>

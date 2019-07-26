@@ -1,0 +1,286 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>StatNeth.Blaise.API.DataEntryMvc</name>
+    </assembly>
+    <members>
+        <member name="T:StatNeth.Blaise.API.DataEntryMvc.IClientFeatures">
+            <summary>
+            Features of the Data Entry Client
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntryMvc.IClientFeatures.ScreenWidth">
+            <summary>
+            Screen Width
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntryMvc.IClientFeatures.ScreenHeight">
+            <summary>
+            Screen Height
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntryMvc.IClientFeatures.Browser">
+            <summary>
+            Browser
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntryMvc.IClientFeatures.Device">
+            <summary>
+            Device
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntryMvc.IClientFeatures.OS">
+            <summary>
+            UserAgent string
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntryMvc.IClientFeatures.Platform">
+            <summary>
+            Platform
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntryMvc.IClientFeatures.TouchEnabled">
+            <summary>
+            Touch Enabled
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntryMvc.IExecuteActionsRequest">
+            <summary>
+            Request send to execute Actions and get a new PageResponse
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntryMvc.IExecuteActionsRequest.Actions">
+            <summary>
+            Actions te be executed
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntryMvc.IExecuteActionsRequest.ControlID">
+            <summary>
+            ID of the control that contains the actions
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntryMvc.IFetchLookupResultsRequest">
+            <summary>
+            Request to perform a Lookup
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntryMvc.IPageResponse">
+            <summary>
+            PageResponse returned by WebApi (Mvc) Application 
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntryMvc.IPageResponse.InterviewState">
+            <summary>
+            The essential state of the interview that is needed by the DataEntryServer.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntryMvc.IPageResponse.Page">
+            <summary>
+            Contains the Blaise data objects that are on the page.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntryMvc.IRuntimeParameters">
+            <summary>
+            Runtime Parameters
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntryMvc.IRuntimeParameters.ServerPark">
+            <summary>
+            ServerPark
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntryMvc.IRuntimeParameters.InstrumentId">
+            <summary>
+            InstrumentId
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntryMvc.IRuntimeParameters.InstrumentName">
+            <summary>
+            InstrumentName
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntryMvc.IRuntimeParameters.MeasurePageTimes">
+            <summary>
+            Measure Page Times
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntryMvc.IRuntimeParameters.IsPreview">
+            <summary>
+            Is Preview
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntryMvc.IRuntimeParameters.LayoutSetGroup">
+            <summary>
+            LayoutSetGroup
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntryMvc.IRuntimeParameters.LayoutSet">
+            <summary>
+            LayoutSet
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntryMvc.IRuntimeParameters.DataEntrySettings">
+            <summary>
+            DataEntrySettings
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntryMvc.IRuntimeParameters.Language">
+            <summary>
+            Language
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntryMvc.IRuntimeParameters.KeyValue">
+            <summary>
+            KeyValue
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntryMvc.IRuntimeParameters.Fields">
+            <summary>
+            Fields
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntryMvc.IRuntimeParameters.AssignMode">
+            <summary>
+            AssignMode
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntryMvc.IRuntimeParameters.StartParallel">
+            <summary>
+            StartParallel
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntryMvc.IRuntimeParameters.SessionId">
+            <summary>
+            SessionId
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntryMvc.IRuntimeParameters2">
+            <summary>
+            RuntimeParameters extended with OtherParameters
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntryMvc.IRuntimeParameters2.OtherParameters">
+            <summary>
+            Other (non standard) arguments that were passed in the query string 
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntryMvc.ISelectExternalRecordRequest">
+            <summary>
+            Request that selects an external record
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntryMvc.IServiceRequest">
+            <summary>
+            Base ServiceRequest
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntryMvc.IServiceRequest.Kind">
+            <summary>
+            Indicates kind of request.
+            Use Kind to cast this request to a specific derived interface:
+            IStartInterviewRequest, IExecuteActionsRequest, ...
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntryMvc.IStartInterviewRequest">
+            <summary>
+            StartInterviewRequest
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntryMvc.IStartInterviewRequest.RuntimeParameters">
+            <summary>
+            Runtime Parameters
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntryMvc.IStateRequest">
+            <summary>
+            Request that submits interview state
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntryMvc.IStateRequest.InterviewState">
+            <summary>
+            Interview State
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntryMvc.ITokenRequest">
+            <summary>
+            TokenRequest
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntryMvc.ITokenRequest.AccessToken">
+            <summary>
+            AccessToken
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntryMvc.ITokenRequest.RefreshToken">
+            <summary>
+            RefreshToken
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntryMvc.ITokenRequest.ClientFeatures">
+            <summary>
+            Runtime Parameters
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntryMvc.Main">
+            <summary>
+            Main
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntryMvc.Main.Run">
+            <summary>
+            Run on first construction of this assembly
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntryMvc.RequestInspector">
+            <summary>
+            RequestInspector can inspect messages send to WebApi (Mvc) Application 
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntryMvc.RequestInspector.GetRequest(System.String,System.String)">
+            <summary>
+            Gets ServiceRequest
+            </summary>
+            <param name="url">url of the message to the web server</param>
+            <param name="message">message to the web server</param>
+            <returns>ServiceRequest</returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntryMvc.RequestKind">
+            <summary>
+            Kind of request
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntryMvc.RequestKind.StartInterview">
+            <summary>
+            Kind of IStartInterviewRequest
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntryMvc.RequestKind.ExecuteActions">
+            <summary>
+            Kind of IExecuteActionsRequest
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntryMvc.RequestKind.FetchLookupResults">
+            <summary>
+            Kind of IFetchlookupResultsRequest
+            </summary>
+        </member>
+        <member name="F:StatNeth.Blaise.API.DataEntryMvc.RequestKind.SelectExternalRecord">
+            <summary>
+            Kind of ISelectExternalrecordRequest
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntryMvc.ResponseInspector">
+            <summary>
+            ResponseInspector for inspecting response obtained from WebApi (Mvc) Application 
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntryMvc.ResponseInspector.GetResponse(System.String,System.String)">
+            <summary>
+            PageResponse returned
+            </summary>
+            <param name="url">url of the message to the web server</param>
+            <param name="message">message from the web server</param>
+            <returns>PageResponse</returns>
+        </member>
+    </members>
+</doc>

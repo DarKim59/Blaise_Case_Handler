@@ -1,0 +1,146 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>StatNeth.Blaise.API.DataEntryWpf</name>
+    </assembly>
+    <members>
+        <member name="T:StatNeth.Blaise.API.DataEntryWpf.ControlFactoryWpf">
+            <summary>
+            Control factory for Windows data entry application.
+            </summary>
+        </member>
+        <member name="E:StatNeth.Blaise.API.DataEntryWpf.ControlFactoryWpf.OnCreateActionsControl">
+            <summary>
+            Occurs before an action control is created. Allows to create a custom action control.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntryWpf.DataEntryManager">
+            <summary>
+            Main class for managing a custom Windows data entry application.
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntryWpf.DataEntryManager.GetLoadBalancer(StatNeth.Blaise.API.DataEntry.RunMode)">
+            <summary>
+            Get LoadBalancer that can be used to obtain a ServerPark.
+            </summary>
+            <param name="runmode"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntryWpf.DataEntryManager.GetDataEntryController(StatNeth.Blaise.API.DataEntry.ServerPark.IServerPark,System.Windows.Window,System.Windows.Controls.Grid)">
+            <summary>
+            Get DataEntryController.
+            </summary>
+            <param name="serverPark"></param>
+            <param name="window"></param>
+            <param name="rootControl"></param>
+            <returns></returns>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntryWpf.DataEntryControllerWpf">
+            <summary>
+            Windows Data Entry Controller.
+            </summary>
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntryWpf.DataEntryControllerWpf.ControlFactory">
+            <summary>
+            The Windows control factory.
+            </summary>
+        </member>
+        <member name="E:StatNeth.Blaise.API.DataEntryWpf.DataEntryControllerWpf.OnSetControlEvents">
+            <summary>
+            Occurs when event handling for controls should be specified. 
+            </summary>
+        </member>
+        <member name="E:StatNeth.Blaise.API.DataEntryWpf.DataEntryControllerWpf.OnExecuteCustomAction">
+            <summary>
+            Occurs when a custom action should be executed.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntryWpf.IControlFactoryWpf">
+            <summary>
+            Control factory for Windows survey application.
+            </summary>
+        </member>
+        <member name="E:StatNeth.Blaise.API.DataEntryWpf.IControlFactoryWpf.OnCreateActionsControl">
+            <summary>
+            Occurs before an action control is created. Allows to create a custom action control.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntryWpf.IDataEntryControllerWpf">
+            <summary>
+            Windows Data Entry Controller.
+            </summary> 
+        </member>
+        <member name="P:StatNeth.Blaise.API.DataEntryWpf.IDataEntryControllerWpf.ControlFactory">
+            <summary>
+            The Windows control factory.
+            </summary>
+        </member>
+        <member name="E:StatNeth.Blaise.API.DataEntryWpf.IDataEntryControllerWpf.OnSetControlEvents">
+            <summary>
+            Occurs when event handling for controls should be specified. 
+            </summary>
+        </member>
+        <member name="E:StatNeth.Blaise.API.DataEntryWpf.IDataEntryControllerWpf.OnExecuteCustomAction">
+            <summary>
+            Occurs when a custom action should be executed.
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntryWpf.IDataEntryControllerWpf2">
+            <summary>
+            WPF DataEntryController that supports audit trail level
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntryWpf.IDataEntryControllerWpf3">
+            <summary>
+            WPF DataEntryController that supports handling response of print action
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntryWpf.IDataEntryControllerWpf4">
+            <summary>
+            WPF DataEntryController with ScreenSizeChanged method
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntryWpf.IDataEntryControllerWpf5">
+            <summary>
+            WPF DataEntryController with LoginRequired event
+            </summary>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntryWpf.IDataEntryControllerWpf5.Login(System.String,System.String)">
+            <summary>
+            Pass credentials (needed after LoginRequired event was fired at StartInterview); 
+            If login is successfull the interview will be started automatically.   
+            </summary>
+            <param name="userName"></param>
+            <param name="password"></param>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntryWpf.IDataEntryControllerWpf6">
+            <summary>
+            WPF DataEntryController that can provide access to all (relevant) fields of the session 
+            (not only the fields that occur on the actual Page) 
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntryWpf.IDataEntryControllerWpf7">
+            <summary>
+            WPF DataEntryController that can add custom audittrail event 
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntryWpf.IDataEntryControllerWpf8">
+            <summary>
+            WPF DataEntryController that has before leave field event 
+            </summary>
+        </member>
+        <member name="T:StatNeth.Blaise.API.DataEntryWpf.Main">
+            <summary>
+            Placeholder for module initializer
+            </summary>
+            <remarks>
+            http://einaregilsson.com/module-initializers-in-csharp/
+            </remarks>
+        </member>
+        <member name="M:StatNeth.Blaise.API.DataEntryWpf.Main.Run">
+            <summary>
+            Run on first construction of this assembly
+            </summary>
+        </member>
+    </members>
+</doc>
