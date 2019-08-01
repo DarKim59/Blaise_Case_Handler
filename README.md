@@ -28,15 +28,13 @@ To add the Blaise APIs:
 ```
 {
   "serial_number":"1234"
-  ,"source_hostname":"bsp-d-001.ukwest.cloudapp.azure.com"
-  ,"source_server_park":"Telephone-Live"
+  ,"source_hostname":"blaise-dev-bsp-tel.uksouth.cloudapp.azure.com"
+  ,"source_server_park":"TEL-DEV"
   ,"source_instrument":"OPN1901A"
   ,"dest_filepath":"c:\\#test\\"
-  ,"dest_hostname":"DESKTOP-0OF1LSJ"
-  ,"dest_server_park":"LocalDevelopment"
   ,"dest_instrument":"OPN1901A"
   ,"action":"copy"
-}                    
+}                     
 ```
 
 # Installing the Service
