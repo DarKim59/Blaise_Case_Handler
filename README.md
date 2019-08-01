@@ -23,7 +23,7 @@ To add the Blaise APIs:
   - Use the "Browse" tab and navigate to "C:\Program Files (x86)\StatNeth\Blaise5\Bin"
   - In this folder all the required APIs for Blaise interaction are available
 
-# Example Message
+# Example Message - Server Park to BDB File
 
 ```
 {
@@ -32,6 +32,21 @@ To add the Blaise APIs:
   ,"source_server_park":"TEL-DEV"
   ,"source_instrument":"OPN1901A"
   ,"dest_filepath":"c:\\#test\\"
+  ,"dest_instrument":"OPN1901A"
+  ,"action":"copy"
+}                     
+```
+
+# Example Message - Server Park to Server Park
+
+```
+{
+  "serial_number":"1234"
+  ,"source_hostname":"blaise-dev-bsp-tel.uksouth.cloudapp.azure.com"
+  ,"source_server_park":"TEL-DEV"
+  ,"source_instrument":"OPN1901A"
+  ,"dest_hostname":"blaise-dev-bsp-val.uksouth.cloudapp.azure.com"
+  ,"dest_server_park":"VAL-DEV"
   ,"dest_instrument":"OPN1901A"
   ,"action":"copy"
 }                     
