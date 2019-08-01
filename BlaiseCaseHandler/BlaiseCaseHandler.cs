@@ -356,14 +356,15 @@ namespace BlaiseCaseHandler
         /// <returns> IDataLink4 object for the connected server park.</returns>
         public static IDataLink4 GetDataLink(string hostname, string instrumentName, string serverPark)
         {
-            // Get authenication details from the App.config file.
+            // Get authenication details from the app.config file.
             // For now we assume all Blaise servers will have the same authenication details.
             string userName = ConfigurationManager.AppSettings["BlaiseServerUserName"];
             string password = ConfigurationManager.AppSettings["BlaiseServerPassword"];
+            string binding = ConfigurationManager.AppSettings["BlaiseServerBinding"];
             int port = 8031;
 
             // Overwrite authenication details when testing locally.
-            if (hostname == ConfigurationManager.AppSettings["BlaiseServerHostNameLocal"])
+            if (hostname == "localhost")
             {
                 userName = ConfigurationManager.AppSettings["BlaiseServerUserNameLocal"];
                 password = ConfigurationManager.AppSettings["BlaiseServerPasswordLocal"];
@@ -374,7 +375,7 @@ namespace BlaiseCaseHandler
             try
             {
                 // Connect to the Blaise Server Manager.
-                IConnectedServer serManConn = ServerManager.ConnectToServer(hostname, port, userName, GetPassword(password));
+                IConnectedServer serManConn = ServerManager.ConnectToServer(hostname, port, userName, GetPassword(password), binding);
 
                 // Loop through the surveys installed on the server to find the GUID of the survey we are working on.
                 bool foundSurvey = false;
@@ -392,7 +393,7 @@ namespace BlaiseCaseHandler
                 }
 
                 // Connect to the data.
-                IRemoteDataServer dataLinkConn = DataLinkManager.GetRemoteDataServer(hostname, 8033, userName, GetPassword(password));
+                IRemoteDataServer dataLinkConn = DataLinkManager.GetRemoteDataServer(hostname, 8033, binding, userName, GetPassword(password));
 
                 return dataLinkConn.GetDataLink(instrumentID, serverPark);
             }
@@ -409,14 +410,15 @@ namespace BlaiseCaseHandler
         /// <param name="serverName">The location of the Blaise server.</param>
         /// <param name="userName">Username with access to the specified server.</param>
         /// <param name="password">Password for the specified user to access the server.</param>
+        /// <param name="binding">Binding for the specified server.</param>
         /// <returns>A IConnectedServer2 object which is connected to the server provided.</returns>
-        public IConnectedServer2 ConnectToBlaiseServer(string serverName, string userName, string password)
+        public IConnectedServer2 ConnectToBlaiseServer(string serverName, string userName, string password, string binding)
         {
             int port = 8031;
             try
             {
                 IConnectedServer2 connServer =
-                    (IConnectedServer2)ServerManager.ConnectToServer(serverName, port, userName, GetPassword(password));
+                    (IConnectedServer2)ServerManager.ConnectToServer(serverName, port, userName, GetPassword(password), binding);
 
                 return connServer;
             }
@@ -441,8 +443,9 @@ namespace BlaiseCaseHandler
             {
                 string username = ConfigurationManager.AppSettings.Get("BlaiseServerUserName");
                 string password = ConfigurationManager.AppSettings.Get("BlaiseServerPassword");
+                string binding = ConfigurationManager.AppSettings.Get("BlaiseServerBinding");
 
-                var connection = ConnectToBlaiseServer(serverName, username, password);
+                var connection = ConnectToBlaiseServer(serverName, username, password, binding);
                 var surveys = connection.GetSurveys(serverPark);
 
                 foreach (ISurvey2 survey in surveys)
@@ -476,8 +479,9 @@ namespace BlaiseCaseHandler
             {
                 string username = ConfigurationManager.AppSettings.Get("BlaiseServerUserName");
                 string password = ConfigurationManager.AppSettings.Get("BlaiseServerPassword");
+                string binding = ConfigurationManager.AppSettings.Get("BlaiseServerBinding");
 
-                var connection = ConnectToBlaiseServer(serverName, username, password);
+                var connection = ConnectToBlaiseServer(serverName, username, password, binding);
 
                 var surveys = connection.GetSurveys(serverPark);
 
