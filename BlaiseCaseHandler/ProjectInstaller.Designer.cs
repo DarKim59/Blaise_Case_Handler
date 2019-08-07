@@ -40,8 +40,8 @@
             // 
             // serviceInstaller1
             // 
-            this.serviceInstaller1.Description = "Case Handler system for the BSM - Blaise backend.";
-            this.serviceInstaller1.DisplayName = "Blaise.CaseHandler";
+            this.serviceInstaller1.Description = "### BlaiseCaseHandler";
+            this.serviceInstaller1.DisplayName = "BlaiseCaseHandler";
             this.serviceInstaller1.ServiceName = "BlaiseCaseHandler";
             //this.serviceInstaller1.AfterInstall += new System.Configuration.Install.InstallEventHandler(this.serviceInstaller1_AfterInstall);
             // 
