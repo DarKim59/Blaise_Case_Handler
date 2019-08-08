@@ -1,29 +1,16 @@
 # Blaise_Case_Handler
 
-Blaise Case Handler is a Windows service intended to run on Windows Server. It connects and listens for messages held on a RabbitMQ queue. The messages should contain details of cases (records) to be copied or moved between Blaise databases, see examples below. The service will then use the Blaise API to copy or move these cases between Blaise databases.
+Blaise Case Handler is a Windows service intended to run on Windows Server hosting a Blaise 5 server install. The service connects and listens for messages held on a RabbitMQ queue. The messages should contain details of cases (records) to be copied or moved between Blaise databases, see examples below. The service will then use the Blaise API to copy or move these cases between Blaise databases. The service has been updated to support deletion of cases from Blaise databases.
 
 # Setup Development Environment
 
-Clone the git respository to your IDE of choice. Visual Studio is recomended.
+Clone the git respository to your IDE of choice. Visual Studio 2019 is recomended.
 
-Populate the key values in the App.config file.
+Rename the App.config file to App.local.config and populate the key values. **Never use App.config for development.**
 
-Install the RabbitMQ Client and Log4Net packages via NuGet Package Manager. Console commands:
+Build the solution to obtain the necessary references.
 
-  ```
-  Install-Package RabbitMQ.Client
-  Install-Package log4net
-  ```
-
-Ensure you have the latest version of Blaise 5 installed from the Statistics Netherlands FTP.
-
-To add the Blaise APIs:
-  - Right Click the "References" object under the project in the Visual Studio Solution Explorer
-  - Select "Add Reference"
-  - Use the "Browse" tab and navigate to "C:\Program Files (x86)\StatNeth\Blaise5\Bin"
-  - In this folder all the required APIs for Blaise interaction are available
-
-# Example Message - Server Park to BDB File
+# Example Message - Copy Case from Server Park to BDB File
 
 ```
 {
@@ -37,7 +24,7 @@ To add the Blaise APIs:
 }                     
 ```
 
-# Example Message - Server Park to Server Park
+# Example Message - Move Case from Server Park to Server Park
 
 ```
 {
@@ -48,7 +35,19 @@ To add the Blaise APIs:
   ,"dest_hostname":"blaise-dev-bsp-val.uksouth.cloudapp.azure.com"
   ,"dest_server_park":"VAL-DEV"
   ,"dest_instrument":"OPN1901A"
-  ,"action":"copy"
+  ,"action":"move"
+}                     
+```
+
+# Example Message - Delete Case from Server Park
+
+```
+{
+  "serial_number":"1234"
+  ,"source_hostname":"blaise-dev-bsp-tel.uksouth.cloudapp.azure.com"
+  ,"source_server_park":"TEL-DEV"
+  ,"source_instrument":"OPN1901A"
+  ,"action":"delete"
 }                     
 ```
 
