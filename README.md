@@ -57,10 +57,19 @@ Build the solution to obtain the necessary references.
     - In Visual Studio select "Release" as the Solution Configuration
     - Select the "Build" menu
     - Select "Build Solution" from the "Build" menu
-  - Copy the release files (/bin/release/) to the program install location on the server
-  - Run the installer against the release build
-    - Open command prompt as administrator
+  - Copy the release files (/bin/release/) to the install location on the server
+  - Uninstall any previous installs
+    - Stop the service from running
+    - Open a command prompt as administrator
     - Navigate to the windows service installer location
       - cd c:\Windows\Microsoft.NET\Framework\v4.0.30319\
-    - Run installUtil.exe from this location and pass it the location of the service executable.
+    - Run installUtil.exe /U from this location and pass it the location of the service executable
+      - InstallUtil.exe /U {install location}\BlaiseCaseHandler.exe
+  - Run the installer against the release build
+    - Open a command prompt as administrator
+    - Navigate to the windows service installer location
+      - cd c:\Windows\Microsoft.NET\Framework\v4.0.30319\
+    - Run installUtil.exe from this location and pass it the location of the service executable
       - InstallUtil.exe {install location}\BlaiseCaseHandler.exe
+    - Set the service to delayed start
+    - Start the service
