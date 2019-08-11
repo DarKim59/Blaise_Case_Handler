@@ -1,6 +1,6 @@
 # Blaise_Case_Handler
 
-Blaise Case Handler is a Windows service intended to run on Windows Server hosting a Blaise 5 server install. The service connects and listens for messages held on a RabbitMQ queue. The messages should contain details of cases (records) to be copied or moved between Blaise databases, see examples below. The service will then use the Blaise API to copy or move these cases between Blaise databases. The service has been updated to support deletion of cases from Blaise databases.
+Blaise Case Handler is a Windows service for moving, copying, and deleting Blaise cases. The service is triggered by listening for messages on a RabbitMQ queue, see examples below. The service uses the Blaise provided .NET API to connect to Blaise databases and perform the necessary action.
 
 # Setup Development Environment
 
