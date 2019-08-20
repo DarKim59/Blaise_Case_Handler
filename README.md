@@ -10,7 +10,7 @@ Populate the key values in the App.config file accordingly. **Never committ App.
 
 Build the solution to obtain the necessary references.
 
-# Example Message - Copy Case from Server Park to BDB File
+# Example Message - Copy Case from Server to File
 
 ```
 {
@@ -24,7 +24,7 @@ Build the solution to obtain the necessary references.
 }                     
 ```
 
-# Example Message - Move Case from Server Park to Server Park
+# Example Message - Move Case from Server to Server
 
 ```
 {
@@ -39,7 +39,7 @@ Build the solution to obtain the necessary references.
 }                     
 ```
 
-# Example Message - Delete Case from Server Park
+# Example Message - Delete Case from Server
 
 ```
 {
