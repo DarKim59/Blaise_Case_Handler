@@ -363,13 +363,6 @@ namespace BlaiseCaseHandler
             string binding = ConfigurationManager.AppSettings["BlaiseServerBinding"];
             int port = 8031;
 
-            // Overwrite authenication details when testing locally.
-            if (hostname == "localhost")
-            {
-                userName = ConfigurationManager.AppSettings["BlaiseServerUserNameLocal"];
-                password = ConfigurationManager.AppSettings["BlaiseServerPasswordLocal"];
-            }
-
             // Get the GIID of the instrument.
             Guid instrumentID = Guid.NewGuid();
             try
